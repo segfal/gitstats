@@ -1,34 +1,48 @@
-import { useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [repoUrl, setRepoUrl] = useState('');
+  const [userName, setUserName] = useState('');
+  const ghUrl = `https://api.github.com/repos/${userName}/${repoUrl}`;
+  const [submit, setSubmit] = useState(false);
 
+  // const repoSearch = async() => {
+  //   const response = await fetch(`${ghUrl}${userName}/${repoUrl}`);
+  //   const data = await response.json();
+  //   console.log(data);
+  // }
+  
+
+  //useEffect for loading the user's repo upon entering input
+  // useEffect(() =>{
+    // const repoSearch =  ays() => {
+       // const response = await fetch(ghUrl + userName + '/' + repoUrl);
+    // const data = await response.json();
+    // console.log(data);
+      
+
+    // }
+   
+  // }, []
+  
+  // )
   return (
-    <>
+    <div>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>GitHub Stats</h1>
+        <form onSubmit={repoSearch()}>
+          <label>Enter the link to your GitHub repository: </label>
+          <input name="repoUrl" onChange={e => setRepoUrl(e.target.value)}/>
+          <button type="submit" onClick={() => setSubmit(true)}>Enter</button>
+        </form>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    
+    {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
+    </div>
   )
 }
 
