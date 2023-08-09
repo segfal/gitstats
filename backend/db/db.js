@@ -5,10 +5,19 @@ const {name} = require("../package.json");
 require('dotenv').config();
 
 
-const db = new Sequelize(`postgres://localhost:4000/${name}`, {
-    logging: false,
-    
+const db = new Sequelize(process.env.INSTANCE, {
+    dialectModule: require('pg'),
+    dialect: 'postgres',
+    //ssl true
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    },
+    logging: false
 });
+  
 
 //process.env.DATABASE_URL
 
