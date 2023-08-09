@@ -4,7 +4,12 @@ const cors = require("cors")
 
 const PORT = "4000";
 
-app.use(cors)
+app.use(cors());
+app.use(express.json())
+
+
+app.use("/api", require("./api"));
+
 
 const runServer = () => {
     app.listen(PORT, () => {
@@ -16,4 +21,4 @@ const runServer = () => {
   runServer();
 
 
-module.exports = app;
+module.exports = app; 
