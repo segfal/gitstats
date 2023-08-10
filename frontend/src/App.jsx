@@ -4,11 +4,15 @@ import axios from "axios";
 import GitHubButton from './components/githubOAuth/GithubButton';
 import LogoutButton from './components/githubOAuth/LogoutButton';
 import GeneralInfo from './components/GeneralInfo'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import DeploymentFreq from './components/DeploymentFreq'
 
+import TimeToMerge from './components/TimeToMerge'
+import axios from 'axios'
+
+import UnreviewedPR from './components/UnreviewedPR';
+
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
+
 
 function App() {
   console.log(CLIENT_ID);
@@ -16,14 +20,15 @@ function App() {
   const [userData, setUserData] = useState({});
   const [count, setCount] = useState(0)
   const [repoUrl, setRepoUrl] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [repoName, setRepoName] = useState('');
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
-  const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
+  // const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
     useEffect(()=> {
       console.log(repoUrl)
     }, [repoUrl])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +37,7 @@ function App() {
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
   }
+
   
   const loginWithGithub = () => {
     window.location.assign(`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`);
@@ -104,7 +110,7 @@ function App() {
     <div>
       {localStorage.getItem("accessToken") ? (
         <>
-          <LogoutButton handleLogout={handleLogout}/>
+          <LogoutButton handleLogout={handleLogout} />
         </>
       ) : (
         <>
@@ -114,14 +120,16 @@ function App() {
       <div>
         <h1>GitHub Stats</h1>
         <form onSubmit={handleSubmit}>
-        {/* <form> */}
+          {/* <form> */}
           <label>Enter the link to your GitHub repository: </label>
-          <input name="repoUrl" onChange={e => setRepoUrl(e.target.value)}/>
+          <input name="repoUrl" onChange={(e) => setRepoUrl(e.target.value)} />
           <button type="submit">Enter</button>
         </form>
       </div>
+
       {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
       {submit && (<DeploymentFreq ghUrl={ghUrl}/>)}
+
     </div>
   );
 }

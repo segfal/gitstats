@@ -3,8 +3,10 @@ const router = express.Router();
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-const CLIENT_ID = "Iv1.997eaea3b91426c1";
-const CLIENT_SECRET = "468b0ccc99705a055463dae5640affa4f8335682";
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+console.log(process.env.CLIENT_ID);
+console.log(process.env.CLIENT_SECRET);
 
 router.get("/getAccessToken", async (req, res) => {
   console.log(req.query.code);
