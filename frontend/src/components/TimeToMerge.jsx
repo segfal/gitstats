@@ -2,45 +2,46 @@ import React,{useState,useEffect} from 'react'
 import moment from 'moment'
 import axios from 'axios'
 
-const TimeToMerge = ({userName, repoName}) => {
+const TimeToMerge = ({submit,userName, repoName}) => {
     ///pull request took x hours to merge
     const [timeToMerge, setTimeToMerge] = useState(0)
     const [username, setUsername] = useState('');
 
-    const PullSearch = async (repoName, userName, pullNumber) => {
-        const response = await axios.get(`https://api.github.com/repos/${userName}/${repoName}/pulls/${pullNumber.toString()}}`);
-        const data = await response.json();
-        console.log(data);
-        return response;
+    const PullSearch = async (repoName, userName) => {
+        const response = await axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged`);
+        console.log("response: ", response);
+        // const response = await axios.get(url)
+        const prs = response.data.items
+        return prs;
     }
 
     ///https://api.github.com/repos/segfal/KaraokeApp
-    const ComputeTime = () => {
+    const ComputeTime = async () => {
         let sum = 0;
-        // "https://api.github.com/repos/segfal/KaraokeApp/pulls/{/number}"
-        let pullNumber = 1;
-        let pullInfo = PullSearch(repoName, userName, pullNumber);
-        while (!pullInfo.message) {
-            // get the "created_at" and "merged_at" fields
-            let createdAt = pullInfo.created_at;
-            let mergedAt = pullInfo.merged_at;
+        //https://api.github.com/search/issues?q=repo:segfal/karaokeapp/+is:pr+is:merged
+        let pullInfo = await PullSearch(repoName, userName);
+        console.log("pullInfo: ", pullInfo);
+        for (let i = 0; i < pullInfo.length; i++) {
+            // get the "created_at" and "closed_at" fields
+            let createdAt = await moment(pullInfo[i].created_at);
+            let mergedAt = await moment(pullInfo[i].pull_request.merged_at);
             // calculate the difference between the two
-            let difference = moment(mergedAt).diff(moment(createdAt), 'hours'); 
+            let difference = await mergedAt.diff(createdAt, 'hours'); 
             // add the difference to sum
-            sum += difference; 
-            pullNumber++;
-            // get next PR
-            pullInfo = PullSearch(repoName, userName, pullNumber);
+            sum += difference;
         }
-        setTimeToMerge(sum / pullNumber);
-        return timeToMerge;
+        setTimeToMerge(sum / pullInfo.length);
+        return await timeToMerge;
     }
     
-   return(
-        <div>
-            <h2>On average, pull requests are in review for {ComputeTime()} hours</h2>
-        </div>
-   )
+    if (submit) {
+        return (
+            <div>
+                
+                <h2>On average, pull requests are in review for {console.log("COMPUTE TIME DATA",ComputeTime())} hours</h2>
+            </div>
+        ) 
+    }
 }
 
 
