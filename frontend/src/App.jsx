@@ -4,9 +4,8 @@ import axios from "axios";
 import GitHubButton from './components/githubOAuth/GithubButton';
 import LogoutButton from './components/githubOAuth/LogoutButton';
 import GeneralInfo from './components/GeneralInfo'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import DeploymentFreq from './components/DeploymentFreq'
+import UnreviewedPR from './components/UnreviewedPR';
 
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
 
@@ -104,7 +103,7 @@ function App() {
     <div>
       {localStorage.getItem("accessToken") ? (
         <>
-          <LogoutButton handleLogout={handleLogout}/>
+          <LogoutButton handleLogout={handleLogout} />
         </>
       ) : (
         <>
@@ -114,14 +113,19 @@ function App() {
       <div>
         <h1>GitHub Stats</h1>
         <form onSubmit={handleSubmit}>
-        {/* <form> */}
+          {/* <form> */}
           <label>Enter the link to your GitHub repository: </label>
-          <input name="repoUrl" onChange={e => setRepoUrl(e.target.value)}/>
+          <input name="repoUrl" onChange={(e) => setRepoUrl(e.target.value)} />
           <button type="submit">Enter</button>
         </form>
       </div>
-      {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
+      {submit && <GeneralInfo ghUrl={ghUrl} />}
       <DeploymentFreq />
+      <UnreviewedPR
+        userName={username}
+        repoName={repoName}
+        access_token={localStorage.getItem("accessToken")}
+      ></UnreviewedPR>
     </div>
   );
 }
