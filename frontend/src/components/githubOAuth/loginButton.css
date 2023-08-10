@@ -1,0 +1,70 @@
+:root {
+  --base-spacing-unit: 24px;
+  --half-spacing-unit: 12px;
+  --border-radius-global: 5px;
+  --button-width: auto;
+  --button-height: 50px;
+  --button-text-color: white;
+  --color: #333; 
+}
+
+.button,
+.button--social-login {
+  width: var(--button-width);
+  display: inline-block;
+  padding: 0 calc(var(--base-spacing-unit) - (var(--half-spacing-unit) / 2)) 0 calc(var(--half-spacing-unit) / 2);
+  border: none;
+  border-radius: var(--border-radius-global);
+  text-decoration: none;
+  transition: all 250ms linear;
+}
+
+.button--social-login {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--half-spacing-unit);
+  margin-right: var(--half-spacing-unit);
+  color: var(--button-text-color);
+  height: var(--button-height);
+  line-height: calc(var(--button-height) - 4);
+  position: relative;
+  text-align: left;
+}
+
+.button--social-login .icon {
+  margin-right: var(--half-spacing-unit);
+  font-size: var(--base-spacing-unit);
+  line-height: var(--base-spacing-unit);
+  width: calc(var(--base-spacing-unit) * 2 - (var(--half-spacing-unit) / 2));
+  height: var(--base-spacing-unit);
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  top: 4px;
+}
+
+.button--social-login .icon:before {
+  display: inline-block;
+  width: calc(var(--base-spacing-unit) * 2 - (var(--half-spacing-unit) / 2) - 2);
+}
+
+.button--social-login .icon:after {
+  content: "";
+}
+
+.button--github {
+  background-color: var(--color);
+  border: 1px solid darken(var(--color), 10%);
+}
+
+.button--github .icon {
+  border-right: 1px solid darken(var(--color), 10%);
+}
+
+.button--github .icon:after {
+  border-right: 1px solid lighten(var(--color), 10%);
+}
+
+.button--github:hover {
+  cursor: pointer;
+}
