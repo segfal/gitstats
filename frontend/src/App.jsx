@@ -121,7 +121,7 @@ function App() {
         </form>
       </div>
       {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
-      <DeploymentFreq />
+      {submit && (<DeploymentFreq ghUrl={ghUrl}/>)}
     </div>
   );
 }
