@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from 'react'
 import './App.css'
-import axios from "axios";
 import GitHubButton from './components/githubOAuth/GithubButton';
 import LogoutButton from './components/githubOAuth/LogoutButton';
 import GeneralInfo from './components/GeneralInfo'
@@ -125,10 +124,15 @@ function App() {
           <button type="submit">Enter</button>
         </form>
       </div>
-
-      {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
-      {submit && (<DeploymentFreq ghUrl={ghUrl}/>)}
-
+  
+      <TimeToMerge submit={submit} userName={userName} repoName={repoName}/>
+      {submit && <GeneralInfo ghUrl={ghUrl} />}
+      {submit && <DeploymentFreq  ghUrl={ghUrl} />}
+      <UnreviewedPR
+        userName={userName}
+        repoName={repoName}
+        access_token={localStorage.getItem("accessToken")}
+      ></UnreviewedPR>
     </div>
   );
 }
