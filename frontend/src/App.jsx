@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from 'react'
 import './App.css'
-import axios from "axios";
 import GitHubButton from './components/githubOAuth/GithubButton';
 import LogoutButton from './components/githubOAuth/LogoutButton';
 import GeneralInfo from './components/GeneralInfo'
@@ -24,7 +23,7 @@ function App() {
   const [repoName, setRepoName] = useState('');
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
-  // const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
+  const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
     useEffect(()=> {
       console.log(repoUrl)
     }, [repoUrl])
@@ -33,7 +32,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const parts = repoUrl.split('/');
-    setUsername(parts[parts.length - 2]);
+    setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
   }
@@ -126,23 +125,15 @@ function App() {
           <button type="submit">Enter</button>
         </form>
       </div>
-
-    
-      {/* {submit && (<GeneralInfo ghUrl={ghUrl}/>)} */}
-      {/* <DeploymentFreq /> */}
-      
-
-
+  
       <TimeToMerge submit={submit} userName={userName} repoName={repoName}/>
-
       {submit && <GeneralInfo ghUrl={ghUrl} />}
       <DeploymentFreq />
       <UnreviewedPR
-        userName={username}
+        userName={userName}
         repoName={repoName}
         access_token={localStorage.getItem("accessToken")}
       ></UnreviewedPR>
-
     </div>
   );
 }
