@@ -5,9 +5,14 @@ import GitHubButton from './components/githubOAuth/GithubButton';
 import LogoutButton from './components/githubOAuth/LogoutButton';
 import GeneralInfo from './components/GeneralInfo'
 import DeploymentFreq from './components/DeploymentFreq'
+
+import TimeToMerge from './components/TimeToMerge'
+import axios from 'axios'
+
 import UnreviewedPR from './components/UnreviewedPR';
 
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
+
 
 function App() {
   console.log(CLIENT_ID);
@@ -15,14 +20,15 @@ function App() {
   const [userData, setUserData] = useState({});
   const [count, setCount] = useState(0)
   const [repoUrl, setRepoUrl] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [repoName, setRepoName] = useState('');
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
-  const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
+  // const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
     useEffect(()=> {
       console.log(repoUrl)
     }, [repoUrl])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +37,7 @@ function App() {
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
   }
+
   
   const loginWithGithub = () => {
     window.location.assign(`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`);
@@ -119,6 +126,15 @@ function App() {
           <button type="submit">Enter</button>
         </form>
       </div>
+
+    
+      {/* {submit && (<GeneralInfo ghUrl={ghUrl}/>)} */}
+      {/* <DeploymentFreq /> */}
+      
+
+
+      <TimeToMerge submit={submit} userName={userName} repoName={repoName}/>
+
       {submit && <GeneralInfo ghUrl={ghUrl} />}
       <DeploymentFreq />
       <UnreviewedPR
@@ -126,6 +142,7 @@ function App() {
         repoName={repoName}
         access_token={localStorage.getItem("accessToken")}
       ></UnreviewedPR>
+
     </div>
   );
 }
