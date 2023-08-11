@@ -127,21 +127,8 @@ function App() {
         </form>
       </div>
 
-    
-      {/* {submit && (<GeneralInfo ghUrl={ghUrl}/>)} */}
-      {/* <DeploymentFreq /> */}
-      
-
-
-      <TimeToMerge submit={submit} userName={userName} repoName={repoName}/>
-
-      {submit && <GeneralInfo ghUrl={ghUrl} />}
-      <DeploymentFreq />
-      <UnreviewedPR
-        userName={username}
-        repoName={repoName}
-        access_token={localStorage.getItem("accessToken")}
-      ></UnreviewedPR>
+      {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
+      {submit && (<DeploymentFreq ghUrl={ghUrl}/>)}
 
     </div>
   );
