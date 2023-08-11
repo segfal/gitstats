@@ -7,7 +7,6 @@ import GeneralInfo from './components/GeneralInfo'
 import DeploymentFreq from './components/DeploymentFreq'
 
 import TimeToMerge from './components/TimeToMerge'
-import axios from 'axios'
 
 import UnreviewedPR from './components/UnreviewedPR';
 
@@ -24,7 +23,7 @@ function App() {
   const [repoName, setRepoName] = useState('');
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
-  // const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
+  const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
     useEffect(()=> {
       console.log(repoUrl)
     }, [repoUrl])
@@ -33,7 +32,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const parts = repoUrl.split('/');
-    setUsername(parts[parts.length - 2]);
+    setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
   }
