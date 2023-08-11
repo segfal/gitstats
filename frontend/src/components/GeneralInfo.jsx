@@ -99,7 +99,12 @@ const GeneralInfo = ({ ghUrl }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            formatter={(value, name, entry) => {
+              const percentage = (value / totalContributions) * 100;
+              return [`${value} (${percentage.toFixed(2)}%)`, name];
+            }}
+          />
           <Legend />
           <Bar dataKey="contributions" fill="#8884d8" />
         </BarChart>
