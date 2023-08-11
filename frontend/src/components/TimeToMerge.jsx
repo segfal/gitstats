@@ -22,7 +22,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
 
     const PullSearch = async (repoName, userName) => {
         const response = await axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged`);
-        console.log("response: ", response);
+        //console.log("response: ", response);
         // const response = await axios.get(url)
         const prs = response.data.items
         return prs;
@@ -74,7 +74,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
     if (submit) {
         return (
             <div>
-                {/* <h2>On average, pull requests are in review for {timeToMerge} seconds</h2> */}
+               
                 {<h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>}
                 
            
