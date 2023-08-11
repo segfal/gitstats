@@ -69,7 +69,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
         if(hours < 1){
             return `${minutes} minutes and ${seconds} seconds`
         }
-        return `${hours} hours ${minutes} minutes and ${seconds} seconds`
+        return `${hours} hours ${minutes} minutes ${seconds} seconds`
     }
     if (submit) {
         return (
