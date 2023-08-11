@@ -11,10 +11,15 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "fortawesome": "^0.0.1-security",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "recharts": "^2.7.3"
+=======
+    "react-icons": "^4.10.1"
+>>>>>>> f1aeb086cf4025b003b905d596913577d158328d
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
