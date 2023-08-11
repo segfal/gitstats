@@ -128,11 +128,13 @@ function App() {
       <TimeToMerge submit={submit} userName={userName} repoName={repoName} />
       {submit && <GeneralInfo ghUrl={ghUrl} />}
       {submit && <DeploymentFreq  ghUrl={ghUrl} />}
+
       <UnreviewedPR
         userName={userName}
         repoName={repoName}
         access_token={localStorage.getItem("accessToken")}
       ></UnreviewedPR>
+
     </div>
   );
 }
