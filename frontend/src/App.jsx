@@ -1,52 +1,50 @@
-import React,{ useState,useEffect } from 'react'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import GitHubButton from "./components/githubOAuth/GithubButton";
+import LogoutButton from "./components/githubOAuth/LogoutButton";
+import GeneralInfo from "./components/GeneralInfo";
+import DeploymentFreq from "./components/DeploymentFreq";
+
+import TimeToMerge from "./components/TimeToMerge";
 import axios from "axios";
-import GitHubButton from './components/githubOAuth/GithubButton';
-import LogoutButton from './components/githubOAuth/LogoutButton';
-import GeneralInfo from './components/GeneralInfo'
-import DeploymentFreq from './components/DeploymentFreq'
 
-import TimeToMerge from './components/TimeToMerge'
-import axios from 'axios'
-
-import UnreviewedPR from './components/UnreviewedPR';
+import UnreviewedPR from "./components/UnreviewedPR";
 
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
-
 
 function App() {
   console.log(CLIENT_ID);
   const [rerender, setRerender] = useState(false);
   const [userData, setUserData] = useState({});
-  const [count, setCount] = useState(0)
-  const [repoUrl, setRepoUrl] = useState('');
-  const [userName, setUserName] = useState('');
-  const [repoName, setRepoName] = useState('');
+  const [count, setCount] = useState(0);
+  const [repoUrl, setRepoUrl] = useState("");
+  const [userName, setUserName] = useState("");
+  const [repoName, setRepoName] = useState("");
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
-  // const ghUrl = `https://api.github.com/repos/${username}/${repoName}`;
-    useEffect(()=> {
-      console.log(repoUrl)
-    }, [repoUrl])
-
+  const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
+  useEffect(() => {
+    console.log(repoUrl);
+  }, [repoUrl]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const parts = repoUrl.split('/');
-    setUsername(parts[parts.length - 2]);
+    const parts = repoUrl.split("/");
+    setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
-  }
+  };
 
-  
   const loginWithGithub = () => {
-    window.location.assign(`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`);
-  }
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`
+    );
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     window.location.assign(`http://localhost:5173/`);
-  }
+  };
 
   useEffect(() => {
     // access token stored in local storage for now
@@ -56,17 +54,19 @@ function App() {
     const codeParam = urlParams.get("code");
     console.log(codeParam);
 
-    if(codeParam && !localStorage.getItem("accessToken")){
+    if (codeParam && !localStorage.getItem("accessToken")) {
       const getAccessToken = async () => {
         try {
-          const response = await axios.get(`http://localhost:4000/api/login/getAccessToken?code=${codeParam}`);
+          const response = await axios.get(
+            `http://localhost:4000/api/login/getAccessToken?code=${codeParam}`
+          );
           console.log(response.data.access_token);
           localStorage.setItem("accessToken", response.data.access_token);
           setRerender(!rerender);
         } catch (error) {
           console.log(error);
         }
-      }
+      };
       getAccessToken();
     }
   }, []);
@@ -86,25 +86,23 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // const repoSearch = async() => {
   //   const response = await fetch(`${ghUrl}${userName}/${repoUrl}`);
   //   const data = await response.json();
   //   console.log(data);
   // }
-  
 
   //useEffect for loading the user's repo upon entering input
   // useEffect(() =>{
-    // const repoSearch =  async() => {
-    //     // Parse useName and 
-    //    // const response = await fetch(ghUrl + userName + '/' + repoUrl);
-    // // const data = await response.json();
-    // // console.log(data);
-      
+  // const repoSearch =  async() => {
+  //     // Parse useName and
+  //    // const response = await fetch(ghUrl + userName + '/' + repoUrl);
+  // // const data = await response.json();
+  // // console.log(data);
 
-    // }
+  // }
 
   return (
     <div>
@@ -127,11 +125,17 @@ function App() {
         </form>
       </div>
 
-      {submit && (<GeneralInfo ghUrl={ghUrl}/>)}
-      {submit && (<DeploymentFreq ghUrl={ghUrl}/>)}
+      <TimeToMerge submit={submit} userName={userName} repoName={repoName} />
+      {submit && <GeneralInfo ghUrl={ghUrl} />}
+      <DeploymentFreq />
+      <UnreviewedPR
+        userName={userName}
+        repoName={repoName}
+        access_token={localStorage.getItem("accessToken")}
+      ></UnreviewedPR>
 
     </div>
   );
 }
 
-export default App
+export default App;
