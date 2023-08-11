@@ -33,21 +33,21 @@ const TimeToMerge = ({submit,userName, repoName}) => {
         let sum = 0;
         //https://api.github.com/search/issues?q=repo:segfal/karaokeapp/+is:pr+is:merged
         let pullInfo = await PullSearch(repoName, userName);
-        console.log("pullInfo: ", pullInfo);
+        //console.log("pullInfo: ", pullInfo);
+        //console.log("pullInfo.length: ", pullInfo.length);
         for (let i = 0; i < pullInfo.length; i++) {
             // get the "created_at" and "closed_at" fields
-            let createdAt = await moment(pullInfo[i].created_at);
-            let mergedAt = await moment(pullInfo[i].pull_request.merged_at);
-            
-            // calculate the difference between the two
-            let difference = await mergedAt.diff(mergedAt - createdAt, 'seconds'); 
-            
+            let createdAt = moment(pullInfo[i].created_at);
+            let mergedAt = moment(pullInfo[i].pull_request.merged_at);
+
+            let difference = mergedAt.diff(createdAt, 'seconds'); 
+            console.log("difference: ", difference)
             // add the difference to sum
             sum += difference;
         }
         setTimeToMerge(sum / pullInfo.length);
-        console.log("mergeArray: ", mergeArray)
-        return await timeToMerge;
+        
+        return timeToMerge;
     }
 
     useEffect(() => {
@@ -56,15 +56,27 @@ const TimeToMerge = ({submit,userName, repoName}) => {
         }
 
     },[submit,timeToMerge]);
-    
+    const hourMinuteSeconds = (seconds) => {
+
+        let hours = Math.floor(seconds / 3600);
+        console.log("seconds: ", seconds)
+        console.log("hours: ", hours)
+        let minutes = Math.floor((seconds % 3600) / 60);
+        seconds = Math.floor(seconds % 60);
+        if(hours < 1 && minutes < 1){
+            return `${seconds} seconds`
+        }
+        if(hours < 1){
+            return `${minutes} minutes and ${seconds} seconds`
+        }
+        return `${hours} hours ${minutes} minutes and ${seconds} seconds`
+    }
     if (submit) {
         return (
             <div>
+                {/* <h2>On average, pull requests are in review for {timeToMerge} seconds</h2> */}
+                {<h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>}
                 
-                <h2>On average, pull requests are in review for {timeToMerge} seconds</h2>
-                <h2>On average, pull requests are in review for {timeToMerge/60} minutes</h2>
-                <h2>On average, pull requests are in review for {timeToMerge/3600} hours</h2>
-                <h2>Unreviewed pr time chart Data</h2>
            
             </div>
         ) 
