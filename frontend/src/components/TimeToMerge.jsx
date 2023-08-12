@@ -31,6 +31,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
     ///https://api.github.com/repos/segfal/KaraokeApp
     const computeTime = async () => {
         let sum = 0;
+        let arr = [];
         //https://api.github.com/search/issues?q=repo:segfal/karaokeapp/+is:pr+is:merged
         let pullInfo = await PullSearch(repoName, userName);
         //console.log("pullInfo: ", pullInfo);
@@ -39,14 +40,19 @@ const TimeToMerge = ({submit,userName, repoName}) => {
             // get the "created_at" and "closed_at" fields
             let createdAt = moment(pullInfo[i].created_at);
             let mergedAt = moment(pullInfo[i].pull_request.merged_at);
+            
 
-            let difference = mergedAt.diff(createdAt, 'seconds'); 
-            console.log("difference: ", difference)
+            let difference = mergedAt.diff(createdAt, 'seconds');
+         
             // add the difference to sum
+            arr.push({name: i, time: difference})
+
+
             sum += difference;
         }
         setTimeToMerge(sum / pullInfo.length);
-        
+        setMergeArray(arr);
+        console.log("timeToMerge: ", mergeArray);
         return timeToMerge;
     }
 
@@ -55,7 +61,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
             computeTime();
         }
 
-    },[submit,timeToMerge]);
+    },[submit,timeToMerge,mergeArray.length]);
     const hourMinuteSeconds = (seconds) => {
 
         let hours = Math.floor(seconds / 3600);
@@ -71,11 +77,28 @@ const TimeToMerge = ({submit,userName, repoName}) => {
         }
         return `${hours} hours ${minutes} minutes ${seconds} seconds`
     }
-    if (submit) {
+
+
+    if (submit) { // if submit is true, display the chart
         return (
             <div>
                
                 {<h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>}
+                <h2>Time to Merge</h2>
+                    
+                    <ResponsiveContainer width="50%" height={300}>
+                        <LineChart data={mergeArray}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            {/* <Legend /> */}
+
+                            <Line type="monotone" dataKey="time" stroke="#8884d8" />
+                        </LineChart>
+                    </ResponsiveContainer>
+
+
                 
            
             </div>
