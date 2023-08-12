@@ -63,11 +63,14 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
     fetchUncommentedPR();
   }, [userName, repoName]);
 
+  /**
+   * Reviewed % = 100 - % of unreviewedPRs
+   */
   useEffect(() => {
     setPieData((prevState) => [
       {
         ...prevState[0],
-        value: (allMergedPR / 100).toFixed(1),
+        value: (100 - getUnreviewedPRPercentage()).toFixed(1),
       },
       {
         ...prevState[1],
