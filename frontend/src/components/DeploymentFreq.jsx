@@ -66,9 +66,7 @@ function DeploymentFreq({ ghUrl }) {
   let minutes;
   let seconds;
   const currentDate = moment();
-  const latestDeployment = moment(
-    deployData[deployDataLength - 1].created_at
-  ).format("MMMM DD, YYYY");
+  const latestDeployment = moment(deployData[0].created_at).format("MMMM DD, YYYY");
   // console.log("Current Date: "+currentDate.format("MMM ")+ "Previous Month "+ currentDate.subtract(1,"month").format("MMM "))
   let lastDayOfCurrentMonth = moment(currentDate).endOf("month");
   let lastDayOfCurrentWeek = moment(currentDate).endOf("week");
