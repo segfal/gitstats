@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 // Deployment Frequency: how often code is successfully deployed into production
 // avg time btwn each deployments: ([sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]),
@@ -18,10 +19,8 @@ import axios from "axios";
 
 function DeploymentFreq({ ghUrl }) {
   const deploymentUrl = ghUrl + `/deployments?per_page=100`;
-
   const [deployData, setDeployData] = useState([]);
-  // let start = "2023-07-27T20:33:20Z";
-  // let end = "2023-07-28T00:57:00Z";
+  const [typeOfTime, setTypeOfTime] = useState("months");
 
   //pulling deployment data from url
   useEffect(() => {
@@ -67,19 +66,15 @@ function DeploymentFreq({ ghUrl }) {
   let minutes;
   let seconds;
   const currentDate = moment();
+  const latestDeployment = moment(
+    deployData[deployDataLength - 1].created_at
+  ).format("MMMM DD, YYYY");
+  // console.log("Current Date: "+currentDate.format("MMM ")+ "Previous Month "+ currentDate.subtract(1,"month").format("MMM "))
   let lastDayOfCurrentMonth = moment(currentDate).endOf("month");
-  let monthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; //12 months
-  let weekArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // 10 weeks
-  let dateArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] //20 days
-  // console.log("CURRENT TIME: "+ moment().format())
-  // const now = "2022-10-12T15:30:00-04:00"
-  // console.log("NOW: "+ now)
-  // let pastYear = moment().startOf('year').fromNow();
-  // console.log("PAST YEAR : " + pastYear)
-  // let pastMonth = moment(now).fromNow();
-  // console.log("PAST MONTH: " + pastMonth);
-  // let pastWeek = moment().startOf('week').fromNow();
-  // console.log("PAST WEEK: " + pastWeek);
+  let lastDayOfCurrentWeek = moment(currentDate).endOf("week");
+  let monthArray = new Array(12).fill(0); //12 months
+  let weekArray = new Array(10).fill(0); // 10 weeks
+  let dateArray = new Array(20).fill(0); //20 days
 
   for (let i = 0; i < deployDataLength - 1; i++) {
     let startDate = moment(deployData[i + 1].created_at);
@@ -89,41 +84,38 @@ function DeploymentFreq({ ghUrl }) {
 
     //endOf used here to include all days in current month to accurately log freq in prev months
     const durationInMonths = lastDayOfCurrentMonth.diff(endDate, "months");
-    if(durationInMonths<monthArray.length)
-    monthArray[durationInMonths]++;
-    console.log("Duration in days: " + durationInMonths);
+    if (durationInMonths < monthArray.length) monthArray[durationInMonths]++;
+    //console.log("Duration in days: " + durationInMonths);
 
     //if time is btwn one week and 2 weeks, will return 1 week b/c moment starts indexing at 0 instead of 1
-    const durationInWeeks = currentDate.diff(endDate, "weeks");
-    if(durationInWeeks<weekArray.length)
-      weekArray[durationInWeeks]++;
+    const durationInWeeks = lastDayOfCurrentWeek.diff(endDate, "weeks");
+    if (durationInWeeks < weekArray.length) weekArray[durationInWeeks]++;
 
-    console.log("Duration in weeks: " + durationInWeeks);
+   // console.log("Duration in weeks: " + durationInWeeks);
 
     const durationInDays = currentDate.diff(endDate, "days");
-    if(durationInDays<dateArray.length)
-    dateArray[durationInDays]++;
-    console.log("Duration in days: " + durationInDays);
+    if (durationInDays < dateArray.length) dateArray[durationInDays]++;
+    //console.log("Duration in days: " + durationInDays);
   }
 
   //the following counts in the last date that the for loop above leaves out
-  const lastDate = moment(deployData[deployDataLength-1].created_at)
-  const lastDurationInMonths = lastDayOfCurrentMonth.diff(lastDate, "months")
-  const lastDurationInWeeks = currentDate.diff(lastDate, "weeks")
-  const lastDurationInDays = currentDate.diff(lastDate, "days")
-  
-  if(lastDurationInMonths<monthArray.length){
+  const lastDate = moment(deployData[deployDataLength - 1].created_at);
+  const lastDurationInMonths = lastDayOfCurrentMonth.diff(lastDate, "months");
+  const lastDurationInWeeks = lastDayOfCurrentWeek.diff(lastDate, "weeks");
+  const lastDurationInDays = currentDate.diff(lastDate, "days");
+
+  if (lastDurationInMonths < monthArray.length) {
     monthArray[lastDurationInMonths]++;
   }
-  if(lastDurationInWeeks<weekArray.length){
+  if (lastDurationInWeeks < weekArray.length) {
     weekArray[lastDurationInWeeks]++;
   }
-  if(lastDurationInDays<dateArray.length){
+  if (lastDurationInDays < dateArray.length) {
     dateArray[lastDurationInDays]++;
   }
-  console.log("MONTHS ARRAY: "+monthArray)
-  console.log("WEEKS ARRAY: "+weekArray)
-  console.log("DAYS ARRAY: "+dateArray)
+  // console.log("MONTHS ARRAY: " + monthArray);
+  // console.log("WEEKS ARRAY: " + weekArray);
+  // console.log("DAYS ARRAY: " + dateArray);
   //divide total sum by number of deployments(the length of deployment data array)
   let avgDeploymentTimeInMS = durationSum.asSeconds() / deployDataLength;
   MillisecondsToWeeksDaysHours(avgDeploymentTimeInMS);
@@ -136,25 +128,130 @@ function DeploymentFreq({ ghUrl }) {
   //if result = 100, go to next page
   //limit results to 3 pages (100 results per page, 300 results in total)
 
-  //need to calculate timeframe from time user pulls data
-  const now = "2023-08-11T15:30:00+08:00";
-  console.log("NOW: " + now);
-  let pastYear = moment([2022, 0, 0]).fromNow();
-  console.log("PAST YEAR : " + pastYear);
-  let pastMonth = [];
-  let pastWeek = [];
+  //code for charts
+
+  const monthChartData = monthArray.map((numOfDeployment, index) => ({
+    name: moment().subtract(index, "month").format("MMM"),
+    "# of Deployment": numOfDeployment,
+  }));
+
+  const weeksChartData = weekArray.map((numOfDeployment, index) => ({
+    name:
+      moment().subtract(index, "weeks").startOf("week").format(" MM/DD") +
+      " - " +
+      moment().subtract(index, "weeks").endOf("week").format("MM/DD"),
+    "# of Deployment": numOfDeployment,
+  }));
+
+  const daysChartData = dateArray.map((numOfDeployment, index) => ({
+    name: moment().subtract(index, "days").format("MMM DD"),
+    "# of Deployment": numOfDeployment,
+  }));
+
+  const renderMonthsChart = () => {
+    return (
+      <div>
+        <h2>Deployments Within the Last 12 Months</h2>
+        <BarChart
+          width={700}
+          height={400}
+          data={monthChartData}
+          margin={{ bottom: 80, right: 80 }}
+        >
+          <XAxis
+            dataKey="name"
+            stroke="#8884d8"
+            angle={45}
+            textAnchor="start"
+          />
+          <YAxis />
+          <Tooltip />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+        </BarChart>
+      </div>
+    );
+  };
+
+  const renderWeeksChart = () => {
+    return (
+      <div>
+        <h2>Deployments Within the Last 10 Week</h2>
+        <BarChart
+          width={700}
+          height={400}
+          data={weeksChartData}
+          margin={{ bottom: 80, right: 80 }}
+        >
+          <XAxis
+            dataKey="name"
+            stroke="#8884d8"
+            angle={45}
+            textAnchor="start"
+          />
+          <YAxis />
+          <Tooltip />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+        </BarChart>
+      </div>
+    );
+  };
+
+  const renderDaysChart = () => {
+    return (
+      <div>
+        <h2>Deployments Within the Last 20 Days</h2>
+        <BarChart
+          width={700}
+          height={400}
+          data={daysChartData}
+          margin={{ bottom: 80, right: 80 }}
+        >
+          <XAxis
+            dataKey="name"
+            stroke="#8884d8"
+            angle={45}
+            textAnchor="start"
+          />
+          <YAxis />
+          <Tooltip />
+          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+        </BarChart>
+      </div>
+    );
+  };
+
+  const handleMonths = () => setTypeOfTime("months");
+
+  const handleWeeks = () => setTypeOfTime("weeks");
+
+  const handleDays = () => setTypeOfTime("days");
 
   return (
     <div>
-      <h1>DeploymentFreq</h1>
+      <h1>Deployment Frequency</h1>
+      <div>
+        {typeOfTime === "months" && renderMonthsChart()}
+        {typeOfTime === "weeks" && renderWeeksChart()}
+        {typeOfTime === "days" && renderDaysChart()}
+      </div>
+      <div>
+        <button onClick={handleMonths}>Months</button>
+        <button onClick={handleWeeks}>Weeks</button>
+        <button onClick={handleDays}>Days</button>
+      </div>
       <p>
+        <u>Last deployment was deployed on</u>: {latestDeployment}
+        <br />
+        <u>Average time between deployments</u>: {weeks} weeks, {days} days,{" "}
+        {hours} hours, {minutes} minutes, {seconds} seconds
+        <br />
         <i>
           <u>Note</u>: The following calulation only includes the results within
           the past year
         </i>
-        <br />
-        Average time between deployments: {weeks} weeks, {days} days, {hours}{" "}
-        hours, {minutes} minutes, {seconds} seconds
       </p>
     </div>
   );
