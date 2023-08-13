@@ -23,11 +23,28 @@ function DeploymentFreq({ ghUrl }) {
   const [typeOfTime, setTypeOfTime] = useState("months");
 
   //pulling deployment data from url
+  //only calculates up to 300 deployments
+  //to increase/decrease the # of deployment 
+  //pages fetched, change the while loop below
   useEffect(() => {
     const fetchDeploymentData = async () => {
       try {
+        let newArr = [];
+        let page = 1;
         const response = await axios.get(deploymentUrl);
-        setDeployData(response.data);
+        newArr = response.data;
+
+        while (newArr.length >= 100 * page && newArr.length < 300) {
+          page++;
+          console.log("PAGE >>> "+ page)
+          const response2 = await axios.get(
+            `${ghUrl}/deployments?per_page=100&page=${page}`
+          );
+          newArr.push(...response2.data);
+          
+        }
+
+        setDeployData(newArr);
       } catch (error) {
         console.log(error);
       }
@@ -60,13 +77,16 @@ function DeploymentFreq({ ghUrl }) {
   // Calculate the time difference using moment.js  [sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]
   let durationSum = moment.duration();
   let deployDataLength = deployData.length;
+  console.log("DEPLOY DATA LENGTH >>> "+ deployDataLength)
   let weeks;
   let days;
   let hours;
   let minutes;
   let seconds;
   const currentDate = moment();
-  const latestDeployment = moment(deployData[0].created_at).format("MMMM DD, YYYY");
+  const latestDeployment = moment(deployData[0].created_at).format(
+    "MMMM DD, YYYY"
+  );
   // console.log("Current Date: "+currentDate.format("MMM ")+ "Previous Month "+ currentDate.subtract(1,"month").format("MMM "))
   let lastDayOfCurrentMonth = moment(currentDate).endOf("month");
   let lastDayOfCurrentWeek = moment(currentDate).endOf("week");
@@ -89,7 +109,7 @@ function DeploymentFreq({ ghUrl }) {
     const durationInWeeks = lastDayOfCurrentWeek.diff(endDate, "weeks");
     if (durationInWeeks < weekArray.length) weekArray[durationInWeeks]++;
 
-   // console.log("Duration in weeks: " + durationInWeeks);
+    // console.log("Duration in weeks: " + durationInWeeks);
 
     const durationInDays = currentDate.diff(endDate, "days");
     if (durationInDays < dateArray.length) dateArray[durationInDays]++;
@@ -127,7 +147,6 @@ function DeploymentFreq({ ghUrl }) {
   //limit results to 3 pages (100 results per page, 300 results in total)
 
   //code for charts
-
   const monthChartData = monthArray.map((numOfDeployment, index) => ({
     name: moment().subtract(index, "month").format("MMM"),
     "# of Deployment": numOfDeployment,
@@ -246,9 +265,10 @@ function DeploymentFreq({ ghUrl }) {
         <u>Average time between deployments</u>: {weeks} weeks, {days} days,{" "}
         {hours} hours, {minutes} minutes, {seconds} seconds
         <br />
+        <u>Total Deployments</u>: {deployDataLength===300?"Over 300 Deployments":deployDataLength+" Deployments"}
         <i>
-          <u>Note</u>: The following calulation only includes the results within
-          the past year
+          <br/>
+          <u>Note</u>: The above calulations only calculates up to 300 deployments.
         </i>
       </p>
     </div>
