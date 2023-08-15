@@ -43,9 +43,12 @@ const TimeToMerge = ({submit,userName, repoName}) => {
             
 
             let difference = mergedAt.diff(createdAt, 'seconds');
+            let hour = Math.floor(difference/60/60);
+            let min = Math.floor(difference/60 - (hour*60));
+            let time = parseFloat(hour +"."+min);
          
             // add the difference to sum
-            arr.push({name: i, time: difference})
+            arr.push({name: i, time: time})
 
 
             sum += difference;

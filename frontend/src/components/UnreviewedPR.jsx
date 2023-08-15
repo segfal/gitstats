@@ -55,7 +55,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
 
   // (Number of PRs with no comments / Total number of merged PRs) * 100
   const getUnreviewedPRPercentage = () => {
-    return (uncommentedPR / allMergedPR) * 100;
+    return Math.floor((uncommentedPR / allMergedPR) * 100);
   };
 
   useEffect(() => {

@@ -48,18 +48,51 @@ const GeneralInfo = ({ ghUrl }) => {
     fetchRepoInfo();
   }, []);
 
+  // useEffect(() => {
+  //   async function fetchContributors() {
+  //     try {
+  //       const response = await axios.get(`${ghUrl}/contributors`);
+  //       console.log(response.data);
+  //       setContributors(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchContributors();
+  // }, []);
+
+  // Limit contributor 
   useEffect(() => {
-    async function fetchContributors() {
+    const fetchAllContributors = async () => {
       try {
+        let newArr = [];
         const response = await axios.get(`${ghUrl}/contributors`);
-        console.log(response.data);
-        setContributors(response.data);
+        newArr = response.data;
+
+
+
+        const response2 = await axios.get(`${ghUrl}/commits?per_page=1&page=1`)
+        const link_header = response2.headers.get('Link', '');
+        console.log("Header", link_header);
+
+        // while (newArr.length >= 100 * page && newArr.length < 200) {
+        //   page++;
+        //   console.log("PAGE >>> "+ page)
+        //   const response2 = await axios.get(
+        //     `${ghUrl}/contributors?per_page=100&page=${page}`
+        //   );
+        //   newArr.push(...response2.data);
+          
+        // }
+
+        setContributors(newArr);
       } catch (error) {
         console.log(error);
       }
-    }
-    fetchContributors();
+    };
+    fetchAllContributors();
   }, []);
+
 
   const totalContributions = contributors.reduce((acc, curr) => {
     return acc + curr.contributions;
