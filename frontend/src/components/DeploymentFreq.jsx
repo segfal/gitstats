@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 
 // Deployment Frequency: how often code is successfully deployed into production
 // avg time btwn each deployments: ([sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]),
@@ -189,6 +189,7 @@ function DeploymentFreq({ ghUrl, access_token }) {
           <YAxis />
           <Tooltip />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <Legend verticalAlign='top' align='right' height={30}/>
           <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
         </BarChart>
       </div>
@@ -246,9 +247,7 @@ function DeploymentFreq({ ghUrl, access_token }) {
   };
 
   const handleMonths = () => setTypeOfTime("months");
-
   const handleWeeks = () => setTypeOfTime("weeks");
-
   const handleDays = () => setTypeOfTime("days");
 
   return (
