@@ -135,7 +135,7 @@ const TimeToMerge = ({submit,userName, repoName}) => {
                         <LineChart data={mergeArray} margin={{ left: 20 }}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" tick={false}/>
-                            <YAxis> 
+                            <YAxis allowDecimals={false}> 
                                 <Label value="Time In Hours" position="insideLeft" angle={-90} dy={40} />
                             </YAxis>
                             <Tooltip formatter={(value, name, props) => [formatValue(value), "Time to merge "]} />

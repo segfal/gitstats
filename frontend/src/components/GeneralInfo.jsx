@@ -137,12 +137,15 @@ const GeneralInfo = ({ ghUrl }) => {
       <h2>Contributions Chart</h2>
       <div style={{ height: '400px' }}>
         <BarChart
-          width={600}
-          height={300}
+          width={700}
+          height={400}
           data={chartData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          margin={{ top: 20, right: 20, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis 
+            dataKey="name" 
+            stroke="#8884d8"
+            />
           <YAxis />
           <Tooltip
             formatter={(value, name, entry) => {
@@ -150,8 +153,8 @@ const GeneralInfo = ({ ghUrl }) => {
               return [`${value} (${percentage.toFixed(2)}%)`, name];
             }}
           />
-          <Legend />
-          <Bar dataKey="contributions" fill="#8884d8" />
+          <Legend verticalAlign='top' align='right' height={30}/>
+          <Bar name="Contributions" dataKey="contributions" fill="#8884d8" />
         </BarChart>
       </div>
     </div>
