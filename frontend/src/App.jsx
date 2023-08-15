@@ -4,7 +4,7 @@ import GitHubButton from "./components/githubOAuth/GithubButton";
 import LogoutButton from "./components/githubOAuth/LogoutButton";
 import GeneralInfo from "./components/GeneralInfo";
 import DeploymentFreq from "./components/DeploymentFreq";
-
+import { GiSpyglass, GiSpy, GiMagnifyingGlass, GiCyberEye, GiDominoMask, GiEyeTarget, GiEyeball, GiNinjaMask } from "react-icons/gi";
 import TimeToMerge from "./components/TimeToMerge";
 import axios from "axios";
 
@@ -118,6 +118,7 @@ function App() {
 
   return (
     <div>
+      
       {localStorage.getItem("accessToken") ? (
         <>
           <LogoutButton handleLogout={handleLogout} />
@@ -127,7 +128,15 @@ function App() {
           <GitHubButton loginWithGithub={loginWithGithub}></GitHubButton>
         </>
       )}
-      <div>
+      <div> 
+      <div><h1>Git<GiNinjaMask/>Snitch</h1></div>
+      <div><h1>Git<GiEyeball/>Snitch</h1></div>
+      <div><h1>Git<GiEyeTarget/>Snitch</h1></div>
+      <div><h1>Git<GiDominoMask/>Snitch</h1></div>
+      <div><h1>Git<GiCyberEye/>Snitch</h1></div>
+      <div><h1>Git<GiMagnifyingGlass/>Snitch</h1></div>
+      <div><h1>Git<GiSpy/>Snitch</h1></div>
+      <div><h1><GiSpyglass/>GitSnitch</h1></div>
         <h1>GitHub Stats</h1>
         <form onSubmit={handleSubmit}>
           {/* <form> */}
