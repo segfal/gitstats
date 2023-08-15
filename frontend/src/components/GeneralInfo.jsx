@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 
 const GeneralInfo = ({ ghUrl }) => {
   /*
@@ -22,7 +31,6 @@ const GeneralInfo = ({ ghUrl }) => {
   const [description, setDescription] = useState('');
   const [dateCreated, setDateCreated] = useState('');
   const [dateUpdated, setDateUpdated] = useState('');
-
   const [contributors, setContributors] = useState([{}]);
 
   useEffect(() => {
@@ -33,7 +41,6 @@ const GeneralInfo = ({ ghUrl }) => {
         setDescription(response.data.description);
         setDateCreated(response.data.created_at);
         setDateUpdated(response.data.updated_at);
-        // console.log(repoName);
       } catch (error) {
         console.log(error);
       }
@@ -53,11 +60,14 @@ const GeneralInfo = ({ ghUrl }) => {
     }
     fetchContributors();
   }, []);
-  console.log('From useState', contributors);
 
   const totalContributions = contributors.reduce((acc, curr) => {
     return acc + curr.contributions;
   }, 0);
+  const chartData = contributors.map((contributor) => ({
+    name: contributor.login,
+    contributions: contributor.contributions,
+  }));
 
   return (
     <div>
@@ -66,7 +76,6 @@ const GeneralInfo = ({ ghUrl }) => {
       <p>Description: {description}</p>
       <p>Date Created: {moment(dateCreated).format('YYYY-MM-DD, h:mm:ss a')}</p>
       <p>Date Updated: {moment(dateUpdated).format('YYYY-MM-DD, h:mm:ss a')}</p>
-      <p></p>
       <h2>Total Commits: {totalContributions}</h2>
       <h2>Contributors:</h2>
       {contributors.map((contributor, i) => {
@@ -80,6 +89,26 @@ const GeneralInfo = ({ ghUrl }) => {
           </div>
         );
       })}
+      <h2>Contributions Chart</h2>
+      <div style={{ height: '400px' }}>
+        <BarChart
+          width={600}
+          height={300}
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip
+            formatter={(value, name, entry) => {
+              const percentage = (value / totalContributions) * 100;
+              return [`${value} (${percentage.toFixed(2)}%)`, name];
+            }}
+          />
+          <Legend />
+          <Bar dataKey="contributions" fill="#8884d8" />
+        </BarChart>
+      </div>
     </div>
   );
 };
