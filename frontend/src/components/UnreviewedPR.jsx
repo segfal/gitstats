@@ -27,7 +27,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
         `https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged`,
         {
           headers: {
-            Authorization: "Bearer" + access_token,
+            Authorization: "Bearer " + access_token,
           },
         }
       );
@@ -43,7 +43,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
         `https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged+comments:0`,
         {
           headers: {
-            Authorization: "Bearer" + access_token,
+            Authorization: "Bearer " + access_token,
           },
         }
       );
@@ -82,9 +82,6 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
   return (
     <>
       <h1>UnreviewedPR</h1>
-      <p>
-        Percentage of unreviewed pull requests: {getUnreviewedPRPercentage().toFixed(1)}
-      </p>
       <div style={{ height: 500 }}>
         <ResponsivePie
           data={pieData}

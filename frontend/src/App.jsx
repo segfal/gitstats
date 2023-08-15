@@ -10,10 +10,9 @@ import axios from "axios";
 
 import UnreviewedPR from "./components/UnreviewedPR";
 
-const CLIENT_ID = "Iv1.997eaea3b91426c1";
+const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function App() {
-  console.log(CLIENT_ID);
   const [rerender, setRerender] = useState(false);
   const [userData, setUserData] = useState({});
   const [count, setCount] = useState(0);
@@ -37,7 +36,7 @@ function App() {
 
   const loginWithGithub = () => {
     window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`
+      `https://github.com/login/oauth/authorize?scope=user&client_id=${CLIENT_ID}`
     );
   };
 
@@ -77,12 +76,25 @@ function App() {
         `http://localhost:4000/api/login/getUserData`,
         {
           headers: {
-            Authorization: "Bearer" + localStorage.getItem("accessToken"),
+            Authorization: "Bearer " + localStorage.getItem("accessToken"),
           },
         }
       );
       console.log(response.data);
       setUserData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUserRateLimit = async () => {
+    try {
+      const response = await axios.get(`https://api.github.com/rate_limit`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+      });
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -125,18 +137,33 @@ function App() {
         </form>
       </div>
 
-      <TimeToMerge submit={submit} userName={userName} repoName={repoName} />
       {submit && <GeneralInfo ghUrl={ghUrl} />}
-      {submit && <DeploymentFreq  ghUrl={ghUrl} />}
 
-      {submit && <UnreviewedPR
-        userName={userName}
-        repoName={repoName}
-        access_token={localStorage.getItem("accessToken")}
+      {localStorage.getItem("accessToken") && (
+        <TimeToMerge
+          submit={submit}
+          userName={userName}
+          repoName={repoName}
+          access_token={localStorage.getItem("accessToken")}
+        />
+      )}
 
-      ></UnreviewedPR> }
+      {localStorage.getItem("accessToken") && submit && (
+        <DeploymentFreq
+          ghUrl={ghUrl}
+          access_token={localStorage.getItem("accessToken")}
+        />
+      )}
 
+      {localStorage.getItem("accessToken") && submit && (
+        <UnreviewedPR
+          userName={userName}
+          repoName={repoName}
+          access_token={localStorage.getItem("accessToken")}
+        ></UnreviewedPR>
+      )}
 
+      <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
     </div>
   );
 }

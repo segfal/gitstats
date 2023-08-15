@@ -27,7 +27,7 @@ router.get("/getAccessToken", async (req, res) => {
 });
 
 router.get("/getUserData", async (req, res) => {
-  req.get("Authorization");
+  console.log(req.get("Authorization"));
   await fetch("https://api.github.com/user", {
     method: "GET",
     headers: {
