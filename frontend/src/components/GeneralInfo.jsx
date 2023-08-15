@@ -26,12 +26,14 @@ const GeneralInfo = ({ ghUrl }) => {
     https://api.github.com/repos/segfal/KaraokeApp
     
     
+    
     */
   const [repoName, setRepoName] = useState('');
   const [description, setDescription] = useState('');
   const [dateCreated, setDateCreated] = useState('');
   const [dateUpdated, setDateUpdated] = useState('');
   const [contributors, setContributors] = useState([{}]);
+  const [commitTotal, setCommitTotal] = useState('');
 
   useEffect(() => {
     async function fetchRepoInfo() {
