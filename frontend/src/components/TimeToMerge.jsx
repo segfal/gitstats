@@ -74,7 +74,7 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
             computeTime();
         }
 
-    },[submit,timeToMerge,mergeArray.length]);
+    },[submit,timeToMerge,mergeArray.length,userName, repoName]);
     const hourMinuteSeconds = (seconds) => {
 
         let hours = Math.floor(seconds / 3600);
