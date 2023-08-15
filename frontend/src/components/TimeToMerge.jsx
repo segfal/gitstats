@@ -8,6 +8,7 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    Label,
     Legend,
     LineChart,
     Line,
@@ -17,11 +18,11 @@ import {
 const TimeToMerge = ({submit,userName, repoName}) => {
     ///pull request took x hours to merge
     const [timeToMerge, setTimeToMerge] = useState(0)
-    const [username, setUsername] = useState('');
     const [mergeArray, setMergeArray] = useState([]);
+    const [lastMerge, setLastMerge] = useState({});
 
     const PullSearch = async (repoName, userName) => {
-        const response = await axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged`);
+        const response = await axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged&per_page=100`);
         //console.log("response: ", response);
         // const response = await axios.get(url)
         const prs = response.data.items
@@ -47,14 +48,16 @@ const TimeToMerge = ({submit,userName, repoName}) => {
             let min = Math.floor(difference/60 - (hour*60));
             let time = parseFloat(hour +"."+min);
          
+            //name - pr number and pr title
+            //time - hh.mm float format
+            arr.push({name:"PR#"+pullInfo[i].number +" : "+ pullInfo[i].title, time: time})
+
             // add the difference to sum
-            arr.push({name: i, time: time})
-
-
             sum += difference;
         }
         setTimeToMerge(sum / pullInfo.length);
         setMergeArray(arr);
+        setLastMerge(pullInfo[0].pull_request);
         console.log("timeToMerge: ", mergeArray);
         return timeToMerge;
     }
@@ -81,29 +84,70 @@ const TimeToMerge = ({submit,userName, repoName}) => {
         return `${hours} hours ${minutes} minutes ${seconds} seconds`
     }
 
+    //custom tooltip(the popup box when hover over data), label = name, payload[0].value = time
+    // const CustomTooltip = ({ active, payload, label }) => {
+    //     if (active && payload && payload.length) {
+    //         let time = "" + payload[0].value;
+
+    //         // if, less than 1 min, shows as <1min
+    //         // else split merge time(hh.mm) to time[0] = hours and time[1] = minutes
+    //         if(payload[0].value === 0){
+    //             time = "less than 1 min"
+    //         } else {
+    //             time = time.split(".");
+    //             time = time[0] === "0" ? time[1] + " mins" : time[0] + " hr, " + time[1] + " mins" 
+    //         }
+            
+    //         return (
+    //           <div className="custom-tooltip" style={{backgroundColor:"white"}}>
+    //             <p className="label">{`${label}`}</p>
+    //             <p className="desc">Merge in {time}</p>
+    //           </div>
+    //         );
+    //     }
+    // }
+
+    const formatValue = (value) => {
+        let time = "" + value;
+
+        // if, less than 1 min, shows as <1min
+        // else split merge time(hh.mm) to time[0] = hours and time[1] = minutes
+        if(value === 0){
+            time = "less than 1 min"
+        } else {
+            time = time.split(".");
+            time = time[0] === "0" ? time[1] + " mins" : time[0] + " hr, " + time[1] + " mins" 
+        }
+        return time;
+    }
+
+    if(submit && !lastMerge)
+        return <h1>No merge pull request exist in this repository</h1>
 
     if (submit) { // if submit is true, display the chart
         return (
             <div>
                
-                {<h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>}
+                <h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>
                 <h2>Time to Merge</h2>
                     
                     <ResponsiveContainer width="50%" height={300}>
-                        <LineChart data={mergeArray}>
+                        <LineChart data={mergeArray} margin={{ left: 20 }}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            {/* <Legend /> */}
+                            <XAxis dataKey="name" tick={false}/>
+                            <YAxis> 
+                                <Label value="Time In Hours" position="insideLeft" angle={-90} dy={40} />
+                            </YAxis>
+                            <Tooltip formatter={(value, name, props) => [formatValue(value), "Time to merge "]} />
+                            {/* <Tooltip  content={<CustomTooltip />}/> */}
 
-                            <Line type="monotone" dataKey="time" stroke="#8884d8" />
+                            <Legend iconType='line' iconSize={18}/>
+                            <Line type="monotone" name="Pull Requests" dataKey="time" stroke="#8884d8" />
                         </LineChart>
                     </ResponsiveContainer>
+                <p>Note : Only calculates up to the newest 100 pull requests</p>
+                <p>Latest approve pull request was merge on {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}</p>
 
-
-                
-           
             </div>
         ) 
     }
