@@ -100,6 +100,15 @@ function App() {
     }
   };
 
+  const getRateLimit = async () => {
+    try {
+      const response = await axios.get(`https://api.github.com/rate_limit`);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // const repoSearch = async() => {
   //   const response = await fetch(`${ghUrl}${userName}/${repoUrl}`);
   //   const data = await response.json();
@@ -164,6 +173,7 @@ function App() {
       )}
 
       <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
+      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button>
     </div>
   );
 }

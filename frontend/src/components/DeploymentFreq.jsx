@@ -31,7 +31,11 @@ function DeploymentFreq({ ghUrl, access_token }) {
       try {
         let newArr = [];
         let page = 1;
-        const response = await axios.get(deploymentUrl);
+        const response = await axios.get(deploymentUrl, {
+          headers: {
+            Authorization: "Bearer " + access_token,
+          },
+        });
         newArr = response.data;
 
         while (newArr.length >= 100 * page && newArr.length < 300) {
