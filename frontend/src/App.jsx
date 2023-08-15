@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import LandingPage from "./components/LandingPage";
+import ParticleBackground from "./components/ParticleBackground";
 
 function App() {
-  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particleJS.js"></script>;
   return (
     <div id="particles-js">
+      <ParticleBackground />
       <LandingPage />
     </div>
   );
