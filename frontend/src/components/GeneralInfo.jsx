@@ -48,7 +48,7 @@ const GeneralInfo = ({ ghUrl }) => {
       }
     }
     fetchRepoInfo();
-  }, []);
+  }, [ghUrl]);
 
   // useEffect(() => {
   //   async function fetchContributors() {
@@ -102,7 +102,7 @@ const GeneralInfo = ({ ghUrl }) => {
       }
     };
     fetchAllContributors();
-  }, []);
+  }, [ghUrl]);
 
 
   // const totalContributions = contributors.reduce((acc, curr) => {
