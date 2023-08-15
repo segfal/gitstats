@@ -17,7 +17,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 // If your team is deploying less frequently (such as once every few weeks), it may
 // be a sign to reduce your deployment size so it’s easier to review, test, and deploy.
 
-function DeploymentFreq({ ghUrl }) {
+function DeploymentFreq({ ghUrl, access_token }) {
   const deploymentUrl = ghUrl + `/deployments?per_page=100`;
   const [deployData, setDeployData] = useState([]);
   const [typeOfTime, setTypeOfTime] = useState("months");
@@ -38,7 +38,12 @@ function DeploymentFreq({ ghUrl }) {
           page++;
           console.log("PAGE >>> "+ page)
           const response2 = await axios.get(
-            `${ghUrl}/deployments?per_page=100&page=${page}`
+            `${ghUrl}/deployments?per_page=100&page=${page}`,
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
           );
           newArr.push(...response2.data);
           
