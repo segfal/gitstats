@@ -15,14 +15,21 @@ import {
     ResponsiveContainer
   } from 'recharts';
 
-const TimeToMerge = ({submit,userName, repoName}) => {
+const TimeToMerge = ({submit,userName, repoName, access_token}) => {
     ///pull request took x hours to merge
     const [timeToMerge, setTimeToMerge] = useState(0)
     const [mergeArray, setMergeArray] = useState([]);
     const [lastMerge, setLastMerge] = useState({});
 
     const PullSearch = async (repoName, userName) => {
-        const response = await axios.get(`https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged&per_page=100`);
+        const response = await axios.get(
+          `https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged&per_page=100`,
+          {
+            headers: {
+              Authorization: "Bearer " + access_token,
+            },
+          }
+        );
         //console.log("response: ", response);
         // const response = await axios.get(url)
         const prs = response.data.items
