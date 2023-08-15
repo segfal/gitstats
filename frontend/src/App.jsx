@@ -129,12 +129,12 @@ function App() {
       {submit && <GeneralInfo ghUrl={ghUrl} />}
       {submit && <DeploymentFreq  ghUrl={ghUrl} />}
 
-      <UnreviewedPR
+      {submit && <UnreviewedPR
         userName={userName}
         repoName={repoName}
         access_token={localStorage.getItem("accessToken")}
 
-      ></UnreviewedPR> 
+      ></UnreviewedPR> }
 
 
     </div>

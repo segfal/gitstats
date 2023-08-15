@@ -83,7 +83,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
     <>
       <h1>UnreviewedPR</h1>
       <p>
-        Percentage of unreviewed pull requests: {getUnreviewedPRPercentage()}
+        Percentage of unreviewed pull requests: {getUnreviewedPRPercentage().toFixed(1)}
       </p>
       <div style={{ height: 500 }}>
         <ResponsivePie
