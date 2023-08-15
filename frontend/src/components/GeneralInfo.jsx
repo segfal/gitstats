@@ -77,6 +77,17 @@ const GeneralInfo = ({ ghUrl }) => {
         const link_header = response2.headers.get('Link', '');
         console.log("Header", link_header);
 
+        const regex = /page=(\d+)/g;
+        const matches = link_header.match(regex);
+
+        if (matches) {
+          
+          const page = matches[1].split('=')[1];
+          console.log('Parsed page:', page);
+          setCommitTotal(page)
+          
+        }
+
         // while (newArr.length >= 100 * page && newArr.length < 200) {
         //   page++;
         //   console.log("PAGE >>> "+ page)
@@ -96,13 +107,13 @@ const GeneralInfo = ({ ghUrl }) => {
   }, []);
 
 
-  const totalContributions = contributors.reduce((acc, curr) => {
-    return acc + curr.contributions;
-  }, 0);
-  const chartData = contributors.map((contributor) => ({
-    name: contributor.login,
-    contributions: contributor.contributions,
-  }));
+  // const totalContributions = contributors.reduce((acc, curr) => {
+  //   return acc + curr.contributions;
+  // }, 0);
+  // const chartData = contributors.map((contributor) => ({
+  //   name: contributor.login,
+  //   contributions: contributor.contributions,
+  // }));
 
   return (
     <div>
@@ -111,7 +122,7 @@ const GeneralInfo = ({ ghUrl }) => {
       <p>Description: {description}</p>
       <p>Date Created: {moment(dateCreated).format('YYYY-MM-DD, h:mm:ss a')}</p>
       <p>Date Updated: {moment(dateUpdated).format('YYYY-MM-DD, h:mm:ss a')}</p>
-      <h2>Total Commits: {totalContributions}</h2>
+      <h2>Total Commits: {commitTotal}</h2>
       <h2>Contributors:</h2>
       {contributors.map((contributor, i) => {
         return (
