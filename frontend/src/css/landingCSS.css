@@ -1,0 +1,32 @@
+.landingContainer {
+  border: solid;
+  display: grid;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 50px;
+}
+
+#repoSearchButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.landingTitle {
+  color: white;
+  font-size: 48px;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.landingMessage {
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
+}

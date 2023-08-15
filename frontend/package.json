@@ -12,6 +12,8 @@
   "dependencies": {
     "@nivo/pie": "^0.83.0",
     "axios": "^1.4.0",
+    "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
     "fortawesome": "^0.0.1-security",
     "moment": "^2.29.4",
     "react": "^18.2.0",
