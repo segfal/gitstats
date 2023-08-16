@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import moment from "moment";
 import {
@@ -10,7 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-
+import "../stylesheets/GeneralInfo.css";
+import "../stylesheets/All_Components.css";
 const GeneralInfo = ({ ghUrl }) => {
   /*
     Use ghUrl for general info
@@ -130,99 +131,99 @@ const GeneralInfo = ({ ghUrl }) => {
   }));
 
   return (
-    <div>
-      <h1>General Info</h1>
-      <h1>{repoName}</h1>
-      <p>Description: {description}</p>
-      <p>Date Created: {moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</p>
-      <p>Date Updated: {moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</p>
-      <h2>Total Commits: {commitTotal}</h2>
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 1, marginRight: "20px" }}>
-          <h2 style={{ color: "white" }}>Top Contributors:</h2>
-          {contributors.slice(0, 5).map((contributor, i) => {
-            const isTopContributor = i === 0;
-            return (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}>
-                <img
-                  src={contributor.avatar_url}
-                  alt="avatar"
+    <Fragment>
+      <div className="General_Info_Box componentBox">
+        <h1>General Info</h1>
+        <h2>{repoName}</h2>
+
+        <h3>{description}</h3>
+        <p>
+          Date Created: {moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}
+        </p>
+        <p>
+          Date Updated: {moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}
+        </p>
+      </div>
+
+      <div className="Contributors_Box componentBox">
+        <h1>Contributors</h1>
+        <h2 style={{ color: "#2cb67d" }}>Total Commits: {commitTotal}</h2>
+        <div className="chart-contributors_container">
+          <div style={{ flex: 1, marginRight: "20px" }}>
+            <h2 style={{ color: "white" }}>Top Contributors:</h2>
+            {contributors.slice(0, 5).map((contributor, i) => {
+              const isTopContributor = i === 0;
+              return (
+                <div
+                  key={i}
                   style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    marginRight: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    marginBottom: "10px",
+                  }}>
+                  <img
+                    src={contributor.avatar_url}
+                    alt="avatar"
+                    className="avatar"
+                  />
+                  {isTopContributor && (
+                    <span className="top-contributors">👑</span>
+                  )}
+                  <div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontWeight: "bold",
+                        color: isTopContributor ? "#FFD700" : "yellow",
+                      }}>
+                      {contributor.login}
+                    </p>
+                    <p style={{ margin: 0, color: "yellow" }}>
+                      Contributions: {contributor.contributions}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div style={{ flex: 2 }}>
+            <h2 style={{ color: "white" }}>Contributions Chart</h2>
+            <div style={{ height: "400px" }}>
+              <BarChart
+                width={700}
+                height={400}
+                data={chartData}
+                margin={{ top: 20, right: 20, left: 20, bottom: 30 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="name"
+                  stroke="#8884d8"
+                  interval={0}
+                  angle={-45}
+                  tickLine={false}
+                  textAnchor="end"
+                />
+                <YAxis />
+                <Tooltip
+                  labelStyle={{ color: "#000" }}
+                  formatter={(value, name, entry) => {
+                    const percentage = (value / commitTotal) * 100;
+                    return [`${value} (${percentage.toFixed(2)}%)`, name];
                   }}
                 />
-                {isTopContributor && (
-                  <span
-                    style={{
-                      marginRight: "10px",
-                      fontSize: "1.5em",
-                      color: "#FFD700",
-                    }}>
-                    👑
-                  </span>
-                )}
-                <div>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontWeight: "bold",
-                      color: isTopContributor ? "#FFD700" : "yellow",
-                    }}>
-                    {contributor.login}
-                  </p>
-                  <p style={{ margin: 0, color: "yellow" }}>
-                    Contributions: {contributor.contributions}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div style={{ flex: 2 }}>
-          <h2 style={{ color: "white" }}>Contributions Chart</h2>
-          <div style={{ height: "400px" }}>
-            <BarChart
-              width={700}
-              height={400}
-              data={chartData}
-              margin={{ top: 20, right: 20, left: 20, bottom: 30 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="name"
-                stroke="#8884d8"
-                interval={0}
-                angle={-45}
-                tickLine={false}
-                textAnchor="end"
-              />
-              <YAxis />
-              <Tooltip
-                formatter={(value, name, entry) => {
-                  const percentage = (value / commitTotal) * 100;
-                  return [`${value} (${percentage.toFixed(2)}%)`, name];
-                }}
-              />
-              <Legend verticalAlign="top" align="right" height={30} />
-              <Bar
-                name="Contributions"
-                dataKey="contributions"
-                fill="#8884d8"
-              />
-            </BarChart>
+                <Legend verticalAlign="top" align="right" height={30} />
+                <Bar
+                  name="Contributions"
+                  dataKey="contributions"
+                  fill="#8884d8"
+                />
+              </BarChart>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
