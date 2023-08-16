@@ -4,11 +4,13 @@ import GitHubButton from "./components/githubOAuth/GithubButton";
 import LogoutButton from "./components/githubOAuth/LogoutButton";
 import GeneralInfo from "./components/GeneralInfo";
 import DeploymentFreq from "./components/DeploymentFreq";
+import UnreviewedPR from "./components/UnreviewedPR";
 
 import TimeToMerge from "./components/TimeToMerge";
 import axios from "axios";
 
-import UnreviewedPR from "./components/UnreviewedPR";
+import "./stylesheets/All_Components.css"
+
 
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
@@ -146,31 +148,35 @@ function App() {
         </form>
       </div>
 
-      {submit && <GeneralInfo ghUrl={ghUrl} />}
+      <div className="All_Components_Box">
+        {submit && <GeneralInfo ghUrl={ghUrl} />}
 
-      {localStorage.getItem("accessToken") && (
-        <TimeToMerge
-          submit={submit}
-          userName={userName}
-          repoName={repoName}
-          access_token={localStorage.getItem("accessToken")}
-        />
-      )}
+        {localStorage.getItem("accessToken") && (
+          <TimeToMerge
+            submit={submit}
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
 
-      {localStorage.getItem("accessToken") && submit && (
-        <DeploymentFreq
-          ghUrl={ghUrl}
-          access_token={localStorage.getItem("accessToken")}
-        />
-      )}
+        {localStorage.getItem("accessToken") && submit && (
+          <UnreviewedPR
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          ></UnreviewedPR>
+        )}
 
-      {localStorage.getItem("accessToken") && submit && (
-        <UnreviewedPR
-          userName={userName}
-          repoName={repoName}
-          access_token={localStorage.getItem("accessToken")}
-        ></UnreviewedPR>
-      )}
+        {localStorage.getItem("accessToken") && submit && (
+          <DeploymentFreq
+            ghUrl={ghUrl}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+      </div>
+
+      
 
       <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
       <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button>

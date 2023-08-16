@@ -1,0 +1,9 @@
+/* DeploymentFreq components only */
+
+.Deployment_Box {
+    /* 
+        change backgroundColor and all uniform styling in All_Components > componentBox
+        background-color: cadetblue;
+    */
+    width: 80%;
+}

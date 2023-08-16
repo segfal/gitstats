@@ -15,6 +15,9 @@ import {
     ResponsiveContainer
   } from 'recharts';
 
+import "../stylesheets/TimeToMerge.css";
+import "../stylesheets/All_Components.css";
+
 const TimeToMerge = ({submit,userName, repoName, access_token}) => {
     ///pull request took x hours to merge
     const [timeToMerge, setTimeToMerge] = useState(0)
@@ -129,14 +132,17 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
     }
 
     if(submit && !lastMerge)
-        return <h1>No merge pull request exist in this repository</h1>
+        return (
+            <div className='TimeToMergeBox componentBox'>
+                <h1>No merge pull request exist in this repository</h1>
+            </div>)
 
     if (submit) { // if submit is true, display the chart
         return (
-            <div>
+            <div className='TimeToMergeBox componentBox'>
                
+                <h1>Time to Merge</h1>
                 <h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>
-                <h2>Time to Merge</h2>
                     
                     <ResponsiveContainer width="50%" height={300}>
                         <LineChart data={mergeArray} margin={{ left: 20 }}>
@@ -145,7 +151,7 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
                             <YAxis allowDecimals={false}> 
                                 <Label value="Time In Hours" position="insideLeft" angle={-90} dy={40} />
                             </YAxis>
-                            <Tooltip formatter={(value, name, props) => [formatValue(value), "Time to merge "]} />
+                            <Tooltip labelStyle={{ color: '#000' }} formatter={(value, name, props) => [formatValue(value), "Time to merge "]} />
                             {/* <Tooltip  content={<CustomTooltip />}/> */}
 
                             <Legend iconType='line' iconSize={18}/>
