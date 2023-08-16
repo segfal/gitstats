@@ -129,14 +129,7 @@ function App() {
         </>
       )}
       <div> 
-      <div><h1>Git<GiNinjaMask/>Snitch</h1></div>
-      <div><h1>Git<GiEyeball/>Snitch</h1></div>
-      <div><h1>Git<GiEyeTarget/>Snitch</h1></div>
-      <div><h1>Git<GiDominoMask/>Snitch</h1></div>
-      <div><h1>Git<GiCyberEye/>Snitch</h1></div>
-      <div><h1>Git<GiMagnifyingGlass/>Snitch</h1></div>
       <div><h1>Git<GiSpy/>Snitch</h1></div>
-      <div><h1><GiSpyglass/>GitSnitch</h1></div>
         <h1>GitHub Stats</h1>
         <form onSubmit={handleSubmit}>
           {/* <form> */}
