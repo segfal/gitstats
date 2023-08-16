@@ -3,6 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import LogoutButton from "./githubOAuth/LogoutButton";
 import GitHubButton from "./githubOAuth/GithubButton";
+import { useNavigate } from "react-router-dom";
+import UnreviewedPR from "../components/UnreviewedPR";
+import GeneralInfo from "../components/GeneralInfo";
+import axios from "axios";
 import "../css/landingCSS.css";
 
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
@@ -17,6 +21,7 @@ function LandingPage() {
   const [repoName, setRepoName] = useState("");
   // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate();
   const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
   useEffect(() => {
     console.log(repoUrl);
@@ -28,6 +33,7 @@ function LandingPage() {
     setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
+    navigate("/repo");
   };
 
   const loginWithGithub = () => {
@@ -90,26 +96,35 @@ function LandingPage() {
           class="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
-          <h1 style={{ color: "white" }}>GitStats Logo</h1>
+          <h1 className="headingNav">GitStats Logo</h1>
           {localStorage.getItem("accessToken") ? (
             <>
-              <LogoutButton /*handleLogout={handleLogout}*/ />
+              <LogoutButton handleLogout={handleLogout} />
             </>
           ) : (
             <>
-              <GitHubButton /*</>loginWithGithub={loginWithGithub}*/
-              ></GitHubButton>
+              <GitHubButton loginWithGithub={loginWithGithub}></GitHubButton>
             </>
           )}
         </nav>
       </div>
+      {localStorage.getItem("accessToken") ? (
+        <h1 className="userGreeting">
+          Welcome to your GitStats account, {userName}!
+          {console.log({ userData })}
+        </h1>
+      ) : (
+        <></>
+      )}
 
       <div className="landingTitle">
         <h1>GitHub Stats</h1>
       </div>
 
       <div className="landingContainer">
-        <h1>View information on any Github Repository below</h1>
+        <h1 className="landingMessage">
+          View information on any Github Repository below
+        </h1>
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-3 input-group-lg">
             <input
@@ -124,7 +139,7 @@ function LandingPage() {
             <button
               type="submit"
               id="repoSearchButton"
-              className="btn btn-primary btn-lg"
+              className="btn btn-success btn-lg"
             >
               <i class="bi bi-search" id="searchIcon"></i>
             </button>
@@ -132,12 +147,25 @@ function LandingPage() {
         </form>
       </div>
 
-      <div>
-        <h1 className="landingMessage">
-          To view more stats and personalized information, sign up with your
-          Github account
-        </h1>
-      </div>
+      {localStorage.getItem("accessToken") ? (
+        <div>
+          <h1 className="landingMessageBottom">Your Recent Repositories</h1>
+        </div>
+      ) : (
+        <>
+          <div>
+            <h1 className="landingMessageBottom">
+              To view more stats and personalized information, sign up with your
+              Github account
+            </h1>
+          </div>
+
+          <div className="githubLogin">
+            <GitHubButton /*</>loginWithGithub={loginWithGithub}*/
+            ></GitHubButton>
+          </div>
+        </>
+      )}
     </div>
   );
 }

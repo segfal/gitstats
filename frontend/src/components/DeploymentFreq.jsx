@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 
 // Deployment Frequency: how often code is successfully deployed into production
 // avg time btwn each deployments: ([sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]),
@@ -17,7 +17,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 // If your team is deploying less frequently (such as once every few weeks), it may
 // be a sign to reduce your deployment size so it’s easier to review, test, and deploy.
 
-function DeploymentFreq({ ghUrl }) {
+function DeploymentFreq({ ghUrl, access_token }) {
   const deploymentUrl = ghUrl + `/deployments?per_page=100`;
   const [deployData, setDeployData] = useState([]);
   const [typeOfTime, setTypeOfTime] = useState("months");
@@ -31,14 +31,23 @@ function DeploymentFreq({ ghUrl }) {
       try {
         let newArr = [];
         let page = 1;
-        const response = await axios.get(deploymentUrl);
+        const response = await axios.get(deploymentUrl, {
+          headers: {
+            Authorization: "Bearer " + access_token,
+          },
+        });
         newArr = response.data;
 
         while (newArr.length >= 100 * page && newArr.length < 300) {
           page++;
           console.log("PAGE >>> "+ page)
           const response2 = await axios.get(
-            `${ghUrl}/deployments?per_page=100&page=${page}`
+            `${ghUrl}/deployments?per_page=100&page=${page}`,
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
           );
           newArr.push(...response2.data);
           
@@ -184,6 +193,7 @@ function DeploymentFreq({ ghUrl }) {
           <YAxis />
           <Tooltip />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <Legend verticalAlign='top' align='right' height={30}/>
           <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
         </BarChart>
       </div>
@@ -241,9 +251,7 @@ function DeploymentFreq({ ghUrl }) {
   };
 
   const handleMonths = () => setTypeOfTime("months");
-
   const handleWeeks = () => setTypeOfTime("weeks");
-
   const handleDays = () => setTypeOfTime("days");
 
   return (
