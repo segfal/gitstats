@@ -139,7 +139,7 @@ const GeneralInfo = ({ ghUrl }) => {
       <h2>Total Commits: {commitTotal}</h2>
       <div style={{ display: "flex" }}>
         <div style={{ flex: 1, marginRight: "20px" }}>
-          <h2>Top Contributors:</h2>
+          <h2 style={{ color: "white" }}>Top Contributors:</h2>
           {contributors.slice(0, 5).map((contributor, i) => {
             const isTopContributor = i === 0;
             return (
@@ -175,11 +175,11 @@ const GeneralInfo = ({ ghUrl }) => {
                     style={{
                       margin: 0,
                       fontWeight: "bold",
-                      color: isTopContributor ? "#FFD700" : "inherit",
+                      color: isTopContributor ? "#FFD700" : "yellow",
                     }}>
                     {contributor.login}
                   </p>
-                  <p style={{ margin: 0 }}>
+                  <p style={{ margin: 0, color: "yellow" }}>
                     Contributions: {contributor.contributions}
                   </p>
                 </div>
@@ -189,7 +189,7 @@ const GeneralInfo = ({ ghUrl }) => {
         </div>
 
         <div style={{ flex: 2 }}>
-          <h2>Contributions Chart</h2>
+          <h2 style={{ color: "white" }}>Contributions Chart</h2>
           <div style={{ height: "400px" }}>
             <BarChart
               width={700}
@@ -203,6 +203,7 @@ const GeneralInfo = ({ ghUrl }) => {
                 interval={0}
                 angle={-45}
                 tickLine={false}
+                textAnchor="end"
               />
               <YAxis />
               <Tooltip
