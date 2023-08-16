@@ -84,12 +84,12 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
   return (
     <div className="UnreviewdPR_Box componentBox">
       <h1>UnreviewedPR</h1>
-      <>
+      <h3>
         <div>Percentage of unreviewed pull requests</div>
         <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
           {getUnreviewedPRPercentage().toFixed(1)}%
         </div>
-      </>
+      </h3>
       <div style={{ height: 500 }}>
         <ResponsivePie
           data={pieData}
