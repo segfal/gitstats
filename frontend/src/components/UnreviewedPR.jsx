@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 
+import "../stylesheets/UnreviewedPR.css"
+import "../stylesheets/All_Components.css";
+
 const UnreviewedPR = ({ userName, repoName, access_token }) => {
   const [allMergedPR, setAllMergedPR] = useState(0);
   const [uncommentedPR, setUncommentedPR] = useState(0);
@@ -80,7 +83,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
   }, [allMergedPR, uncommentedPR]);
 
   return (
-    <>
+    <div className="UnreviewdPR_Box componentBox">
       <h1>UnreviewedPR</h1>
       <div style={{ height: 500 }}>
         <ResponsivePie
@@ -151,7 +154,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
           ]}
         />
       </div>
-    </>
+    </div>
   );
 };
 

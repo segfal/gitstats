@@ -1,0 +1,9 @@
+/* 
+    TimeToMerge components only 
+    - change backgroundColor and all uniform styling in All_Components > componentBox
+*/
+
+.TimeToMergeBox {
+    /* background-color: burlywood; */
+    width: 60%;
+}

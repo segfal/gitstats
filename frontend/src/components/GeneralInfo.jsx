@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import moment from "moment";
 import {
@@ -9,7 +9,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
+
+import "../stylesheets/GeneralInfo.css";
+import "../stylesheets/All_Components.css";
 
 const GeneralInfo = ({ ghUrl }) => {
   /*
@@ -129,48 +133,56 @@ const GeneralInfo = ({ ghUrl }) => {
   }));
 
   return (
-    <div>
-      <h1>General Info</h1>
-      <h1>{repoName}</h1>
-      <p>Description: {description}</p>
-      <p>Date Created: {moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</p>
-      <p>Date Updated: {moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</p>
-      <h2>Total Commits: {commitTotal}</h2>
-      <h2>Top Contributors:</h2>
-      {/* The contributors need to be limited to a top 5 */}
-      {contributors.splice(0, 5).map((contributor, i) => {
-        return (
-          <div key={i}>
-            <li>{contributor.login}</li>
-            <li>{contributor.contributions}</li>
-            <li>
-              <img src={contributor.avatar_url} alt="avatar" />
-            </li>
+    <Fragment>
+        <div className="General_Info_Box componentBox">
+          <h1>General Info</h1>
+        </div>
+        <div className="Contributors_Box componentBox">
+          <h1>Contributors</h1>
+          <h2>{repoName}</h2>
+          <p>Description: {description}</p>
+          <p>Date Created: {moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</p>
+          <p>Date Updated: {moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</p>
+          <h2>Total Commits: {commitTotal}</h2>
+          <h2>Top Contributors:</h2>
+          {/* The contributors need to be limited to a top 5 */}
+          {contributors.splice(0, 5).map((contributor, i) => {
+            return (
+              <div key={i}>
+                <li>{contributor.login}</li>
+                <li>{contributor.contributions}</li>
+                <li>
+                  <img src={contributor.avatar_url} alt="avatar" />
+                </li>
+              </div>
+            );
+          })}
+          <h2>Contributions Chart</h2>
+          <div style={{ height: "400px" }}>
+          <ResponsiveContainer width="50%" height={400}>
+            <BarChart
+              data={chartData}
+              margin={{ top: 20, right: 20, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" stroke="#8884d8" />
+              <YAxis />
+              <Tooltip
+                labelStyle={{ color: '#000' }}
+                formatter={(value, name, entry) => {
+                  const percentage = (value / commitTotal) * 100;
+                  return [`${value} (${percentage.toFixed(2)}%)`, name];
+                }}
+              />
+              <Legend verticalAlign="top" align="right" height={30} />
+              <Bar name="Contributions" dataKey="contributions" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+            
           </div>
-        );
-      })}
-      <h2>Contributions Chart</h2>
-      <div style={{ height: "400px" }}>
-        <BarChart
-          width={700}
-          height={400}
-          data={chartData}
-          margin={{ top: 20, right: 20, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" stroke="#8884d8" />
-          <YAxis />
-          <Tooltip
-            formatter={(value, name, entry) => {
-              const percentage = (value / commitTotal) * 100;
-              return [`${value} (${percentage.toFixed(2)}%)`, name];
-            }}
-          />
-          <Legend verticalAlign="top" align="right" height={30} />
-          <Bar name="Contributions" dataKey="contributions" fill="#8884d8" />
-        </BarChart>
       </div>
-    </div>
+    </Fragment>
+    
   );
 };
 
