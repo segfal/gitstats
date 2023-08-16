@@ -139,30 +139,56 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
 
     if (submit) { // if submit is true, display the chart
         return (
-            <div className='TimeToMergeBox componentBox'>
-               
-                <h1>Time to Merge</h1>
-                <h2>On average, pull requests are in review for {hourMinuteSeconds(timeToMerge)}</h2>
-                    
-                    <ResponsiveContainer width="50%" height={300}>
-                        <LineChart data={mergeArray} margin={{ left: 20 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" tick={false}/>
-                            <YAxis allowDecimals={false}> 
-                                <Label value="Time In Hours" position="insideLeft" angle={-90} dy={40} />
-                            </YAxis>
-                            <Tooltip labelStyle={{ color: '#000' }} formatter={(value, name, props) => [formatValue(value), "Time to merge "]} />
-                            {/* <Tooltip  content={<CustomTooltip />}/> */}
+          <div className="TimeToMergeBox componentBox">
+            <h1>Time to Merge</h1>
+            <h2>
+              On average, pull requests are in review for
+              <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
+                {hourMinuteSeconds(timeToMerge)}
+              </div>
+            </h2>
 
-                            <Legend iconType='line' iconSize={18}/>
-                            <Line type="monotone" name="Pull Requests" dataKey="time" stroke="#8884d8" />
-                        </LineChart>
-                    </ResponsiveContainer>
-                <p>Note : Only calculates up to the newest 100 pull requests</p>
-                <p>Latest approve pull request was merge on {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}</p>
+            <ResponsiveContainer width="90%" height={300}>
+              <LineChart
+                data={mergeArray}
+                margin={{ left: 20, bottom: 20, top: 30 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis stroke="#8884d8" dataKey="name" tick={false}/>
+                <YAxis allowDecimals={false}>
+                  <Label
+                    value="Time In Hours"
+                    position="insideLeft"
+                    angle={-90}
+                    dy={40}
+                  />
+                </YAxis>
+                <Tooltip
+                  labelStyle={{ color: "#000" }}
+                  formatter={(value, name, props) => [
+                    formatValue(value),
+                    "Time to merge ",
+                  ]}
+                />
+                {/* <Tooltip  content={<CustomTooltip />}/> */}
 
-            </div>
-        ) 
+                <Legend iconType="line" iconSize={18} />
+
+                <Line
+                  type="monotone"
+                  name="Pull Requests"
+                  dataKey="time"
+                  stroke="#8884d8"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+            <h4>Note : Only calculates up to the newest 100 pull requests</h4>
+            <h4>
+              Latest approve pull request was merge on{" "}
+              {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}
+            </h4>
+          </div>
+        ); 
     }
 }
 
