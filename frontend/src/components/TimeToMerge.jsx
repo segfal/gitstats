@@ -141,12 +141,21 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
         return (
           <div className="TimeToMergeBox componentBox">
             <h1>Time to Merge</h1>
-            <h2>
+            <h3>
               On average, pull requests are in review for
               <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
                 {hourMinuteSeconds(timeToMerge)}
               </div>
-            </h2>
+            </h3>
+
+            <h3>
+              Latest approve pull request was merge on
+              <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
+                {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}
+              </div>
+            </h3>
+
+            <h4 className='note'>Note : Only calculates up to the newest 100 pull requests.</h4>
 
             <ResponsiveContainer width="90%" height={300}>
               <LineChart
@@ -154,7 +163,7 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
                 margin={{ left: 20, bottom: 20, top: 30 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis stroke="#8884d8" dataKey="name" tick={false}/>
+                <XAxis stroke="#8884d8" dataKey="name" tick={false} />
                 <YAxis allowDecimals={false}>
                   <Label
                     value="Time In Hours"
@@ -182,11 +191,6 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
                 />
               </LineChart>
             </ResponsiveContainer>
-            <h4>Note : Only calculates up to the newest 100 pull requests</h4>
-            <h4>
-              Latest approve pull request was merge on{" "}
-              {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}
-            </h4>
           </div>
         ); 
     }
