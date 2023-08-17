@@ -11,7 +11,6 @@ function App() {
     <div>
       <div id="particles-js">
         <ParticleBackground />
-        <LandingPage />
       </div>
 
       {/* Routes */}

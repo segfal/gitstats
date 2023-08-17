@@ -6,6 +6,8 @@ import GitHubButton from "./githubOAuth/GithubButton";
 import { useNavigate } from "react-router-dom";
 import UnreviewedPR from "../components/UnreviewedPR";
 import GeneralInfo from "../components/GeneralInfo";
+import TimeToMerge from "../components/TimeToMerge";
+import DeploymentFreq from "../components/DeploymentFreq";
 import axios from "axios";
 import "../css/landingCSS.css";
 
@@ -33,7 +35,7 @@ function LandingPage() {
     setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
-    navigate("/repo");
+    <Link to="/repo" userName={userName} repoName={repoName} ghUrl={ghUrl} />;
   };
 
   const loginWithGithub = () => {
@@ -166,6 +168,28 @@ function LandingPage() {
           </div>
         </>
       )}
+
+      <div>
+        <GeneralInfo ghUrl={ghUrl} />
+
+        <TimeToMerge
+          submit={submit}
+          userName={userName}
+          repoName={repoName}
+          access_token={localStorage.getItem("accessToken")}
+        />
+
+        <DeploymentFreq
+          ghUrl={ghUrl}
+          access_token={localStorage.getItem("accessToken")}
+        />
+
+        <UnreviewedPR
+          userName={userName}
+          repoName={repoName}
+          access_token={localStorage.getItem("accessToken")}
+        ></UnreviewedPR>
+      </div>
     </div>
   );
 }
