@@ -166,9 +166,6 @@ const GeneralInfo = ({ ghUrl }) => {
                     alt="avatar"
                     className="avatar"
                   />
-                  {isTopContributor && (
-                    <span className="top-contributors">👑</span>
-                  )}
                   <div>
                     <p
                       style={{
@@ -176,9 +173,12 @@ const GeneralInfo = ({ ghUrl }) => {
                         fontWeight: "bold",
                         color: isTopContributor ? "#FFD700" : "yellow",
                       }}>
-                      {contributor.login}
+                      {contributor.login}{" "}
+                      {isTopContributor && (
+                        <span className="top-contributors">👑</span>
+                      )}
                     </p>
-                    <p style={{ margin: 0, color: "yellow" }}>
+                    <p style={{ margin: 0, color: "white" }}>
                       Contributions: {contributor.contributions}
                     </p>
                   </div>
