@@ -1,0 +1,37 @@
+/* For edits that goes to every/most components */
+/* Use H1 fror header only */
+
+.green {
+    /* to green any text, add this as a className in <span>, <div>, <p>, etc */
+    color: #2cb67d;
+}
+
+.componentBox {
+    /* All uniform styling for every metric box */
+    background-color: #16161a;
+    color: #fffffe;
+    text-align: center;
+    margin: 20px;
+    border-radius: 15px;
+}
+
+.componentBox > h1 {
+    /* all <h1> in the component boxes*/
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 2px solid #fffffe;
+}
+
+.componentBox > h2 {
+    /* all <h2> in the component boxes*/
+}
+
+.All_Components_Box {
+    /* the container that holds all the metric box*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    max-width: 90%;
+    margin: 0 auto;
+}

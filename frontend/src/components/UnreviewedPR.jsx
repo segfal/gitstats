@@ -2,22 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 
+import "../stylesheets/UnreviewedPR.css"
+import "../stylesheets/All_Components.css";
+
 const UnreviewedPR = ({ userName, repoName, access_token }) => {
   const [allMergedPR, setAllMergedPR] = useState(0);
   const [uncommentedPR, setUncommentedPR] = useState(0);
-  // colors dont work hahahhahahah
   const [pieData, setPieData] = useState([
     {
+      color: "hsla(155, 61%, 44%, 1)",
       id: "reviewed",
       label: "Reviewed",
       value: 0,
-      color: "hsl(337, 70%, 50%)",
     },
     {
+      color: "hsla(255, 83%, 65%, 1)",
       id: "unreviewed",
       label: "Unreviewed",
       value: 0,
-      color: "hsl(120, 70%, 50%)",
     },
   ]);
 
@@ -80,11 +82,20 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
   }, [allMergedPR, uncommentedPR]);
 
   return (
-    <>
+    <div className="UnreviewdPR_Box componentBox">
       <h1>UnreviewedPR</h1>
+      <h3>
+        <div>Percentage of unreviewed pull requests</div>
+        <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
+          {getUnreviewedPRPercentage().toFixed(1)}%
+        </div>
+      </h3>
       <div style={{ height: 500 }}>
         <ResponsivePie
           data={pieData}
+          colors={{
+            datum: "data.color",
+          }}
           margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
           innerRadius={0.5}
           padAngle={0.7}
@@ -96,7 +107,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
             modifiers: [["darker", 0.2]],
           }}
           arcLinkLabelsSkipAngle={10}
-          arcLinkLabelsTextColor="#333333"
+          arcLinkLabelsTextColor={{ from: "color" }}
           arcLinkLabelsThickness={2}
           arcLinkLabelsColor={{ from: "color" }}
           arcLabelsSkipAngle={10}
@@ -104,26 +115,6 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
             from: "color",
             modifiers: [["darker", 2]],
           }}
-          defs={[
-            {
-              id: "dots",
-              type: "patternDots",
-              background: "inherit",
-              color: "rgba(255, 255, 255, 0.3)",
-              size: 4,
-              padding: 1,
-              stagger: true,
-            },
-            {
-              id: "lines",
-              type: "patternLines",
-              background: "inherit",
-              color: "rgba(255, 255, 255, 0.3)",
-              rotation: -45,
-              lineWidth: 6,
-              spacing: 10,
-            },
-          ]}
           legends={[
             {
               anchor: "bottom",
@@ -134,7 +125,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
               itemsSpacing: 0,
               itemWidth: 100,
               itemHeight: 18,
-              itemTextColor: "#999",
+              itemTextColor: "#808080",
               itemDirection: "left-to-right",
               itemOpacity: 1,
               symbolSize: 18,
@@ -143,15 +134,47 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
                 {
                   on: "hover",
                   style: {
-                    itemTextColor: "#000",
+                    itemTextColor: "#FFFFFF",
                   },
                 },
               ],
             },
           ]}
+          tooltip={({ datum: { id, value, color } }) => (
+            <div
+              style={{
+                position: "relative",
+                display: "inline-block",
+              }}
+            >
+              <div
+                style={{
+                  padding: 12,
+                  color,
+                  background: "#FFFFFF",
+                  borderRadius: 8,
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: 12,
+                    height: 12,
+                    backgroundColor: color,
+                    marginRight: 8,
+                  }}
+                />
+                <strong>
+                  {id}: {value}
+                </strong>
+              </div>
+            </div>
+          )}
         />
       </div>
-    </>
+    </div>
   );
 };
 

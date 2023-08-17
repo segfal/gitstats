@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useLocation } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import LogoutButton from "./githubOAuth/LogoutButton";
 import GitHubButton from "./githubOAuth/GithubButton";
@@ -8,14 +9,15 @@ import GeneralInfo from "./GeneralInfo";
 import TimeToMerge from "./TimeToMerge";
 import DeploymentFreq from "./DeploymentFreq";
 import axios from "axios";
-import "../css/landingCSS.css";
+import "../stylesheets/landingCSS.css";
+import "../stylesheets/All_Components.css";
 
 const CLIENT_ID = "Iv1.997eaea3b91426c1";
 
 function RepoDataPage(props) {
   const { userName, repoName, ghUrl } = props;
   return (
-    <div>
+    <div className="All_Components_Box">
       <GeneralInfo ghUrl={ghUrl} />
 
       <TimeToMerge

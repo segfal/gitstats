@@ -1,3 +1,4 @@
+/*
 #particles-js {
   position: absolute;
   width: 100%;
@@ -8,6 +9,7 @@
   background-size: cover;
   background-position: 50% 50%;
 } /* ---- stats.js ---- */
+/*
 .count-particles {
   background: #000022;
   position: absolute;
@@ -39,3 +41,4 @@
 .count-particles {
   border-radius: 0 0 3px 3px;
 }
+*/
