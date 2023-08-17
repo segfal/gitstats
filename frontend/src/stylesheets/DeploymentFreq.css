@@ -1,0 +1,46 @@
+/* DeploymentFreq components only */
+
+.Deployment_Box {
+    /* 
+        change backgroundColor and all uniform styling in All_Components > componentBox
+        background-color: cadetblue;
+    */
+    width: 80%;
+    padding: 20px;
+}
+
+.DeployChart {
+    margin: 0 auto;
+}
+
+.chartTitle {
+    margin-bottom: 0;
+    margin-top: 40px;
+}
+
+.Deployment_Box > p {
+    font-size: 18px;
+}
+
+.note {
+    color: #ad94b8;
+    font-style: italic;
+}
+
+.deployButton {
+    margin-bottom: 15px;
+}
+
+.purpleButton {
+    background-color: #7f5af0;
+    color: #fffffe;
+    width: 20vw;
+    max-width: 100px;
+    height: 35px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.purpleButton:hover {
+    background-color: #2cb67d;
+}

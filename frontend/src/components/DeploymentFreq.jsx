@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, ResponsiveContainer } from "recharts";
+
+import "../stylesheets/DeploymentFreq.css"
+import "../stylesheets/All_Components.css";
 
 // Deployment Frequency: how often code is successfully deployed into production
 // avg time btwn each deployments: ([sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]),
@@ -31,7 +34,11 @@ function DeploymentFreq({ ghUrl, access_token }) {
       try {
         let newArr = [];
         let page = 1;
-        const response = await axios.get(deploymentUrl);
+        const response = await axios.get(deploymentUrl, {
+          headers: {
+            Authorization: "Bearer " + access_token,
+          },
+        });
         newArr = response.data;
 
         while (newArr.length >= 100 * page && newArr.length < 300) {
@@ -60,7 +67,8 @@ function DeploymentFreq({ ghUrl, access_token }) {
   //if fetched deployment data is empty, display this msg
   if (!deployData[0]) {
     return (
-      <div>
+      <div className="Deployment_Box componentBox">
+        <h1>Deployment Frequency</h1>
         <h2>NO DEPLOYMENT DATA</h2>
       </div>
     );
@@ -173,25 +181,27 @@ function DeploymentFreq({ ghUrl, access_token }) {
   const renderMonthsChart = () => {
     return (
       <div>
-        <h2>Deployments Within the Last 12 Months</h2>
-        <BarChart
-          width={700}
-          height={400}
-          data={monthChartData}
-          margin={{ bottom: 80, right: 80 }}
-        >
-          <XAxis
-            dataKey="name"
-            stroke="#8884d8"
-            angle={45}
-            textAnchor="start"
-          />
-          <YAxis />
-          <Tooltip />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Legend verticalAlign='top' align='right' height={30}/>
-          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
-        </BarChart>
+        <h2 className="chartTitle">Deployments Within the Last 12 Months</h2>
+        <ResponsiveContainer className="DeployChart" width="90%" height={400}>
+          <BarChart
+            data={monthChartData}
+            margin={{ bottom: 40, right: 40 }}
+            stroke="white"
+          >
+            <XAxis
+              dataKey="name"
+              stroke="#8884d8"
+              angle={45}
+              textAnchor="start"
+            />
+            <YAxis stroke="#fffffe" />
+            <Tooltip labelStyle={{ color: '#000' }}/>
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <Legend verticalAlign='top' align='right' height={30}/>
+            <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+          </BarChart>
+        </ResponsiveContainer>
+        
       </div>
     );
   };
@@ -199,49 +209,56 @@ function DeploymentFreq({ ghUrl, access_token }) {
   const renderWeeksChart = () => {
     return (
       <div>
-        <h2>Deployments Within the Last 10 Week</h2>
-        <BarChart
-          width={700}
-          height={400}
-          data={weeksChartData}
-          margin={{ bottom: 80, right: 80 }}
-        >
-          <XAxis
-            dataKey="name"
-            stroke="#8884d8"
-            angle={45}
-            textAnchor="start"
-          />
-          <YAxis />
-          <Tooltip />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
-        </BarChart>
+        <h2 className="chartTitle">Deployments Within the Last 10 Week</h2>
+        <ResponsiveContainer width="90%" height={400} className="DeployChart">
+          <BarChart
+            data={weeksChartData}
+            margin={{ bottom: 70, right: 40 }}
+            stroke="white"
+          >
+            <XAxis
+              dataKey="name"
+              stroke="#8884d8"
+              angle={45}
+              textAnchor="start"
+            />
+            <YAxis stroke="#fffffe" />
+            <Tooltip labelStyle={{ color: '#000' }}/>
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <Legend verticalAlign='top' align='right' height={30}/>
+            <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+          </BarChart>
+        </ResponsiveContainer>
+        
       </div>
     );
   };
 
+  // for edinting the chart
   const renderDaysChart = () => {
     return (
-      <div>
-        <h2>Deployments Within the Last 20 Days</h2>
-        <BarChart
-          width={700}
-          height={400}
-          data={daysChartData}
-          margin={{ bottom: 80, right: 80 }}
-        >
-          <XAxis
-            dataKey="name"
-            stroke="#8884d8"
-            angle={45}
-            textAnchor="start"
-          />
-          <YAxis />
-          <Tooltip />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
-        </BarChart>
+      <div >
+        <h2 className="chartTitle">Deployments Within the Last 20 Days</h2>
+        <ResponsiveContainer className="DeployChart" width="90%" height={400}>
+            <BarChart
+            data={daysChartData}
+            margin={{ bottom: 50, right: 40 }}
+            stroke="white"
+          >
+            <XAxis
+              dataKey="name"
+              stroke="#8884d8"
+              angle={45}
+              textAnchor="start"
+            />
+            <YAxis stroke="#fffffe" />
+            <Tooltip labelStyle={{ color: '#000' }}/>
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <Legend verticalAlign='top' align='right' height={30}/>
+            <Bar dataKey="# of Deployment" fill="#8884d8" barSize={30} />
+          </BarChart>
+        </ResponsiveContainer>
+        
       </div>
     );
   };
@@ -251,30 +268,32 @@ function DeploymentFreq({ ghUrl, access_token }) {
   const handleDays = () => setTypeOfTime("days");
 
   return (
-    <div>
+    <div className="Deployment_Box componentBox">
       <h1>Deployment Frequency</h1>
+      <h3>
+        Deployed <span className="green">{deployDataLength===300?"over 300 times":deployDataLength+" times"}</span>
+      </h3>
+      <h3>
+        Last deployment was deployed on 
+        <br /> 
+        <i className="green">{latestDeployment}</i>
+      </h3>
+      <h3>
+        Average time between deployments
+        <br />
+        <i className="green">{weeks} weeks, {days} days, {hours} hours, {minutes} minutes, <br /> {seconds} seconds</i>
+      </h3>
+      <h4 className="note">Note: The above calulations only calculates up to 300 deployments.</h4>
       <div>
         {typeOfTime === "months" && renderMonthsChart()}
         {typeOfTime === "weeks" && renderWeeksChart()}
         {typeOfTime === "days" && renderDaysChart()}
       </div>
-      <div>
-        <button onClick={handleMonths}>Months</button>
-        <button onClick={handleWeeks}>Weeks</button>
-        <button onClick={handleDays}>Days</button>
+      <div className="deployButton">
+        <button className="purpleButton" onClick={handleMonths}>Months</button>
+        <button className="purpleButton" onClick={handleWeeks}>Weeks</button>
+        <button className="purpleButton" onClick={handleDays}>Days</button>
       </div>
-      <p>
-        <u>Last deployment was deployed on</u>: {latestDeployment}
-        <br />
-        <u>Average time between deployments</u>: {weeks} weeks, {days} days,{" "}
-        {hours} hours, {minutes} minutes, {seconds} seconds
-        <br />
-        <u>Total Deployments</u>: {deployDataLength===300?"Over 300 Deployments":deployDataLength+" Deployments"}
-        <i>
-          <br/>
-          <u>Note</u>: The above calulations only calculates up to 300 deployments.
-        </i>
-      </p>
     </div>
   );
 }
