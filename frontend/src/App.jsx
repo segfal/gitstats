@@ -9,6 +9,7 @@ import TimeToMerge from "./components/TimeToMerge";
 import axios from "axios";
 
 import UnreviewedPR from "./components/UnreviewedPR";
+import RecentRepos from "./components/RecentRepos";
 
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
@@ -145,7 +146,7 @@ function App() {
           <button type="submit">Enter</button>
         </form>
       </div>
-
+      
       {submit && <GeneralInfo ghUrl={ghUrl} />}
 
       {localStorage.getItem("accessToken") && (
