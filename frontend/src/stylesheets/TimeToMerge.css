@@ -7,3 +7,8 @@
     /* background-color: burlywood; */
     width: 60%;
 }
+
+.note {
+    color: #ad94b8;
+    font-style: italic;
+}
