@@ -4,13 +4,22 @@ import GitHubButton from "./components/githubOAuth/GithubButton";
 import LogoutButton from "./components/githubOAuth/LogoutButton";
 import GeneralInfo from "./components/GeneralInfo";
 import DeploymentFreq from "./components/DeploymentFreq";
-import { GiSpyglass, GiSpy, GiMagnifyingGlass, GiCyberEye, GiDominoMask, GiEyeTarget, GiEyeball, GiNinjaMask } from "react-icons/gi";import UnreviewedPR from "./components/UnreviewedPR";
+import {
+  GiSpyglass,
+  GiSpy,
+  GiMagnifyingGlass,
+  GiCyberEye,
+  GiDominoMask,
+  GiEyeTarget,
+  GiEyeball,
+  GiNinjaMask,
+} from "react-icons/gi";
+import UnreviewedPR from "./components/UnreviewedPR";
 
 import TimeToMerge from "./components/TimeToMerge";
 import axios from "axios";
 
-import "./stylesheets/All_Components.css"
-
+import "./stylesheets/All_Components.css";
 
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
@@ -129,7 +138,6 @@ function App() {
 
   return (
     <div>
-      
       {localStorage.getItem("accessToken") ? (
         <>
           <LogoutButton handleLogout={handleLogout} />
@@ -139,8 +147,26 @@ function App() {
           <GitHubButton loginWithGithub={loginWithGithub}></GitHubButton>
         </>
       )}
-      <div> 
-      <div><h1>Git<GiSpy/>Snitch</h1></div>
+      <div>
+        <div>
+          <span class="logo-font">
+            <h1>
+            <GiSpy />
+              Git
+              Snitch
+            </h1>
+            <h1>
+              Git
+              <GiSpy />
+              Snitch
+            </h1>
+            <h1>
+            <GiSpy />
+              Git
+              Snitch
+            </h1>
+          </span>
+        </div>
         <h1>GitHub Stats</h1>
         <form onSubmit={handleSubmit}>
           {/* <form> */}
@@ -177,8 +203,6 @@ function App() {
           />
         )}
       </div>
-
-      
 
       <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
       <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button>
