@@ -29,10 +29,12 @@ const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function App() {
   return (
-    <div id="particles-js">
-      <div>
-        <ParticleBackground />
-        <LandingPage />
+    <div>
+      <div id="particles-js">
+        <div>
+          <ParticleBackground />
+          <LandingPage />
+        </div>
       </div>
     </div>
   );

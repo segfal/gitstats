@@ -109,11 +109,11 @@ function LandingPage() {
     }
   };
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       getUserData();
     }
-  }, [localStorage.getItem("accessToken")]); */
+  }, [localStorage.getItem("accessToken")]);
 
   // const repoSearch = async() => {
   //   const response = await fetch(`${ghUrl}${userName}/${repoUrl}`);
@@ -148,7 +148,7 @@ function LandingPage() {
           </nav>
           {localStorage.getItem("accessToken") && (
             <h1 className="userGreeting">
-              Welcome to your GitStats account, {userData.userName}!
+              Welcome to your GitStats account, {userData.login}!
             </h1>
           )}
           <div className="landingTitle">
