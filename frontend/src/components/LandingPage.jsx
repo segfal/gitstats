@@ -10,7 +10,7 @@ import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
 
-const CLIENT_ID = "Iv1.997eaea3b91426c1";
+const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function LandingPage() {
   const [rerender, setRerender] = useState(false);
@@ -109,11 +109,11 @@ function LandingPage() {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       getUserData();
     }
-  }, [localStorage.getItem("accessToken")]);
+  }, [localStorage.getItem("accessToken")]); */
 
   // const repoSearch = async() => {
   //   const response = await fetch(`${ghUrl}${userName}/${repoUrl}`);

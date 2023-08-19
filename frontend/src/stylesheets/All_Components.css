@@ -1,5 +1,7 @@
 /* For edits that goes to every/most components */
 /* Use H1 fror header only */
+@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 
 .green {
     /* to green any text, add this as a className in <span>, <div>, <p>, etc */
@@ -34,4 +36,8 @@
     
     max-width: 90%;
     margin: 0 auto;
+}
+
+body {
+    font-family: 'Averia Serif Libre', cursive;
 }
