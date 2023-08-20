@@ -57,7 +57,7 @@ function LandingPage() {
       const getAccessToken = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:4000/api/login/getAccessToken?code=${codeParam}`
+            `https://gitstats-production.up.railway.app/api/login/getAccessToken?code=${codeParam}`
           );
           console.log(response.data.access_token);
           localStorage.setItem("accessToken", response.data.access_token);
@@ -73,7 +73,7 @@ function LandingPage() {
   const getUserData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/login/getUserData`,
+        `https://gitstats-production.up.railway.app/api/login/getUserData`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("accessToken"),
