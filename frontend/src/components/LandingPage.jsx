@@ -42,7 +42,7 @@ function LandingPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.assign(`http://localhost:5173/`);
+    window.location.assign(`https://gitsnitch.vercel.app/`);
   };
 
   useEffect(() => {
