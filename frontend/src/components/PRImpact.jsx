@@ -46,7 +46,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
 
               let prs = response.data.items      
               let page = 1;
-              while (prs.length >= 100 * page && prs.length < 300) {
+              while (prs.length >= 100 * page && prs.length < 200) {
                 page++;
                 const response2 = await axios.get(
                   `${Url}/+is:pr+is:merged&per_page=100&page=${page}`,
@@ -199,7 +199,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
   return (
     <div className='PRImpactBox componentBox'>
         <h1>Pull Request Impact</h1>
-        <p className='note'>Note : Only calculates up to the newest 200 pull requests.</p>
+        <p className='note'>Note : Only calculates up to the newest 200 merged pull requests.</p>
         
         {renderChart()}
 
