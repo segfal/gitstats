@@ -9,7 +9,11 @@ import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
+
 import {GiSpy} from "react-icons/gi";
+
+import RecentRepos from "./RecentRepos";
+
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function LandingPage() {
@@ -19,7 +23,6 @@ function LandingPage() {
   const [repoUrl, setRepoUrl] = useState("");
   const [userName, setUserName] = useState("");
   const [repoName, setRepoName] = useState("");
-  // const [ghUrl, setGhUrl] = useState('');
   const [submit, setSubmit] = useState(false);
   const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
   useEffect(() => {
@@ -212,7 +215,8 @@ function LandingPage() {
 
       {localStorage.getItem("accessToken") && !submit ? (
         <div>
-          <h1 className="landingMessageBottom">Your Recent Repositories</h1>
+          {console.log(userData.login)}
+          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
         </div>
       ) : (
         <div>
