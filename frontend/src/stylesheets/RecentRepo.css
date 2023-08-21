@@ -1,0 +1,57 @@
+.repo-name {
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.desc {
+    color: white;
+    font-size: 15px;
+    text-align: center;
+}
+
+.repos_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 20px 80px;
+}
+
+.dates {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.card_container {
+    position: relative;
+    z-index: 1000;
+    width: 650px;
+    background-color: #16161A;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 30px;
+}
+
+hr{
+    width: 100%;
+    border: 1px solid #ffffff;
+}; 
+
+.view-stats {
+    position: relative;
+    z-index: 1000;
+    background-color: #2CB67D;
+    color: white;
+    padding: 5px;
+    width: 20vw;
+}
+
+.view-stats:hover {
+    background-color: white;
+    color: #2CB67D;
+}
