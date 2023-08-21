@@ -32,6 +32,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
     const [totalCommit, setTotalCommit] = useState(0);
     const [filesChange, setFilesChange] = useState(0);
     const [loading, setLoading] = useState(true);
+    console.log("Hello World")
 
     useEffect(() => {
         const PullSearch = async() => {
@@ -145,6 +146,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
                         data={data}
                         margin={{ left: 20, bottom: 20, top: 30 }}
                     >
+                        
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis stroke="#8884d8" dataKey="name" tick={false} />
                         <YAxis stroke="#fffffe" allowDecimals={false} />
