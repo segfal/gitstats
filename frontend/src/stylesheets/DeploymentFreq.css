@@ -32,6 +32,8 @@
 }
 
 .purpleButton {
+    position: relative;
+    z-index: 1000;
     background-color: #7f5af0;
     color: #fffffe;
     width: 20vw;
