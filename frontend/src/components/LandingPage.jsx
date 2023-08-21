@@ -143,7 +143,7 @@ function LandingPage() {
 
   return (
     <div>
-
+      
       {!submit ? (
         <div className="navBar">
           <nav
@@ -163,6 +163,7 @@ function LandingPage() {
             </h1>
       
         )}
+        <>
         {!submit && (
           <div className="landingTitle">
             <h1>GitHub Stats</h1>
@@ -220,7 +221,9 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
+        </>
       </div>
+
 
       {localStorage.getItem("accessToken") && !submit && (
         <div>
