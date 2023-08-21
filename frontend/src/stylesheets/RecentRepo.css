@@ -16,19 +16,29 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
+    margin: 20px 80px;
+}
+
+.dates {
+    color: white;
+    font-size: 20px;
+    text-align: center;
 }
 
 .card_container {
-    width: 20%;
+    width: 650px;
     background-color: #16161A;
     padding: 10px;
-    margin: 20px;
     border-radius: 5px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin: 30px;
 }
+
+hr{
+    width: 100%;
+    border: 1px solid #ffffff;
+}; 
 
 .view-stats {
     background-color: #2CB67D;

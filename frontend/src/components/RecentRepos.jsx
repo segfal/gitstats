@@ -34,6 +34,7 @@ const RecentRepos = ({userName, access_token}) => {
         <div>
             <h1 className='landingMessageBottom'>Your Recent Repositories</h1>
             {console.log("recent repos: ", userRepos)}
+            <div className='repos_container'>
             {
                 userRepos.map((repo) => {
                     return( <RecentRepoCard repo = {repo}/> )
@@ -41,6 +42,7 @@ const RecentRepos = ({userName, access_token}) => {
                     console.log(repo)
                 })
             }
+            </div>
             {/* <div className='repos_container'>
                 <RecentRepoCard repo={userRepos.get(1)}/>
                 <RecentRepoCard repo={userRepos.get(2)}/>
