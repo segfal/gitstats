@@ -12,6 +12,7 @@ const RecentRepoCard = ({repo}) => {
     const [isCopied, setIsCopied] = useState(false);
 
     const handleCopyLink = () => {
+        console.log("copying link");
         navigator.clipboard.writeText(`https://api.github.com/repos/${repo.full_name}`).then(
           function () {
             console.log('Copying to clipboard was successful!');

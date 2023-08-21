@@ -27,6 +27,8 @@
 }
 
 .card_container {
+    position: relative;
+    z-index: 1000;
     width: 650px;
     background-color: #16161A;
     padding: 10px;
@@ -41,8 +43,15 @@ hr{
 }; 
 
 .view-stats {
+    position: relative;
+    z-index: 1000;
     background-color: #2CB67D;
     color: white;
     padding: 5px;
-    width: 50%;
+    width: 20vw;
+}
+
+.view-stats:hover {
+    background-color: white;
+    color: #2CB67D;
 }

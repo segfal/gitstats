@@ -1,3 +1,5 @@
 #particles-js {
   background-color: #242629;
+
+  z-index: -1000;
 }
