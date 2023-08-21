@@ -161,7 +161,7 @@ function LandingPage() {
             <h1 className="userGreeting">
               Welcome to your GitStats account, {userData.login}!
             </h1>
-          </>
+      
         )}
         {!submit && (
           <div className="landingTitle">
