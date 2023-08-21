@@ -10,10 +10,6 @@ import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
 
-import {GiSpy} from "react-icons/gi";
-
-import RecentRepos from "./RecentRepos";
-
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function LandingPage() {
@@ -143,27 +139,25 @@ function LandingPage() {
 
   return (
     <div>
-      
-      {!submit ? (
-        <div className="navBar">
-          <nav
-            class="navbar bg-dark border-bottom border-body"
-            data-bs-theme="dark"
-          >
-            <h1 className="headingNav logo-font">Git<GiSpy/>Snitch</h1>
-            {localStorage.getItem("accessToken") ? (
-              <LogoutButton handleLogout={handleLogout} />
-            ) : (
-              <GitHubButton loginWithGithub={loginWithGithub} />
-            )}
-          </nav>
-          {localStorage.getItem("accessToken") && (
+      <div className="navBar">
+        <nav
+          class="navbar bg-dark border-bottom border-body"
+          data-bs-theme="dark"
+        >
+          <h1 className="headingNav">GitStats Logo</h1>
+          {localStorage.getItem("accessToken") ? (
+            <LogoutButton handleLogout={handleLogout} />
+          ) : (
+            <GitHubButton loginWithGithub={loginWithGithub} />
+          )}
+        </nav>
+        {localStorage.getItem("accessToken") && !submit && (
+          <>
             <h1 className="userGreeting">
               Welcome to your GitStats account, {userData.login}!
             </h1>
-      
+          </>
         )}
-        <>
         {!submit && (
           <div className="landingTitle">
             <h1>GitHub Stats</h1>
@@ -221,14 +215,11 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
-        </>
       </div>
-
 
       {localStorage.getItem("accessToken") && !submit && (
         <div>
-          {console.log(userData.login)}
-          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
+          <h1 className="landingMessageBottom">Your Recent Repositories</h1>
         </div>
       )}
 
