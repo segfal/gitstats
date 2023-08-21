@@ -10,16 +10,11 @@ import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
 
-import {GiSpy} from "react-icons/gi";
-
-import RecentRepos from "./RecentRepos";
-
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 
 function LandingPage() {
   const [rerender, setRerender] = useState(false);
   const [userData, setUserData] = useState({});
-  const [count, setCount] = useState(0);
   const [repoUrl, setRepoUrl] = useState("");
   const [userName, setUserName] = useState("");
   const [repoName, setRepoName] = useState("");
@@ -43,14 +38,13 @@ function LandingPage() {
     );
   };
 
+  // change to deployed frontend url when everything is done 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.assign(`https://gitsnitch.vercel.app/`);
+    window.location.assign(`http://localhost:5173/`);
   };
 
   useEffect(() => {
-    // access token stored in local storage for now
-    // http://localhost:5173/?code=46052fed06f20abbef61
     const query = window.location.search;
     const urlParams = new URLSearchParams(query);
     const codeParam = urlParams.get("code");
@@ -71,6 +65,15 @@ function LandingPage() {
       };
       getAccessToken();
     }
+
+    if(localStorage.getItem("flag")){
+      setUserName(localStorage.getItem("userName"));
+      setRepoName(localStorage.getItem("repoName"));
+      setSubmit(true);
+      localStorage.removeItem("flag");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("repoName");
+    }
   }, []);
 
   const getUserData = async () => {
@@ -90,27 +93,27 @@ function LandingPage() {
     }
   };
 
-  const getUserRateLimit = async () => {
-    try {
-      const response = await axios.get(`https://api.github.com/rate_limit`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("accessToken"),
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getUserRateLimit = async () => {
+  //   try {
+  //     const response = await axios.get(`https://api.github.com/rate_limit`, {
+  //       headers: {
+  //         Authorization: "Bearer " + localStorage.getItem("accessToken"),
+  //       },
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const getRateLimit = async () => {
-    try {
-      const response = await axios.get(`https://api.github.com/rate_limit`);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getRateLimit = async () => {
+  //   try {
+  //     const response = await axios.get(`https://api.github.com/rate_limit`);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -136,108 +139,130 @@ function LandingPage() {
 
   return (
     <div>
-      {!submit ? (
-        <div className="navBar">
-          <nav
-            class="navbar bg-dark border-bottom border-body"
-            data-bs-theme="dark"
-          >
-            <h1 className="headingNav logo-font">Git<GiSpy/>Snitch</h1>
-            {localStorage.getItem("accessToken") ? (
-              <LogoutButton handleLogout={handleLogout} />
-            ) : (
-              <GitHubButton loginWithGithub={loginWithGithub} />
-            )}
-          </nav>
-          {localStorage.getItem("accessToken") && (
+      <div className="navBar">
+        <nav
+          class="navbar bg-dark border-bottom border-body"
+          data-bs-theme="dark"
+        >
+          <h1 className="headingNav">GitStats Logo</h1>
+          {localStorage.getItem("accessToken") ? (
+            <LogoutButton handleLogout={handleLogout} />
+          ) : (
+            <GitHubButton loginWithGithub={loginWithGithub} />
+          )}
+        </nav>
+        {localStorage.getItem("accessToken") && !submit && (
+          <>
             <h1 className="userGreeting">
               Welcome to your GitStats account, {userData.login}!
             </h1>
-          )}
+          </>
+        )}
+        {!submit && (
           <div className="landingTitle">
             <h1>GitHub Stats</h1>
           </div>
-          <div className="landingContainer">
-            <h1 className="landingMessage">
-              View information on any Github Repository below
-            </h1>
-            <form onSubmit={handleSubmit}>
-              <div className="input-group mb-3 input-group-lg">
-                <input
-                  type="text"
-                  name="repoUrl"
-                  id="repoUrl"
-                  className="form-control"
-                  placeholder="Enter a Github Repository link here)"
-                  onChange={(e) => setRepoUrl(e.target.value)}
-                  required
-                />
-                <button
-                  type="submit"
-                  id="repoSearchButton"
-                  className="btn btn-success btn-lg"
-                >
-                  <i class="bi bi-search" id="searchIcon"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : (
-        <div className="All_Components_Box">
-          {submit && <GeneralInfo ghUrl={ghUrl} />}
-
-          {localStorage.getItem("accessToken") && submit && (
-            <TimeToMerge
-              submit={submit}
-              userName={userName}
-              repoName={repoName}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-
-          {localStorage.getItem("accessToken") && submit && (
-            <UnreviewedPR
-              userName={userName}
-              repoName={repoName}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-
-          {localStorage.getItem("accessToken") && submit && (
-            <DeploymentFreq
-              ghUrl={ghUrl}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-        </div>
-      )}
-
-      {localStorage.getItem("accessToken") && !submit ? (
-        <div>
-          {console.log(userData.login)}
-          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
-        </div>
-      ) : (
-        <div>
-          <h1 className="landingMessageBottom">
-            To view more stats and personalized information, login in with your
-            Github account
+        )}
+        <div className="landingContainer">
+          <h1 className="landingMessage">
+            View information on any Github Repository below
           </h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group mb-3 input-group-lg">
+              <input
+                type="text"
+                name="repoUrl"
+                id="repoUrl"
+                className="form-control"
+                placeholder="Enter a Github Repository link here)"
+                onChange={(e) => setRepoUrl(e.target.value)}
+                required
+              />
+              <button
+                type="submit"
+                id="repoSearchButton"
+                className="btn btn-success btn-lg"
+              >
+                <i class="bi bi-search" id="searchIcon"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="All_Components_Box">
+        {submit && <GeneralInfo ghUrl={ghUrl} />}
+
+        {localStorage.getItem("accessToken") && submit && (
+          <TimeToMerge
+            submit={submit}
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+
+        {localStorage.getItem("accessToken") && submit && (
+          <UnreviewedPR
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+
+        {localStorage.getItem("accessToken") && submit && (
+          <DeploymentFreq
+            ghUrl={ghUrl}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+      </div>
+
+      {localStorage.getItem("accessToken") && !submit && (
+        <div>
+          <h1 className="landingMessageBottom">Your Recent Repositories</h1>
         </div>
       )}
 
-      {!localStorage.getItem("accessToken") ? (
-        <div className="githubLogin">
-          <GitHubButton loginWithGithub={loginWithGithub} />
-        </div>
+      {submit ? (
+        <>
+          {!localStorage.getItem("accessToken") && (
+            <>
+              <div>
+                <h1 className="landingMessageBottom">
+                  To view more stats and personalized information, login in with
+                  your Github account
+                </h1>
+              </div>
+              <div className="githubLogin">
+                <GitHubButton
+                  loginWithGithub={() => {
+                    localStorage.setItem("flag", true);
+                    localStorage.setItem("repoName", repoName);
+                    localStorage.setItem("userName", userName);
+                    loginWithGithub();
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </>
       ) : (
-        <></>
+        <>
+          {!localStorage.getItem("accessToken") && (
+            <>
+              <div>
+                <h1 className="landingMessageBottom">
+                  To view more stats and personalized information, login in with
+                  your Github account
+                </h1>
+              </div>
+              <div className="githubLogin">
+                <GitHubButton loginWithGithub={loginWithGithub} />
+              </div>
+            </>
+          )}
+        </>
       )}
-
-      {/* Buttons for testing 
-      <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
-      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button> */}
     </div>
   );
 }
