@@ -7,6 +7,7 @@ import GeneralInfo from "./GeneralInfo";
 import DeploymentFreq from "./DeploymentFreq";
 import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
+import PRImpact from "./PRImpact";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
 import {GiSpy} from "react-icons/gi";
@@ -140,6 +141,22 @@ function LandingPage() {
 
   return (
     <div>
+
+      {!submit ? (
+        <div className="navBar">
+          <nav
+            className="navbar bg-dark border-bottom border-body"
+            data-bs-theme="dark"
+          >
+            <h1 className="headingNav">GitStats Logo</h1>
+            {localStorage.getItem("accessToken") ? (
+              <LogoutButton handleLogout={handleLogout} />
+            ) : (
+              <GitHubButton loginWithGithub={loginWithGithub} />
+            )}
+          </nav>
+          {localStorage.getItem("accessToken") && (
+
       <div className="navBar">
         <nav
           class="navbar bg-dark border-bottom border-body"
@@ -154,6 +171,7 @@ function LandingPage() {
         </nav>
         {localStorage.getItem("accessToken") && !submit && (
           <>
+
             <h1 className="userGreeting">
               Welcome to your GitStats account, {userData.login}!
             </h1>
@@ -202,6 +220,25 @@ function LandingPage() {
           />
         )}
 
+
+          {localStorage.getItem("accessToken") && submit && (
+            <DeploymentFreq
+              ghUrl={ghUrl}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
+
+          {localStorage.getItem("accessToken") && submit && (
+            <PRImpact
+              submit={submit}
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
+        </div>
+      )}
+
         {localStorage.getItem("accessToken") && submit && (
           <UnreviewedPR
             userName={userName}
@@ -209,6 +246,7 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
+
 
         {localStorage.getItem("accessToken") && submit && (
           <DeploymentFreq
@@ -266,6 +304,7 @@ function LandingPage() {
           )}
         </>
       )}
+
     </div>
   );
 }

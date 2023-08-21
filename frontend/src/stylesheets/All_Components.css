@@ -8,6 +8,11 @@
     color: #2cb67d;
 }
 
+.purple {
+    /* to purple any text */
+    color: #7f5af0;
+}
+
 .componentBox {
     /* All uniform styling for every metric box */
     background-color: #16161a;

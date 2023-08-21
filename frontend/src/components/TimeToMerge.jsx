@@ -35,7 +35,23 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
         );
         //console.log("response: ", response);
         // const response = await axios.get(url)
-        const prs = response.data.items
+        let prs = response.data.items
+
+        let page = 1;
+        while (prs.length >= 100 * page && prs.length < 200) {
+          page++;
+          const response2 = await axios.get(
+            `https://api.github.com/search/issues?q=repo:${userName}/${repoName}/+is:pr+is:merged&per_page=100&page=${page}`,
+            {
+              headers: {
+                Authorization: "Bearer " + access_token,
+              },
+            }
+          );
+
+          prs.push(...response2.data.items)
+        }
+          
         return prs;
     }
 
@@ -155,7 +171,7 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
               </div>
             </h3>
 
-            <h4 className='note'>Note : Only calculates up to the newest 100 pull requests.</h4>
+            <h4 className='note'>Note : Only calculates up to the newest 200 pull requests.</h4>
 
             <ResponsiveContainer width="90%" height={300}>
               <LineChart
