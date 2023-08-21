@@ -212,7 +212,8 @@ function LandingPage() {
 
       {localStorage.getItem("accessToken") && !submit ? (
         <div>
-          <RecentRepos userName={userName} access_token={localStorage.getItem("accessToken")}/>
+          {console.log(userData.login)}
+          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
         </div>
       ) : (
         <div>

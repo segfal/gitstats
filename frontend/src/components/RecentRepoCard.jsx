@@ -15,9 +15,10 @@ const RecentRepoCard = ({repo}) => {
     
     return (
         <div className="card_container">
+            {console.log("id", repo.id)}
             <h1 className="repo-name">{repoName}</h1>
             <h2>Created on {moment(dateCreated).format("MMMM Do YYYY")}</h2>
-            <h2>Updated on {moment(dateUpdated).format("YMMMM Do YYYY")}</h2>
+            <h2>Updated on {moment(dateUpdated).format("MMMM Do YYYY")}</h2>
             <p className="desc">Description: {description}</p>
             <button className="view-stats">VIEW STATS</button>
         </div>
