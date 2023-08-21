@@ -9,6 +9,9 @@ import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
+
+import {GiSpy} from "react-icons/gi";
+
 import RecentRepos from "./RecentRepos";
 
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
@@ -139,7 +142,7 @@ function LandingPage() {
             class="navbar bg-dark border-bottom border-body"
             data-bs-theme="dark"
           >
-            <h1 className="headingNav">GitStats Logo</h1>
+            <h1 className="headingNav logo-font">Git<GiSpy/>Snitch</h1>
             {localStorage.getItem("accessToken") ? (
               <LogoutButton handleLogout={handleLogout} />
             ) : (

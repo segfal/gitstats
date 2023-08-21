@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+
 .landingContainer {
   border: solid;
   display: grid;
@@ -62,4 +64,8 @@
   align-items: center;
   font-size: 30px;
   padding: 20px;
+}
+
+.logo-font{
+  font-family: 'Bungee Shade', cursive;
 }
