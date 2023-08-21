@@ -3,22 +3,10 @@ import React from "react";
 import "./App.css";
 import LandingPage from "./components/LandingPage";
 import ParticleBackground from "./components/ParticleBackground";
-
 import GitHubButton from "./components/githubOAuth/GithubButton";
 import LogoutButton from "./components/githubOAuth/LogoutButton";
 import GeneralInfo from "./components/GeneralInfo";
 import DeploymentFreq from "./components/DeploymentFreq";
-import {
-  GiSpyglass,
-  GiSpy,
-  GiMagnifyingGlass,
-  GiCyberEye,
-  GiDominoMask,
-  GiEyeTarget,
-  GiEyeball,
-  GiNinjaMask,
-} from "react-icons/gi";
-import UnreviewedPR from "./components/UnreviewedPR";
 import {
   GiSpyglass,
   GiSpy,
@@ -49,8 +37,8 @@ function App() {
         </div>
       </div>
 
-      <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
-      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button>
+      {/* <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
+      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button> */}
     </div>
   );
 }
