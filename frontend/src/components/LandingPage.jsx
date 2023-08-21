@@ -7,6 +7,7 @@ import GeneralInfo from "./GeneralInfo";
 import DeploymentFreq from "./DeploymentFreq";
 import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
+import PRImpact from "./PRImpact";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
 
@@ -136,7 +137,7 @@ function LandingPage() {
       {!submit ? (
         <div className="navBar">
           <nav
-            class="navbar bg-dark border-bottom border-body"
+            className="navbar bg-dark border-bottom border-body"
             data-bs-theme="dark"
           >
             <h1 className="headingNav">GitStats Logo</h1>
@@ -207,6 +208,15 @@ function LandingPage() {
               access_token={localStorage.getItem("accessToken")}
             />
           )}
+
+          {localStorage.getItem("accessToken") && submit && (
+            <PRImpact
+              submit={submit}
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
         </div>
       )}
 
@@ -231,9 +241,9 @@ function LandingPage() {
         <></>
       )}
 
-      {/* Buttons for testing 
+       
       <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
-      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button> */}
+      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button> 
     </div>
   );
 }
