@@ -109,10 +109,15 @@ function LandingPage() {
     <div>
       <div className="navBar">
         <nav
-          class="navbar bg-dark border-bottom border-body"
+          className="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
-          <h1 className="headingNav logo-font">
+          <h1
+            className="headingNav logo-font"
+            // change to deployed frontend url when everything is done
+            onClick={() => window.location.assign(`http://localhost:5173/`)}
+            style={{ cursor: "pointer" }}
+          >
             Git
             <GiSpy />
             Snitch
@@ -138,53 +143,47 @@ function LandingPage() {
         {localStorage.getItem("accessToken") && !submit && (
           <>
             <h1 className="userGreeting">
-              Welcome to your GitStats account, {userData.login}!
+              Welcome to your GitSnitch account, {userData.login}!
             </h1>
           </>
         )}
         {!submit && (
           <div className="landingTitle">
-            <h1>GitHub Stats</h1>
+            <h1>GitSnitch</h1>
           </div>
         )}
 
-        {!submit && (
-          <div className="landingContainer">
-            <h1 className="landingMessage">
-              View information on any Github Repository below
-            </h1>
-            <form onSubmit={handleSubmit}>
-              <div className="input-group mb-3 input-group-lg">
-                <input
-                  type="text"
-                  name="repoUrl"
-                  id="repoUrl"
-                  className="form-control"
-                  placeholder="Enter a Github Repository link here"
-                  onChange={(e) => setRepoUrl(e.target.value)}
-                  required
-                />
-                <button
-                  type="submit"
-                  id="repoSearchButton"
-                  className="btn btn-success btn-lg"
-                >
-                  <i class="bi bi-search" id="searchIcon"></i>
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
-      </div>
+        <div className="landingContainer">
+          <h1 className="landingMessage">
+            View information on any Github Repository below
+          </h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group mb-3 input-group-lg">
+              <input
+                type="text"
+                name="repoUrl"
+                id="repoUrl"
+                className="form-control"
+                placeholder="Enter a Github Repository link here"
+                onChange={(e) => setRepoUrl(e.target.value)}
+                required
+              />
+              <button
+                type="submit"
+                id="repoSearchButton"
+                className="btn btn-success btn-lg"
+              >
+                <i class="bi bi-search" id="searchIcon"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+  
 
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+        
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
             submit={submit}
@@ -268,6 +267,7 @@ function LandingPage() {
           )}
         </>
       )}
+    </div>
     </div>
   );
 }

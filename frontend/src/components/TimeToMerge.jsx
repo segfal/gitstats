@@ -171,7 +171,7 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
               </div>
             </h3>
 
-            <h4 className='note'>Note : Only calculates up to the newest 200 pull requests.</h4>
+            <p className='note'>Note : Only calculates up to the newest 200 pull requests.</p>
 
             <ResponsiveContainer width="90%" height={300}>
               <LineChart
@@ -180,12 +180,13 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis stroke="#8884d8" dataKey="name" tick={false} />
-                <YAxis allowDecimals={false}>
+                <YAxis stroke="#fffffe" allowDecimals={false}>
                   <Label
                     value="Time In Hours"
                     position="insideLeft"
                     angle={-90}
                     dy={40}
+                    fill='#fffffe'
                   />
                 </YAxis>
                 <Tooltip

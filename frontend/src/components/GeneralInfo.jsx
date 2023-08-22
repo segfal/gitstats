@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import "../stylesheets/GeneralInfo.css";
 import "../stylesheets/All_Components.css";
@@ -25,8 +26,6 @@ const GeneralInfo = ({ ghUrl }) => {
 
     ghUrl: https://api.github.com/repos/{username}/{repo_name}
     https://api.github.com/repos/segfal/KaraokeApp
-    
-    
     
     */
   const [repoName, setRepoName] = useState("");
@@ -138,10 +137,10 @@ const GeneralInfo = ({ ghUrl }) => {
 
         <h3>{description}</h3>
         <p>
-          Date Created: {moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}
+          Date Created: <span className="green">{moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</span>
         </p>
         <p>
-          Date Updated: {moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}
+          Date Updated: <span className="green">{moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</span>
         </p>
       </div>
 
@@ -150,7 +149,7 @@ const GeneralInfo = ({ ghUrl }) => {
         <h2 style={{ color: "#2cb67d" }}>Total Commits: {commitTotal}</h2>
         <div className="chart-contributors_container">
           <div style={{ flex: 1, marginRight: "20px" }}>
-            <h2 style={{ color: "white" }}>Top Contributors:</h2>
+            <h2>Top Contributors:</h2>
             {contributors.slice(0, 5).map((contributor, i) => {
               const isTopContributor = i === 0;
               return (
@@ -159,8 +158,12 @@ const GeneralInfo = ({ ghUrl }) => {
                   style={{
                     display: "flex",
                     alignItems: "center",
+
                     marginBottom: "10px",
+
+
                   }}>
+
                   <img
                     src={contributor.avatar_url}
                     alt="avatar"
@@ -172,11 +175,14 @@ const GeneralInfo = ({ ghUrl }) => {
                         margin: 0,
                         fontWeight: "bold",
                         color: isTopContributor ? "#FFD700" : "yellow",
+
                       }}>
                       {contributor.login}{" "}
+
                       {isTopContributor && (
                         <span className="top-contributors">👑</span>
                       )}
+                      {contributor.login}{" "}
                     </p>
                     <p style={{ margin: 0, color: "white" }}>
                       Contributions: {contributor.contributions}
@@ -190,35 +196,40 @@ const GeneralInfo = ({ ghUrl }) => {
           <div style={{ flex: 2 }}>
             <h2 style={{ color: "white" }}>Contributions Chart</h2>
             <div style={{ height: "400px" }}>
-              <BarChart
-                width={700}
-                height={400}
-                data={chartData}
-                margin={{ top: 20, right: 20, left: 20, bottom: 30 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  stroke="#8884d8"
-                  interval={0}
-                  angle={-45}
-                  tickLine={false}
-                  textAnchor="end"
-                />
-                <YAxis />
-                <Tooltip
-                  labelStyle={{ color: "#000" }}
-                  formatter={(value, name, entry) => {
-                    const percentage = (value / commitTotal) * 100;
-                    return [`${value} (${percentage.toFixed(2)}%)`, name];
-                  }}
-                />
-                <Legend verticalAlign="top" align="right" height={30} />
-                <Bar
-                  name="Contributions"
-                  dataKey="contributions"
-                  fill="#8884d8"
-                />
-              </BarChart>
+
+              <ResponsiveContainer className="DeployChart" width="90%">
+                <BarChart
+                  width={700}
+                  height={400}
+                  data={chartData}
+                  margin={{ top: 20, right: 20, left: 20, bottom: 30 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    stroke="#8884d8"
+                    interval={0}
+                    angle={-45}
+                    tickLine={false}
+                    textAnchor="end"
+                  />
+                  <YAxis />
+                  <Tooltip
+                    labelStyle={{ color: "#000" }}
+                    formatter={(value, name, entry) => {
+                      const percentage = (value / commitTotal) * 100;
+                      return [`${value} (${percentage.toFixed(2)}%)`, name];
+                    }}
+                  />
+                  <Legend verticalAlign="top" align="right" height={30} />
+                  <Bar
+                    name="Contributions"
+                    dataKey="contributions"
+                    fill="#8884d8"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+
             </div>
           </div>
         </div>
