@@ -1,7 +1,8 @@
 /* For edits that goes to every/most components */
-/* Use H1 fror header only */
-@import url('https://fonts.googleapis.com/css2?family=Alexandria&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
+/* Use H1 for header only */
+
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+
 
 .green {
     /* to green any text, add this as a className in <span>, <div>, <p>, etc */
@@ -46,7 +47,6 @@
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    /* font-family: 'Alexandria', sans-serif; */
+    font-family: 'Mukta', sans-serif;
 }
 
