@@ -158,8 +158,12 @@ const GeneralInfo = ({ ghUrl }) => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    margin: "15px auto",
+
+                    marginBottom: "10px",
+
+
                   }}>
+
                   <img
                     src={contributor.avatar_url}
                     alt="avatar"
@@ -171,7 +175,10 @@ const GeneralInfo = ({ ghUrl }) => {
                         margin: 0,
                         fontWeight: "bold",
                         color: isTopContributor ? "#FFD700" : "yellow",
+
                       }}>
+                      {contributor.login}{" "}
+
                       {isTopContributor && (
                         <span className="top-contributors">👑</span>
                       )}
@@ -189,39 +196,40 @@ const GeneralInfo = ({ ghUrl }) => {
           <div style={{ flex: 2 }}>
             <h2 style={{ color: "white" }}>Contributions Chart</h2>
             <div style={{ height: "400px" }}>
-            <ResponsiveContainer width="97%" height={400}>
-              <BarChart
-                data={chartData}
-                margin={{ top: 20, right: 20, left: 20, bottom: 80 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  stroke="#8884d8"
-                  interval={0}
-                  angle={-45}
-                  tickLine={false}
-                  textAnchor="end"
-                />
-                <YAxis 
-                  stroke="#fffffe" 
-                  allowDecimals={false} 
-                />
-                <Tooltip
-                  labelStyle={{ color: "#000" }}
-                  formatter={(value, name, entry) => {
-                    const percentage = (value / commitTotal) * 100;
-                    return [`${value} (${percentage.toFixed(2)}%)`, name];
-                  }}
-                />
-                <Legend verticalAlign="top" align="right" height={30} />
-                <Bar
-                  name="Contributions"
-                  dataKey="contributions"
-                  fill="#8884d8"
-                />
-              </BarChart>
-            </ResponsiveContainer>
-              
+
+              <ResponsiveContainer className="DeployChart" width="90%">
+                <BarChart
+                  width={700}
+                  height={400}
+                  data={chartData}
+                  margin={{ top: 20, right: 20, left: 20, bottom: 30 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    stroke="#8884d8"
+                    interval={0}
+                    angle={-45}
+                    tickLine={false}
+                    textAnchor="end"
+                  />
+                  <YAxis />
+                  <Tooltip
+                    labelStyle={{ color: "#000" }}
+                    formatter={(value, name, entry) => {
+                      const percentage = (value / commitTotal) * 100;
+                      return [`${value} (${percentage.toFixed(2)}%)`, name];
+                    }}
+                  />
+                  <Legend verticalAlign="top" align="right" height={30} />
+                  <Bar
+                    name="Contributions"
+                    dataKey="contributions"
+                    fill="#8884d8"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+
             </div>
           </div>
         </div>
