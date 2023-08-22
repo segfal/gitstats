@@ -2,12 +2,13 @@
 
 .landingContainer {
   border: solid;
+  border-radius: 5px;
   display: grid;
   justify-content: center;
   width: 50%;
   margin: 0 auto;
   margin-top: 20px;
-  padding: 100px;
+  padding: 80px;
   background-color: black;
 }
 
@@ -70,6 +71,23 @@
   padding: 20px;
 }
 
-.logo-font {
-  font-family: "Bungee Shade", cursive;
+.logo-font{
+  font-family: 'Bungee Shade', cursive;
 }
+
+@media only screen and (max-width: 900px) {
+  .landingContainer {
+    width: 70%;
+    padding: 60px;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .landingMessage {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+}
+
