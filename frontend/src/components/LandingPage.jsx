@@ -130,13 +130,13 @@ function LandingPage() {
         {localStorage.getItem("accessToken") && !submit && (
           <>
             <h1 className="userGreeting">
-              Welcome to your GitStats account, {userData.login}!
+              Welcome to your GitSnitch account, {userData.login}!
             </h1>
           </>
         )}
         {!submit && (
           <div className="landingTitle">
-            <h1>GitHub Stats</h1>
+            <h1>GitSnitch</h1>
           </div>
         )}
         <div className="landingContainer">
@@ -150,7 +150,7 @@ function LandingPage() {
                 name="repoUrl"
                 id="repoUrl"
                 className="form-control"
-                placeholder="Enter a Github Repository link here)"
+                placeholder="Enter a Github Repository link here"
                 onChange={(e) => setRepoUrl(e.target.value)}
                 required
               />
