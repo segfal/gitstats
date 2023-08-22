@@ -37,10 +37,9 @@ function LandingPage() {
     );
   };
 
-  // change to deployed frontend url when everything is done
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.assign(`http://localhost:5173/`);
+    window.location.assign(`https://gitsight.vercel.app/`);
   };
 
   useEffect(() => {
@@ -104,8 +103,9 @@ function LandingPage() {
         >
           <h1
             className="headingNav logo-font"
-            // change to deployed frontend url when everything is done
-            onClick={() => window.location.assign(`http://localhost:5173/`)}
+            onClick={() =>
+              window.location.assign(`https://gitsight.vercel.app/`)
+            }
             style={{ cursor: "pointer" }}
           >
             Git
@@ -184,39 +184,39 @@ function LandingPage() {
           />
         )}
 
-          {localStorage.getItem("accessToken") && submit && (
-            <TimeToMerge
-              submit={submit}
-              userName={userName}
-              repoName={repoName}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-
-          {localStorage.getItem("accessToken") && submit && (
-            <UnreviewedPR
-              userName={userName}
-              repoName={repoName}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-
-          {localStorage.getItem("accessToken") && submit && (
-            <DeploymentFreq
-              ghUrl={ghUrl}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
-        </div>
-
-        {localStorage.getItem("accessToken") && !submit && (
-          <div>
-            <RecentRepos
-              userName={userData.login}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          </div>
+        {localStorage.getItem("accessToken") && submit && (
+          <TimeToMerge
+            submit={submit}
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
         )}
+
+        {localStorage.getItem("accessToken") && submit && (
+          <UnreviewedPR
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+
+        {localStorage.getItem("accessToken") && submit && (
+          <DeploymentFreq
+            ghUrl={ghUrl}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+      </div>
+
+      {localStorage.getItem("accessToken") && !submit && (
+        <div>
+          <RecentRepos
+            userName={userData.login}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        </div>
+      )}
 
       {submit ? (
         <>
