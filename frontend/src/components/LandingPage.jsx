@@ -111,7 +111,16 @@ function LandingPage() {
           class="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
-          <h1 className="headingNav logo-font">Git<GiSpy/>Snitch</h1>
+          <h1
+            className="headingNav logo-font"
+            // change to deployed frontend url when everything is done
+            onClick={() => window.location.assign(`http://localhost:5173/`)}
+            style={{ cursor: "pointer" }}
+          >
+            Git
+            <GiSpy />
+            Snitch
+          </h1>
           {localStorage.getItem("accessToken") ? (
             <LogoutButton handleLogout={handleLogout} />
           ) : (
@@ -159,19 +168,19 @@ function LandingPage() {
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
         {localStorage.getItem("accessToken") && submit && (
-              <DeploymentFreq
-                ghUrl={ghUrl}
-                access_token={localStorage.getItem("accessToken")}
-              />
-            )}
-            {localStorage.getItem("accessToken") && submit && (
-              <PRImpact
-                submit={submit}
-                userName={userName}
-                repoName={repoName}
-                access_token={localStorage.getItem("accessToken")}
-              />
-            )}
+          <DeploymentFreq
+            ghUrl={ghUrl}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
+        {localStorage.getItem("accessToken") && submit && (
+          <PRImpact
+            submit={submit}
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
 
         {localStorage.getItem("accessToken") && submit && (
           <TimeToMerge
@@ -196,13 +205,14 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
-
-       
       </div>
 
       {localStorage.getItem("accessToken") && !submit && (
         <div>
-          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
+          <RecentRepos
+            userName={userData.login}
+            access_token={localStorage.getItem("accessToken")}
+          />
         </div>
       )}
 
