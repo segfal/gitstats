@@ -127,7 +127,7 @@ function LandingPage() {
         {submit && (
           <button
             type="button"
-            class="btn btn-success btn-lg"
+            className="btn btn-success btn-lg"
             id="backButton"
             onClick={() => setSubmit(false)}
           >
