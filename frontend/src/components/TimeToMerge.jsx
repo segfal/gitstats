@@ -84,7 +84,6 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
         setTimeToMerge(sum / pullInfo.length);
         setMergeArray(arr);
         setLastMerge(pullInfo[0].pull_request);
-        console.log("timeToMerge: ", mergeArray);
         return timeToMerge;
     }
 
@@ -97,8 +96,6 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
     const hourMinuteSeconds = (seconds) => {
 
         let hours = Math.floor(seconds / 3600);
-        console.log("seconds: ", seconds)
-        console.log("hours: ", hours)
         let minutes = Math.floor((seconds % 3600) / 60);
         seconds = Math.floor(seconds % 60);
         if(hours < 1 && minutes < 1){

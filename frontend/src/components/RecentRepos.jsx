@@ -33,7 +33,6 @@ const RecentRepos = ({userName, access_token}) => {
     return ( 
         <div>
             <h1 className='landingMessageBottom'>Your Recent Repositories</h1>
-            {console.log("recent repos: ", userRepos)}
             <div className='repos_container'>
             {
                 userRepos.map((repo) => {

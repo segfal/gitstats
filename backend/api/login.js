@@ -5,8 +5,6 @@ const fetch = (...args) =>
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-console.log(process.env.CLIENT_ID);
-console.log(process.env.CLIENT_SECRET);
 
 router.get("/getAccessToken", async (req, res) => {
   console.log(req.query.code);
@@ -21,7 +19,6 @@ router.get("/getAccessToken", async (req, res) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       res.json(data);
     });
 });
