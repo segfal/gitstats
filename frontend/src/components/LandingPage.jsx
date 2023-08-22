@@ -268,6 +268,7 @@ function LandingPage() {
         </>
       )}
     </div>
+    </div>
   );
 }
 
