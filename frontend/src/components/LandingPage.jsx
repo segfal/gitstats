@@ -132,7 +132,7 @@ function LandingPage() {
         {submit && (
           <button
             type="button"
-            class="btn btn-success btn-lg"
+            className="btn btn-success btn-lg"
             id="backButton"
             onClick={() => setSubmit(false)}
           >
@@ -194,39 +194,39 @@ function LandingPage() {
           />
         )}
 
-        {localStorage.getItem("accessToken") && submit && (
-          <TimeToMerge
-            submit={submit}
-            userName={userName}
-            repoName={repoName}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+          {localStorage.getItem("accessToken") && submit && (
+            <TimeToMerge
+              submit={submit}
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
 
-        {localStorage.getItem("accessToken") && submit && (
-          <UnreviewedPR
-            userName={userName}
-            repoName={repoName}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+          {localStorage.getItem("accessToken") && submit && (
+            <UnreviewedPR
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
 
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
-      </div>
-
-      {localStorage.getItem("accessToken") && !submit && (
-        <div>
-          <RecentRepos
-            userName={userData.login}
-            access_token={localStorage.getItem("accessToken")}
-          />
+          {localStorage.getItem("accessToken") && submit && (
+            <DeploymentFreq
+              ghUrl={ghUrl}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
         </div>
-      )}
+
+        {localStorage.getItem("accessToken") && !submit && (
+          <div>
+            <RecentRepos
+              userName={userData.login}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          </div>
+        )}
 
       {submit ? (
         <>
