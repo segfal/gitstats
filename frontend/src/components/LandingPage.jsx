@@ -120,7 +120,7 @@ function LandingPage() {
           >
             Git
             <GiSpy />
-            Snitch
+            Sight
           </h1>
           {localStorage.getItem("accessToken") ? (
             <LogoutButton handleLogout={handleLogout} />
@@ -143,13 +143,13 @@ function LandingPage() {
         {localStorage.getItem("accessToken") && !submit && (
           <>
             <h1 className="userGreeting">
-              Welcome to your GitSnitch account, {userData.login}!
+              Welcome to your GitSight account, {userData.login}!
             </h1>
           </>
         )}
         {!submit && (
           <div className="landingTitle">
-            <h1>GitSnitch</h1>
+            <h1>GitSight</h1>
           </div>
         )}
 
@@ -180,18 +180,19 @@ function LandingPage() {
             </form>
           </div>
         )}
+      </div>
 
-        <div className="All_Components_Box">
-          {submit && <GeneralInfo ghUrl={ghUrl} />}
+      <div className="All_Components_Box">
+        {submit && <GeneralInfo ghUrl={ghUrl} />}
 
-          {localStorage.getItem("accessToken") && submit && (
-            <PRImpact
-              submit={submit}
-              userName={userName}
-              repoName={repoName}
-              access_token={localStorage.getItem("accessToken")}
-            />
-          )}
+        {localStorage.getItem("accessToken") && submit && (
+          <PRImpact
+            submit={submit}
+            userName={userName}
+            repoName={repoName}
+            access_token={localStorage.getItem("accessToken")}
+          />
+        )}
 
           {localStorage.getItem("accessToken") && submit && (
             <TimeToMerge
@@ -227,47 +228,46 @@ function LandingPage() {
           </div>
         )}
 
-        {submit ? (
-          <>
-            {!localStorage.getItem("accessToken") && (
-              <>
-                <div>
-                  <h1 className="landingMessageBottom">
-                    To view more stats and personalized information, login in
-                    with your Github account
-                  </h1>
-                </div>
-                <div className="githubLogin">
-                  <GitHubButton
-                    loginWithGithub={() => {
-                      localStorage.setItem("flag", true);
-                      localStorage.setItem("repoName", repoName);
-                      localStorage.setItem("userName", userName);
-                      loginWithGithub();
-                    }}
-                  />
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            {!localStorage.getItem("accessToken") && (
-              <>
-                <div>
-                  <h1 className="landingMessageBottom">
-                    To view more stats and personalized information, login in
-                    with your Github account
-                  </h1>
-                </div>
-                <div className="githubLogin">
-                  <GitHubButton loginWithGithub={loginWithGithub} />
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </div>
+      {submit ? (
+        <>
+          {!localStorage.getItem("accessToken") && (
+            <>
+              <div>
+                <h1 className="landingMessageBottom">
+                  To view more stats and personalized information, login in with
+                  your Github account
+                </h1>
+              </div>
+              <div className="githubLogin">
+                <GitHubButton
+                  loginWithGithub={() => {
+                    localStorage.setItem("flag", true);
+                    localStorage.setItem("repoName", repoName);
+                    localStorage.setItem("userName", userName);
+                    loginWithGithub();
+                  }}
+                />
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          {!localStorage.getItem("accessToken") && (
+            <>
+              <div>
+                <h1 className="landingMessageBottom">
+                  To view more stats and personalized information, login in with
+                  your Github account
+                </h1>
+              </div>
+              <div className="githubLogin">
+                <GitHubButton loginWithGithub={loginWithGithub} />
+              </div>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
