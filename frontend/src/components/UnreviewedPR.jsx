@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 
-import "../stylesheets/UnreviewedPR.css"
+import "../stylesheets/UnreviewedPR.css";
 import "../stylesheets/All_Components.css";
 
 const UnreviewedPR = ({ userName, repoName, access_token }) => {

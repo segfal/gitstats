@@ -9,7 +9,7 @@ import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
-import {GiSpy} from "react-icons/gi";
+import { GiSpy } from "react-icons/gi";
 import RecentRepos from "./RecentRepos";
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 import PRImpact from "./PRImpact";
@@ -34,13 +34,17 @@ function LandingPage() {
     setSubmit(true);
   };
 
+  const handleClick = (e) => {
+    console.log("Hello");
+  };
+
   const loginWithGithub = () => {
     window.location.assign(
       `https://github.com/login/oauth/authorize?scope=user&client_id=${CLIENT_ID}`
     );
   };
 
-  // change to deployed frontend url when everything is done 
+  // change to deployed frontend url when everything is done
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     window.location.assign(`http://localhost:5173/`);
@@ -68,7 +72,7 @@ function LandingPage() {
       getAccessToken();
     }
 
-    if(localStorage.getItem("flag")){
+    if (localStorage.getItem("flag")) {
       setUserName(localStorage.getItem("userName"));
       setRepoName(localStorage.getItem("repoName"));
       setSubmit(true);
@@ -95,14 +99,11 @@ function LandingPage() {
     }
   };
 
- 
-
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       getUserData();
     }
   }, [localStorage.getItem("accessToken")]);
-
 
   return (
     <div>
@@ -127,6 +128,18 @@ function LandingPage() {
             <GitHubButton loginWithGithub={loginWithGithub} />
           )}
         </nav>
+
+        {submit && (
+          <button
+            type="button"
+            class="btn btn-success btn-lg"
+            id="backButton"
+            onClick={() => setSubmit(false)}
+          >
+            Back
+          </button>
+        )}
+
         {localStorage.getItem("accessToken") && !submit && (
           <>
             <h1 className="userGreeting">
@@ -139,32 +152,35 @@ function LandingPage() {
             <h1>GitHub Stats</h1>
           </div>
         )}
-        <div className="landingContainer">
-          <h1 className="landingMessage">
-            View information on any Github Repository below
-          </h1>
-          <form onSubmit={handleSubmit}>
-            <div className="input-group mb-3 input-group-lg">
-              <input
-                type="text"
-                name="repoUrl"
-                id="repoUrl"
-                className="form-control"
-                placeholder="Enter a Github Repository link here)"
-                onChange={(e) => setRepoUrl(e.target.value)}
-                required
-              />
-              <button
-                type="submit"
-                id="repoSearchButton"
-                className="btn btn-success btn-lg"
-              >
-                <i className="bi bi-search" id="searchIcon"></i>
-              </button>
-            </div>
-          </form>
-        </div>
+        {!submit && (
+          <div className="landingContainer">
+            <h1 className="landingMessage">
+              View information on any Github Repository below
+            </h1>
+            <form onSubmit={handleSubmit}>
+              <div className="input-group mb-3 input-group-lg">
+                <input
+                  type="text"
+                  name="repoUrl"
+                  id="repoUrl"
+                  className="form-control"
+                  placeholder="Enter a Github Repository link here"
+                  onChange={(e) => setRepoUrl(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  id="repoSearchButton"
+                  className="btn btn-success btn-lg"
+                >
+                  <i class="bi bi-search" id="searchIcon"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
+
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
         
