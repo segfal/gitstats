@@ -29,6 +29,7 @@
     text-transform: uppercase;
     font-weight: bold;
     border-bottom: 2px solid #fffffe;
+    font-size: 39px;
 }
 
 .componentBox > h3 {

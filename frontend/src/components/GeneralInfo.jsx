@@ -175,7 +175,6 @@ const GeneralInfo = ({ ghUrl }) => {
                         color: isTopContributor ? "#FFD700" : "yellow",
 
                       }}>
-                      {contributor.login}{" "}
 
                       {isTopContributor && (
                         <span className="top-contributors">👑</span>

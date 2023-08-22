@@ -83,7 +83,7 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
 
   return (
     <div className="UnreviewdPR_Box componentBox">
-      <h1>Unreviewed Pull Request</h1>
+      <h1>Unreviewed Pull Requests</h1>
       <h3>
         <div>Percentage of unreviewed pull requests</div>
         <div style={{ fontStyle: "italic", color: "#2CB67D" }}>

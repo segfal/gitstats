@@ -26,9 +26,6 @@ function App() {
           <LandingPage />
         </div>
       </div>
-
-      {/* <button onClick={getUserRateLimit}>(Test)Get User Rate Limit</button>
-      <button onClick={getRateLimit}>(Test)Get IP Rate Limit</button> */}
     </div>
   );
 }
