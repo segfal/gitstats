@@ -32,7 +32,6 @@ function PRImpact({submit,userName, repoName, access_token}) {
     const [totalCommit, setTotalCommit] = useState(0);
     const [filesChange, setFilesChange] = useState(0);
     const [loading, setLoading] = useState(true);
-    console.log("Hello World")
 
     useEffect(() => {
         const PullSearch = async() => {
@@ -81,7 +80,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
                     }
                   );
 
-                console.log("pullInfo", i, response.data);
+                //console.log("pullInfo", i, response.data);
                 addLine += response.data.additions;
                 deleteLine += response.data.deletions;
                 files += response.data.changed_files;
@@ -98,10 +97,10 @@ function PRImpact({submit,userName, repoName, access_token}) {
             setDataSize(pullInfo.length);
             setData(arr);
 
-            console.log("Total Addition:", addLine);
-            console.log("Total Delete:", deleteLine);
-            console.log("Total Files Change:", files);
-            console.log("Total Commits:", commits);
+            //console.log("Total Addition:", addLine);
+            //console.log("Total Delete:", deleteLine);
+            //console.log("Total Files Change:", files);
+            //console.log("Total Commits:", commits);
 
             setLineAdded(addLine);
             setLineDeleted(deleteLine);
@@ -112,7 +111,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
         }
 
         if(submit){
-            console.log("submit");
+            //console.log("submit");
             computePrImpact();
         }
         
@@ -128,10 +127,10 @@ function PRImpact({submit,userName, repoName, access_token}) {
             <li className="list-item green">
                 # of Files Change: {files}
             </li>
-            <li className="list-item">
-                {addition} new lines added
+            <li className="list-item grey">
+                {addition} lines added
             </li>
-            <li className="list-item">
+            <li className="list-item grey">
                 {deletion} lines deleted
             </li>
             </ul>
@@ -141,10 +140,10 @@ function PRImpact({submit,userName, repoName, access_token}) {
     const renderChart = () => {
         return (
             <div>
-                <ResponsiveContainer width="90%" height={300}>
+                <ResponsiveContainer className='PRChart' width="90%" height={300}>
                     <LineChart
                         data={data}
-                        margin={{ left: 20, bottom: 20, top: 30 }}
+                        margin={{ left: 0, bottom: 20, top: 30, right: 40 }}
                     >
                         
                         <CartesianGrid strokeDasharray="3 3" />

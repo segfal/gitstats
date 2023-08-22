@@ -1,5 +1,5 @@
 .PRImpactBox {
-    width: 85%;
+    width: 90%;
     padding: 20px;
 }
 
@@ -27,6 +27,15 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
+}
+
+.grey {
+    color: #4d4352;
+}
+
+.PRChart {
+    align-content: center;
+    margin: 0 auto;
 }
 
 .PRImpactCardBox {

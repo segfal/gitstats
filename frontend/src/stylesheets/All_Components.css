@@ -20,6 +20,7 @@
     text-align: center;
     margin: 20px;
     border-radius: 15px;
+    box-shadow: 3px 3px 10px #000000e0;
 }
 
 .componentBox > h1 {
@@ -29,8 +30,9 @@
     border-bottom: 2px solid #fffffe;
 }
 
-.componentBox > h2 {
-    /* all <h2> in the component boxes*/
+.componentBox > h3 {
+    /* all <h4> in the component boxes*/
+    font-size: 24px;
 }
 
 .All_Components_Box {

@@ -109,10 +109,15 @@ function LandingPage() {
     <div>
       <div className="navBar">
         <nav
-          class="navbar bg-dark border-bottom border-body"
+          className="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
-          <h1 className="headingNav logo-font">
+          <h1
+            className="headingNav logo-font"
+            // change to deployed frontend url when everything is done
+            onClick={() => window.location.assign(`http://localhost:5173/`)}
+            style={{ cursor: "pointer" }}
+          >
             Git
             <GiSpy />
             Snitch
@@ -147,7 +152,6 @@ function LandingPage() {
             <h1>GitHub Stats</h1>
           </div>
         )}
-
         {!submit && (
           <div className="landingContainer">
             <h1 className="landingMessage">
@@ -179,12 +183,7 @@ function LandingPage() {
 
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+        
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
             submit={submit}
