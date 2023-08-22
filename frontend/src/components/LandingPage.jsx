@@ -132,7 +132,7 @@ function LandingPage() {
         {submit && (
           <button
             type="button"
-            class="btn btn-success btn-lg"
+            className="btn btn-success btn-lg"
             id="backButton"
             onClick={() => setSubmit(false)}
           >
@@ -180,6 +180,7 @@ function LandingPage() {
             </form>
           </div>
         )}
+\
       </div>
 
       <div className="All_Components_Box">
@@ -193,31 +194,84 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
+\
 
-        {localStorage.getItem("accessToken") && submit && (
-          <TimeToMerge
-            submit={submit}
-            userName={userName}
-            repoName={repoName}
-            access_token={localStorage.getItem("accessToken")}
-          />
+          {localStorage.getItem("accessToken") && submit && (
+            <TimeToMerge
+              submit={submit}
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
+
+          {localStorage.getItem("accessToken") && submit && (
+            <UnreviewedPR
+              userName={userName}
+              repoName={repoName}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
+
+          {localStorage.getItem("accessToken") && submit && (
+            <DeploymentFreq
+              ghUrl={ghUrl}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          )}
+        </div>
+
+        {localStorage.getItem("accessToken") && !submit && (
+          <div>
+            <RecentRepos
+              userName={userData.login}
+              access_token={localStorage.getItem("accessToken")}
+            />
+          </div>
         )}
 
-        {localStorage.getItem("accessToken") && submit && (
-          <UnreviewedPR
-            userName={userName}
-            repoName={repoName}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
-
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
+        {submit ? (
+          <>
+            {!localStorage.getItem("accessToken") && (
+              <>
+                <div>
+                  <h1 className="landingMessageBottom">
+                    To view more stats and personalized information, login in
+                    with your Github account
+                  </h1>
+                </div>
+                <div className="githubLogin">
+                  <GitHubButton
+                    loginWithGithub={() => {
+                      localStorage.setItem("flag", true);
+                      localStorage.setItem("repoName", repoName);
+                      localStorage.setItem("userName", userName);
+                      loginWithGithub();
+                    }}
+                  />
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {!localStorage.getItem("accessToken") && (
+              <>
+                <div>
+                  <h1 className="landingMessageBottom">
+                    To view more stats and personalized information, login in
+                    with your Github account
+                  </h1>
+                </div>
+                <div className="githubLogin">
+                  <GitHubButton loginWithGithub={loginWithGithub} />
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
+
 
       {localStorage.getItem("accessToken") && !submit && (
         <div>
@@ -268,6 +322,7 @@ function LandingPage() {
           )}
         </>
       )}
+
     </div>
   );
 }

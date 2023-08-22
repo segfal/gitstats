@@ -22,7 +22,7 @@ function App() {
     <div>
       <div id="particles-js">
         <div>
-          {/* <ParticleBackground /> */}
+          <ParticleBackground />
           <LandingPage />
         </div>
       </div>
