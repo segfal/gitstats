@@ -5,5 +5,13 @@
 
 .UnreviewdPR_Box {
     /* background-color: slategrey; */
-    width: 30%;
+    width: 35%;
+    padding: 20px;
 }
+
+@media only screen and (max-width: 1000px) {
+    .UnreviewdPR_Box {
+        width: 90%;
+    }
+  }
+

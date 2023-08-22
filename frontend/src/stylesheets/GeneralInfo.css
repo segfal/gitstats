@@ -6,11 +6,13 @@
 .General_Info_Box {
   /* background-color: grey; */
   width: 70%;
+  padding: 20px;
 }
 
 .Contributors_Box {
   /* background-color: brown; */
   width: 90%;
+  padding: 20px;
 }
 
 .chart-contributors_container {
@@ -28,5 +30,16 @@
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
-  margin-left: 100px;
+  margin-left: 80px;
+}
+
+@media only screen and (max-width: 700px) {
+  .chart-contributors_container {
+    flex-wrap: wrap;
+  }
+
+  .top-contributors {
+    margin-bottom: 20px;
+
+  }
 }

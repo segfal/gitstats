@@ -43,7 +43,7 @@ function DeploymentFreq({ ghUrl, access_token }) {
 
         while (newArr.length >= 100 * page && newArr.length < 300) {
           page++;
-          console.log("PAGE >>> "+ page)
+          //console.log("PAGE >>> "+ page)
           const response2 = await axios.get(
             `${ghUrl}/deployments?per_page=100&page=${page}`,
             {
@@ -90,7 +90,7 @@ function DeploymentFreq({ ghUrl, access_token }) {
   // Calculate the time difference using moment.js  [sum of (deploy2 creation time - deploy1 creation time), (d3-d2), etc] / [num of deployment]
   let durationSum = moment.duration();
   let deployDataLength = deployData.length;
-  console.log("DEPLOY DATA LENGTH >>> "+ deployDataLength)
+  //console.log("DEPLOY DATA LENGTH >>> "+ deployDataLength)
   let weeks;
   let days;
   let hours;
@@ -150,8 +150,6 @@ function DeploymentFreq({ ghUrl, access_token }) {
   //divide total sum by number of deployments(the length of deployment data array)
   let avgDeploymentTimeInMS = durationSum.asSeconds() / deployDataLength;
   MillisecondsToWeeksDaysHours(avgDeploymentTimeInMS);
-  // // Get the difference in hours, minutes, and seconds
-  // let days = durationSum.days();
 
   //access a repo's deployment info here: https://api.github.com/repos/{username}/{repo_name}/deployments?per_page=100
   //need a count of how many deployments a repo has
@@ -283,7 +281,7 @@ function DeploymentFreq({ ghUrl, access_token }) {
         <br />
         <i className="green">{weeks} weeks, {days} days, {hours} hours, {minutes} minutes, <br /> {seconds} seconds</i>
       </h3>
-      <h4 className="note">Note: The above calulations only calculates up to 300 deployments.</h4>
+      <p className="note">Note: The above calulations only calculates up to 300 deployments.</p>
       <div>
         {typeOfTime === "months" && renderMonthsChart()}
         {typeOfTime === "weeks" && renderWeeksChart()}
