@@ -111,7 +111,16 @@ function LandingPage() {
           className="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
-          <h1 className="headingNav logo-font">Git<GiSpy/>Snitch</h1>
+          <h1
+            className="headingNav logo-font"
+            // change to deployed frontend url when everything is done
+            onClick={() => window.location.assign(`http://localhost:5173/`)}
+            style={{ cursor: "pointer" }}
+          >
+            Git
+            <GiSpy />
+            Snitch
+          </h1>
           {localStorage.getItem("accessToken") ? (
             <LogoutButton handleLogout={handleLogout} />
           ) : (
@@ -191,13 +200,14 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
-
-       
       </div>
 
       {localStorage.getItem("accessToken") && !submit && (
         <div>
-          <RecentRepos userName={userData.login} access_token={localStorage.getItem("accessToken")}/>
+          <RecentRepos
+            userName={userData.login}
+            access_token={localStorage.getItem("accessToken")}
+          />
         </div>
       )}
 
