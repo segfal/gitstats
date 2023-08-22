@@ -22,9 +22,6 @@ function LandingPage() {
   const [repoName, setRepoName] = useState("");
   const [submit, setSubmit] = useState(false);
   const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
-  useEffect(() => {
-    console.log(repoUrl);
-  }, [repoUrl]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,10 +29,6 @@ function LandingPage() {
     setUserName(parts[parts.length - 2]);
     setRepoName(parts[parts.length - 1]);
     setSubmit(true);
-  };
-
-  const handleClick = (e) => {
-    console.log("Hello");
   };
 
   const loginWithGithub = () => {
@@ -54,7 +47,6 @@ function LandingPage() {
     const query = window.location.search;
     const urlParams = new URLSearchParams(query);
     const codeParam = urlParams.get("code");
-    console.log(codeParam);
 
     if (codeParam && !localStorage.getItem("accessToken")) {
       const getAccessToken = async () => {
@@ -62,7 +54,6 @@ function LandingPage() {
           const response = await axios.get(
             `https://gitstats-production.up.railway.app/api/login/getAccessToken?code=${codeParam}`
           );
-          console.log(response.data.access_token);
           localStorage.setItem("accessToken", response.data.access_token);
           setRerender(!rerender);
         } catch (error) {
@@ -92,7 +83,6 @@ function LandingPage() {
           },
         }
       );
-      console.log(response.data);
       setUserData(response.data);
     } catch (error) {
       console.log(error);

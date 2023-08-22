@@ -91,13 +91,11 @@ const GeneralInfo = ({ ghUrl }) => {
             })
           : await axios.get(`${ghUrl}/commits?per_page=1&page=1`);
         const link_header = response2.headers.get("Link", "");
-        console.log("Header", link_header);
         const regex = /page=(\d+)/g;
         const matches = link_header.match(regex);
 
         if (matches && matches.length > 0) {
           const page = matches[3].split("=")[1];
-          console.log("Parsed page:", page);
           setCommitTotal(page);
         }
 
