@@ -1,7 +1,7 @@
 .repo-name {
     color: white;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -29,13 +29,21 @@
 .card_container {
     position: relative;
     z-index: 1000;
-    width: 650px;
+    width: 43%;
+    min-width: 350px;
     background-color: #16161A;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    margin: 30px;
+    margin: 10px auto;
+    box-shadow: 3px 3px 10px #000000e0;
 }
+
+@media only screen and (max-width: 900px) {
+    .card_container {
+        width: 90%;
+    }
+  }
 
 hr{
     width: 100%;

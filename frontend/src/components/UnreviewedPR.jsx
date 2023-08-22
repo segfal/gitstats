@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 
-import "../stylesheets/UnreviewedPR.css"
+import "../stylesheets/UnreviewedPR.css";
 import "../stylesheets/All_Components.css";
 
 const UnreviewedPR = ({ userName, repoName, access_token }) => {
@@ -10,13 +10,13 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
   const [uncommentedPR, setUncommentedPR] = useState(0);
   const [pieData, setPieData] = useState([
     {
-      color: "hsla(155, 61%, 44%, 1)",
+      color: "hsla(255, 83%, 65%, 1)",
       id: "reviewed",
       label: "Reviewed",
       value: 0,
     },
     {
-      color: "hsla(255, 83%, 65%, 1)",
+      color: "hsla(155, 61%, 44%, 1)",
       id: "unreviewed",
       label: "Unreviewed",
       value: 0,
@@ -83,20 +83,20 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
 
   return (
     <div className="UnreviewdPR_Box componentBox">
-      <h1>UnreviewedPR</h1>
+      <h1>Unreviewed Pull Request</h1>
       <h3>
         <div>Percentage of unreviewed pull requests</div>
         <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
           {getUnreviewedPRPercentage().toFixed(1)}%
         </div>
       </h3>
-      <div style={{ height: 500 }}>
+      <div style={{ height: 320, width:"80%", margin:"auto" }}>
         <ResponsivePie
           data={pieData}
           colors={{
             datum: "data.color",
           }}
-          margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+          margin={{ top: 15, right: 50, bottom: 80, left: 50 }}
           innerRadius={0.5}
           padAngle={0.7}
           cornerRadius={3}
@@ -115,13 +115,14 @@ const UnreviewedPR = ({ userName, repoName, access_token }) => {
             from: "color",
             modifiers: [["darker", 2]],
           }}
+
           legends={[
             {
               anchor: "bottom",
               direction: "row",
               justify: false,
               translateX: 0,
-              translateY: 56,
+              translateY: 60,
               itemsSpacing: 0,
               itemWidth: 100,
               itemHeight: 18,

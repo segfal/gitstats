@@ -9,7 +9,7 @@ import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
 import axios from "axios";
 import "../stylesheets/landingCSS.css";
-import {GiSpy} from "react-icons/gi";
+import { GiSpy } from "react-icons/gi";
 import RecentRepos from "./RecentRepos";
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 import PRImpact from "./PRImpact";
@@ -34,13 +34,17 @@ function LandingPage() {
     setSubmit(true);
   };
 
+  const handleClick = (e) => {
+    console.log("Hello");
+  };
+
   const loginWithGithub = () => {
     window.location.assign(
       `https://github.com/login/oauth/authorize?scope=user&client_id=${CLIENT_ID}`
     );
   };
 
-  // change to deployed frontend url when everything is done 
+  // change to deployed frontend url when everything is done
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     window.location.assign(`http://localhost:5173/`);
@@ -68,7 +72,7 @@ function LandingPage() {
       getAccessToken();
     }
 
-    if(localStorage.getItem("flag")){
+    if (localStorage.getItem("flag")) {
       setUserName(localStorage.getItem("userName"));
       setRepoName(localStorage.getItem("repoName"));
       setSubmit(true);
@@ -95,20 +99,17 @@ function LandingPage() {
     }
   };
 
- 
-
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       getUserData();
     }
   }, [localStorage.getItem("accessToken")]);
 
-
   return (
     <div>
       <div className="navBar">
         <nav
-          class="navbar bg-dark border-bottom border-body"
+          className="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
           <h1
@@ -127,6 +128,18 @@ function LandingPage() {
             <GitHubButton loginWithGithub={loginWithGithub} />
           )}
         </nav>
+
+        {submit && (
+          <button
+            type="button"
+            class="btn btn-success btn-lg"
+            id="backButton"
+            onClick={() => setSubmit(false)}
+          >
+            Back
+          </button>
+        )}
+
         {localStorage.getItem("accessToken") && !submit && (
           <>
             <h1 className="userGreeting">
@@ -139,6 +152,7 @@ function LandingPage() {
             <h1>GitSnitch</h1>
           </div>
         )}
+
         <div className="landingContainer">
           <h1 className="landingMessage">
             View information on any Github Repository below
@@ -164,15 +178,12 @@ function LandingPage() {
             </div>
           </form>
         </div>
-      </div>
+
+  
+
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+        
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
             submit={submit}

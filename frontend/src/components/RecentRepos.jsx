@@ -9,7 +9,7 @@ const RecentRepos = ({userName, access_token}) => {
     const [userRepos, setUserRepos] = useState([]);
     const fetchRecentRepos = async () => {
         try {
-            console.log("User Name" , userName);
+            //console.log("User Name" , userName);
           const response = await axios.get(
             `https://api.github.com/users/${userName}/repos?sort=updated&per_page=4`,
             {
@@ -19,8 +19,8 @@ const RecentRepos = ({userName, access_token}) => {
             }
           );
           setUserRepos(response.data);
-          console.log("Response data ", response.data);
-          console.log("Access Token" ,access_token);
+          //console.log("Response data ", response.data);
+          //console.log("Access Token" ,access_token);
         } catch (error) {
           console.log(error);
         }
@@ -39,7 +39,7 @@ const RecentRepos = ({userName, access_token}) => {
                 userRepos.map((repo) => {
                     return( <RecentRepoCard repo = {repo}/> )
                     // console.log(repo.id)
-                    console.log(repo)
+                    //console.log(repo)
                 })
             }
             </div>
