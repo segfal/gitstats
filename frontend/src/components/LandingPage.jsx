@@ -138,9 +138,11 @@ function LandingPage() {
           </>
         )}
         {!submit && (
-          <div className="landingTitle">
-            <h1>GitSight</h1>
-          </div>
+          <h1 className="landingTitle headingNav logo-font">
+            Git
+            <GiSpy />
+            Sight
+          </h1>
         )}
 
         {!submit && (
