@@ -108,7 +108,7 @@ function LandingPage() {
     <div>
       <div className="navBar">
         <nav
-          class="navbar bg-dark border-bottom border-body"
+          className="navbar bg-dark border-bottom border-body"
           data-bs-theme="dark"
         >
           <h1
@@ -159,7 +159,7 @@ function LandingPage() {
                 id="repoSearchButton"
                 className="btn btn-success btn-lg"
               >
-                <i class="bi bi-search" id="searchIcon"></i>
+                <i className="bi bi-search" id="searchIcon"></i>
               </button>
             </div>
           </form>
@@ -167,12 +167,7 @@ function LandingPage() {
       </div>
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-        {localStorage.getItem("accessToken") && submit && (
-          <DeploymentFreq
-            ghUrl={ghUrl}
-            access_token={localStorage.getItem("accessToken")}
-          />
-        )}
+        
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
             submit={submit}
