@@ -36,7 +36,7 @@ const RecentRepos = ({userName, access_token}) => {
             <div className='repos_container'>
             {
                 userRepos.map((repo) => {
-                    return( <RecentRepoCard repo = {repo}/> )
+                    return( <RecentRepoCard repo = {repo} userName={userName}/> )
                     // console.log(repo.id)
                     //console.log(repo)
                 })
