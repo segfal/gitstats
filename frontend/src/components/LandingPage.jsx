@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import GitHubButton from "./githubOAuth/GithubButton";
-import LogoutButton from "./githubOAuth/LogoutButton";
 import GeneralInfo from "./GeneralInfo";
 import DeploymentFreq from "./DeploymentFreq";
 import UnreviewedPR from "./UnreviewedPR";
@@ -22,6 +21,7 @@ function LandingPage() {
   const [userName, setUserName] = useState("");
   const [repoName, setRepoName] = useState("");
   const [submit, setSubmit] = useState(false);
+  const [subMenu, setSubMenu] = useState(false);
   const ghUrl = `https://api.github.com/repos/${userName}/${repoName}`;
 
   const handleSubmit = (e) => {
@@ -72,7 +72,7 @@ function LandingPage() {
       localStorage.removeItem("repoName");
     }
 
-    if(localStorage.getItem("viewStats")){
+    if (localStorage.getItem("viewStats")) {
       setUserName(localStorage.getItem("userName"));
       setRepoName(localStorage.getItem("repoName"));
       setSubmit(true);
@@ -113,9 +113,7 @@ function LandingPage() {
         >
           <h1
             className="headingNav logo-font"
-            onClick={() =>
-              window.location.assign("http://localhost:5173/")
-            }
+            onClick={() => window.location.assign("http://localhost:5173/")}
             style={{ cursor: "pointer" }}
           >
             Git
@@ -123,7 +121,84 @@ function LandingPage() {
             Sight
           </h1>
           {localStorage.getItem("accessToken") ? (
-            <LogoutButton handleLogout={handleLogout} />
+            <>
+              <img
+                src={userData.avatar_url}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                  margin: "0px 20px 0px 0px",
+                  cursor: "pointer",
+                  float: "left",
+                }}
+                onClick={() => setSubMenu(true)}
+              ></img>
+              {subMenu && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "87%",
+                    right: "1%",
+                    width: "300px",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "black",
+                      padding: "20px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#ffffff",
+                      }}
+                    >
+                      <img
+                        src={userData.avatar_url}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                          marginRight: "15px",
+                          marginLeft: "3px",
+                        }}
+                      ></img>
+                      <div>
+                        <h5>{userData.login}</h5>
+                        <h5 style={{ marginTop: "-10px", color: "gray" }}>
+                          {userData.name}
+                        </h5>
+                      </div>
+                      <p
+                        style={{
+                          margin: "0px 0px 10px 90px",
+                          cursor: "pointer",
+                          fontSize: "30px"
+                        }}
+                        onClick={() => setSubMenu(false)}
+                      >
+                        ×
+                      </p>
+                    </div>
+                    <hr></hr>
+                    <p
+                      style={{
+                        margin: "0px 0px 0px 10px",
+                        color: "#ffffff",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleLogout}
+                    >
+                      Sign out
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
             <GitHubButton loginWithGithub={loginWithGithub} />
           )}
