@@ -1,0 +1,63 @@
+
+.container {
+    display : flex;
+    height: 10px;
+  
+}
+  
+.container .card {
+    display: grid;
+    min-width: 120px;
+    width: 50%;
+    flex-direction: row;
+    height: 10vh;
+    margin: 0 auto 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    overflow: scroll;
+    position: relative;
+    align-items: center;
+    font-size: 1em;
+    padding: 5px;
+    row-gap: 100px;
+    text-overflow: ellipsis;
+    
+  }
+  
+  .card h1{
+    text-align: left;
+    margin-left: 2.5em;
+    font-size: 1.5rem;
+    line-height: 1.9;
+  }
+  
+  
+  .card p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    height: 20px;
+    
+  }
+  
+  
+  .card .nameandavatar{
+    
+  
+  
+  
+  }
+  
+  .nameandavatar img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto;
+    float: left;
+  }
+  
+  .nameandavatar h1{
+    
+    
+  }
