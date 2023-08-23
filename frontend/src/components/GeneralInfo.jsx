@@ -175,7 +175,6 @@ const GeneralInfo = ({ ghUrl }) => {
                         color: isTopContributor ? "#FFD700" : "yellow",
 
                       }}>
-                      {contributor.login}{" "}
 
                       {isTopContributor && (
                         <span className="top-contributors">👑</span>
@@ -211,7 +210,7 @@ const GeneralInfo = ({ ghUrl }) => {
                     tickLine={false}
                     textAnchor="end"
                   />
-                  <YAxis />
+                  <YAxis stroke="#fffffe"/>
                   <Tooltip
                     labelStyle={{ color: "#000" }}
                     formatter={(value, name, entry) => {

@@ -29,6 +29,7 @@
     text-transform: uppercase;
     font-weight: bold;
     border-bottom: 2px solid #fffffe;
+    font-size: 39px;
 }
 
 .componentBox > h3 {
@@ -48,5 +49,8 @@
 
 body {
     font-family: 'Mukta', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 

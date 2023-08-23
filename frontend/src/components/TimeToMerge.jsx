@@ -155,20 +155,20 @@ const TimeToMerge = ({submit,userName, repoName, access_token}) => {
           <div className="TimeToMergeBox componentBox">
             <h1>Time to Merge</h1>
             <h3>
-              On average, pull requests are in review for
+              On average, pull requests were in review for
               <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
                 {hourMinuteSeconds(timeToMerge)}
               </div>
             </h3>
 
             <h3>
-              Latest approve pull request was merge on
+              Latest approved pull request was merged on
               <div style={{ fontStyle: "italic", color: "#2CB67D" }}>
                 {moment(lastMerge.merged_at).format("MMMM DD, YYYY")}
               </div>
             </h3>
 
-            <p className='note'>Note : Only calculates up to the newest 200 pull requests.</p>
+            <p className='note'>Note: Only calculates up to the newest 200 pull requests.</p>
 
             <ResponsiveContainer width="90%" height={300}>
               <LineChart

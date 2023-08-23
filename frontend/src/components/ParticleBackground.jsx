@@ -1,5 +1,6 @@
 import Particles from "react-tsparticles";
 import { useCallback } from "react";
+import "../stylesheets/All_Components.css"
 
 //import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
 import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.

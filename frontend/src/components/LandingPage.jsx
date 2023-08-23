@@ -13,6 +13,7 @@ import { GiSpy } from "react-icons/gi";
 import RecentRepos from "./RecentRepos";
 const CLIENT_ID = "9dfb3cba168ba38c3d35";
 import PRImpact from "./PRImpact";
+import Footer from "./Footer";
 
 function LandingPage() {
   const [rerender, setRerender] = useState(false);
@@ -209,6 +210,7 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
+        {/* <Footer/> */}
       </div>
 
       {localStorage.getItem("accessToken") && !submit && (
@@ -258,6 +260,7 @@ function LandingPage() {
               </div>
             </>
           )}
+          {/* <Footer/> */}
         </>
       )}
     </div>

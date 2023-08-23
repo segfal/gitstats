@@ -97,11 +97,6 @@ function PRImpact({submit,userName, repoName, access_token}) {
             setDataSize(pullInfo.length);
             setData(arr);
 
-            //console.log("Total Addition:", addLine);
-            //console.log("Total Delete:", deleteLine);
-            //console.log("Total Files Change:", files);
-            //console.log("Total Commits:", commits);
-
             setLineAdded(addLine);
             setLineDeleted(deleteLine);
             setFilesChange(files);
@@ -178,7 +173,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
                         />
                         <Line
                         type="monotone"
-                        name="# of Files Change"
+                        name="# of Files Changed"
                         dataKey="files"
                         stroke="#2cb67d"
                         />
@@ -200,7 +195,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
   return (
     <div className='PRImpactBox componentBox'>
         <h1>Pull Request Impact</h1>
-        <p className='note'>Note : Only calculates up to the newest 200 merged pull requests.</p>
+        <p className='note'>Note: Only calculates up to the newest 200 merged pull requests.</p>
         
         {renderChart()}
 
@@ -211,7 +206,7 @@ function PRImpact({submit,userName, repoName, access_token}) {
                 <PRImpactCard number={Math.floor(lineDeleted/dataSize)} type={"Lines"} text={"were deleted per pull request"}/>
             </div>
             <div className='PRImpactCardGroup'>
-                <PRImpactCard number={Math.floor(filesChange/dataSize)} type={"Files"} text={"were change per pull request"}/>
+                <PRImpactCard number={Math.floor(filesChange/dataSize)} type={"Files"} text={"were changed per pull request"}/>
                 <PRImpactCard number={Math.floor(totalCommit/dataSize)} type={"Commits"} text={"were made per pull request"}/> 
             </div>  
         </div>

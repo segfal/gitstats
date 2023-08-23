@@ -1,0 +1,14 @@
+.footer {
+    text-align: center;
+    background-color: #242629;
+    /* color: #7f5af0; */
+    color:white;
+    padding: 20px;
+    z-index: -1000;
+    width: 100%;
+    bottom: 0;
+}
+
+.logo {
+    padding: 20px;
+}
