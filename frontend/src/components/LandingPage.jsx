@@ -40,7 +40,7 @@ function LandingPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.assign(`https://gitsight.vercel.app/`);
+    window.location.assign("http://localhost:5173/");
   };
 
   useEffect(() => {
@@ -68,6 +68,15 @@ function LandingPage() {
       setRepoName(localStorage.getItem("repoName"));
       setSubmit(true);
       localStorage.removeItem("flag");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("repoName");
+    }
+
+    if(localStorage.getItem("viewStats")){
+      setUserName(localStorage.getItem("userName"));
+      setRepoName(localStorage.getItem("repoName"));
+      setSubmit(true);
+      localStorage.removeItem("viewStats");
       localStorage.removeItem("userName");
       localStorage.removeItem("repoName");
     }
@@ -105,7 +114,7 @@ function LandingPage() {
           <h1
             className="headingNav logo-font"
             onClick={() =>
-              window.location.assign(`https://gitsight.vercel.app/`)
+              window.location.assign("http://localhost:5173/")
             }
             style={{ cursor: "pointer" }}
           >
