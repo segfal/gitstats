@@ -2,6 +2,7 @@ import React from "react";
 
 import "./App.css";
 import LandingPage from "./components/LandingPage";
+import Footer from "./components/Footer";
 import ParticleBackground from "./components/ParticleBackground";
 import GitHubButton from "./components/githubOAuth/GithubButton";
 import LogoutButton from "./components/githubOAuth/LogoutButton";
@@ -26,6 +27,7 @@ function App() {
           <LandingPage />
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
