@@ -210,7 +210,7 @@ const GeneralInfo = ({ ghUrl }) => {
                     tickLine={false}
                     textAnchor="end"
                   />
-                  <YAxis />
+                  <YAxis stroke="#fffffe"/>
                   <Tooltip
                     labelStyle={{ color: "#000" }}
                     formatter={(value, name, entry) => {
