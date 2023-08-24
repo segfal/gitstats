@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-import "../stylesheets/newsFeed.css";
+import "../stylesheets/NewsFeed.css";
 import "../stylesheets/All_Components.css";
 
 
