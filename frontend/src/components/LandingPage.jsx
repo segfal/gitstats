@@ -265,9 +265,7 @@ function LandingPage() {
         {localStorage.getItem("accessToken") && submit && (
           <NewsFeed
             submit={submit}
-            userName={userName}
-            repoName={repoName}
-            access_token={localStorage.getItem("accessToken")}
+            ghUrl={ghUrl}
           />
         )}
 

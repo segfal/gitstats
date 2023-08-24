@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import moment from "moment";
+import NewsFeed from "./NewsFeed";
 import {
   BarChart,
   Bar,
@@ -12,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "../stylesheets/GeneralInfo.css";
+
 import "../stylesheets/All_Components.css";
 const GeneralInfo = ({ ghUrl }) => {
   /*
@@ -141,6 +143,7 @@ const GeneralInfo = ({ ghUrl }) => {
           Date Updated: <span className="green">{moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</span>
         </p>
       </div>
+      
 
       <div className="Contributors_Box componentBox">
         <h1>Contributors</h1>
