@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import GitHubButton from "./githubOAuth/GithubButton";
 import GeneralInfo from "./GeneralInfo";
+import NewsFeed from "./NewsFeed";
 import DeploymentFreq from "./DeploymentFreq";
 import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
@@ -261,6 +262,7 @@ function LandingPage() {
 
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
+       
 
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
@@ -270,6 +272,7 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
+
 
         {localStorage.getItem("accessToken") && submit && (
           <TimeToMerge
