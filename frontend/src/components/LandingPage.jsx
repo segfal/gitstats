@@ -262,12 +262,7 @@ function LandingPage() {
 
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-        {localStorage.getItem("accessToken") && submit && (
-          <NewsFeed
-            submit={submit}
-            ghUrl={ghUrl}
-          />
-        )}
+       
 
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact

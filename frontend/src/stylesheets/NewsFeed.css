@@ -1,7 +1,11 @@
 
 .NewsFeedBox {
-  width: 90%;
+  width: 45%;
   padding: 5px;
+  height: 30vh;
+  overflow-y: scroll;
+  margin: auto;
+ 
 }
 
 
@@ -11,17 +15,17 @@
   
 }
   
-.card {
+.NewsFeedBox .card {
     display: grid;
     min-width: 120px;
-    width: 50%;
+    width: 100%;
     flex-direction: row;
     height: 10vh;
     margin: 0 auto 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 5px #ccc;
-    overflow: scroll;
+    
     position: relative;
     align-items: center;
     font-size: 1em;

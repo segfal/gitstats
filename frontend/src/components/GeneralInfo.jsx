@@ -143,7 +143,9 @@ const GeneralInfo = ({ ghUrl }) => {
           Date Updated: <span className="green">{moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</span>
         </p>
       </div>
-      
+
+      <NewsFeed ghUrl={ghUrl} />{/* NewsFeed component */}
+
 
       <div className="Contributors_Box componentBox">
         <h1>Contributors</h1>

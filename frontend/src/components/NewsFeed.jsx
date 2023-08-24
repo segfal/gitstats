@@ -35,11 +35,9 @@ const NewsFeed = ({submit,ghUrl}) => {
 
     //Get all commit messages from repo
     useEffect(() => {
-
-        if(submit)  {
             getCommits(ghUrl);
             console.log("Getting commits");
-        }
+        
     },[])
     return(
         <div className='NewsFeedBox componentBox'>
