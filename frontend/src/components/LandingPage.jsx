@@ -236,7 +236,7 @@ function LandingPage() {
         {!submit && (
           <div className="landingContainer">
             <h1 className="landingMessage">
-              View information on any Github Repository below
+              View information on any GitHub repository below
             </h1>
             <form onSubmit={handleSubmit}>
               <div className="input-group mb-3 input-group-lg">
