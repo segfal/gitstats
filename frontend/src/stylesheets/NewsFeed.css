@@ -1,12 +1,32 @@
 
 .NewsFeedBox {
   width: 35%;
-  padding: 5px;
+  padding: 19px;
   height: 30vh;
   overflow-y: scroll;
   margin: auto;
   z-index: 1000;
  
+}
+.cardtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-left: -70px;
+ 
+}
+
+.cardtitle h3{
+  font-size: 23px;
+}
+
+
+.cardtitle img{
+  height: 4vh;
+  width: 4vh;
+  border-radius: 50%;
+
+  
 }
 
 
@@ -20,7 +40,7 @@
 .NewsFeedBox .card {
     display: grid;
     min-width: 120px;
-    width: 100%;
+    width: 95%;
     flex-direction: row;
     /* height: 10vh; */
     margin: 0 auto 20px;
@@ -30,7 +50,7 @@
     position: relative;
     align-items: center;
     font-size: 1em;
-    padding: 10px;
+   
     background-color: black;
     color: white;
     
@@ -43,32 +63,45 @@
     line-height: 0.9;
     position:fixed;
   }
-  .card h3{
+  .nameandavatar h3{
+    display:block;
     text-align: left;
+    width: 60%;
     margin-left: 3.5em;
     font-size: 1.5rem;
     line-height: 0.9;
     margin-top: 0.5em;
+    padding: 0;
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent line breaks */
+    text-overflow: ellipsis; /* Show ellipsis */
+    max-width: calc(100% - 3.5em); /* Adjust based on the left margin */
   }
   
   
   
-  .card p{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-    margin-left: 5.3em;
+  .nameandavatar p{
 
-    overflow-y: hidden;
+    
+    
+    text-align: left;
+
+    padding : 10px;
+    /* padding-right: 10px; */
+    margin-bottom:0;
+   
+   
+
   
     
   }
   
   
   .card .nameandavatar{
+
+
+  
     
-  
-  
   
   }
   
