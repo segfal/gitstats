@@ -2,7 +2,7 @@
 .NewsFeedBox {
   width: 35%;
   padding: 19px;
-  height: 30vh;
+  height: 35vh;
   overflow-y: scroll;
   margin: auto;
   z-index: 1000;
@@ -107,15 +107,6 @@
 
   
     
-  }
-  
-  
-  .card .nameandavatar{
-
-
-  
-    
-  
   }
   
   .nameandavatar img{
