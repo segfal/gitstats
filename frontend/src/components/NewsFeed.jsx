@@ -45,14 +45,20 @@ const NewsFeed = ({submit,ghUrl}) => {
             
             {
                 allCommits.map((commit) => (
+                    <div>
+                    <div className='cardtitle'>
+                    <img src={commit.author.avatar_url} alt='avatar' className='avatar'/>
+                    <h3>{commit.commit.author.name}</h3>
+                    </div>
                     <div className='card'>
                         <div className='nameandavatar'>
-                            <img src={commit.author.avatar_url} alt='avatar' className='avatar'/>
-                            <h3>{commit.commit.author.name}</h3>
+                            
+                            
                             <p>{commit.commit.message}</p>
                             </div>
                         
                         
+                    </div>
                     </div>
                 ))
 
