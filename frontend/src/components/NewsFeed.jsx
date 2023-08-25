@@ -42,19 +42,22 @@ const NewsFeed = ({submit,ghUrl}) => {
     return(
         <div className='NewsFeedBox componentBox'>
             <h1>Recent Commits</h1>
+            
             {
                 allCommits.map((commit) => (
                     <div className='card'>
                         <div className='nameandavatar'>
                             <img src={commit.author.avatar_url} alt='avatar' className='avatar'/>
                             <h3>{commit.commit.author.name}</h3>
+                            <p>{commit.commit.message}</p>
                             </div>
-                        <p>{commit.commit.message}</p>
+                        
                         
                     </div>
                 ))
 
             }
+            
         </div>
     )
 

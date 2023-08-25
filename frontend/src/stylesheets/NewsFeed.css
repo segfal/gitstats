@@ -5,8 +5,10 @@
   height: 30vh;
   overflow-y: scroll;
   margin: auto;
+  z-index: 1000;
  
 }
+
 
 
 .container {
@@ -20,18 +22,15 @@
     min-width: 120px;
     width: 100%;
     flex-direction: row;
-    height: 10vh;
+    /* height: 10vh; */
     margin: 0 auto 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 5px #ccc;
-    
     position: relative;
     align-items: center;
     font-size: 1em;
     padding: 10px;
-   
-    
     background-color: black;
     color: white;
     
@@ -41,15 +40,27 @@
     text-align: left;
     margin-left: 2.5em;
     font-size: 1.5rem;
-    line-height: 1.9;
+    line-height: 0.9;
+    position:fixed;
   }
+  .card h3{
+    text-align: left;
+    margin-left: 3.5em;
+    font-size: 1.5rem;
+    line-height: 0.9;
+    margin-top: 0.5em;
+  }
+  
   
   
   .card p{
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    margin-left: 5.3em;
+
+    overflow-y: hidden;
   
-    height: 20px;
     
   }
   
@@ -62,14 +73,11 @@
   }
   
   .nameandavatar img{
-    /* width: 50px;
-    height: 50px; */
+    height: 7vh;
+    width: 7vh;
     border-radius: 50%;
     margin: 0 auto;
     float: left;
+    margin-top: 0.32em;
   }
   
-  .nameandavatar h1{
-    
-    
-  }
