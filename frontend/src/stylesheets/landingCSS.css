@@ -24,6 +24,7 @@
   font-weight: bolder;
   font-size: 30px;
   margin-left: 20px;
+  margin-bottom: 0px;
 }
 
 .landingTitle {
@@ -79,6 +80,11 @@
 
 .logo-font{
   font-family: 'Bungee Shade', cursive;
+}
+
+.avatar-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 @media only screen and (max-width: 900px) {

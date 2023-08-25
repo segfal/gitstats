@@ -22,7 +22,7 @@
 .button--social-login {
   display: flex;
   align-items: center;
-  margin-bottom: var(--half-spacing-unit);
+  /* margin-bottom: var(--half-spacing-unit); */
   margin-right: var(--half-spacing-unit);
   color: var(--button-text-color);
   height: var(--button-height);

@@ -123,18 +123,20 @@ function LandingPage() {
           </h1>
           {localStorage.getItem("accessToken") ? (
             <>
-              <img
-                src={userData.avatar_url}
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  margin: "0px 20px 0px 0px",
-                  cursor: "pointer",
-                  float: "left",
-                }}
-                onClick={() => setSubMenu(true)}
-              ></img>
+              <div className="avatar-container">
+                <img
+                  src={userData.avatar_url}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    margin: "0px 20px 0px 0px",
+                    cursor: "pointer",
+                    float: "left",
+                  }}
+                  onClick={() => setSubMenu(true)}
+                ></img>
+              </div>
               {subMenu && (
                 <div
                   style={{
