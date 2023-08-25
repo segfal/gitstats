@@ -36,12 +36,12 @@ const NewsFeed = ({submit,ghUrl}) => {
     //Get all commit messages from repo
     useEffect(() => {
             getCommits(ghUrl);
-            console.log("Getting commits");
+            
         
     },[])
     return(
         <div className='NewsFeedBox componentBox'>
-            <h1>Recent Commits</h1>
+            <h1>Commit Feed</h1>
             
             {
                 allCommits.map((commit) => (
