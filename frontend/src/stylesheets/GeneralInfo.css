@@ -7,6 +7,7 @@
   /* background-color: grey; */
   width: 50%;
   padding: 20px;
+  height: 35vh;
 }
 
 .Contributors_Box {
@@ -31,6 +32,18 @@
   border-radius: 50%;
   margin-right: 10px;
   margin-left: 80px;
+}
+
+.repo-desc {
+  height: 50px;
+}
+
+.repo-created {
+  margin-bottom: 0;
+}
+
+.repo-times {
+  line-height: 30px;
 }
 
 @media only screen and (max-width: 700px) {

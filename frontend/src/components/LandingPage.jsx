@@ -123,18 +123,20 @@ function LandingPage() {
           </h1>
           {localStorage.getItem("accessToken") ? (
             <>
-              <img
-                src={userData.avatar_url}
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  margin: "0px 20px 0px 0px",
-                  cursor: "pointer",
-                  float: "left",
-                }}
-                onClick={() => setSubMenu(true)}
-              ></img>
+              <div className="avatar-container">
+                <img
+                  src={userData.avatar_url}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    margin: "0px 20px 0px 0px",
+                    cursor: "pointer",
+                    float: "left",
+                  }}
+                  onClick={() => setSubMenu(true)}
+                ></img>
+              </div>
               {subMenu && (
                 <div
                   style={{
@@ -234,7 +236,7 @@ function LandingPage() {
         {!submit && (
           <div className="landingContainer">
             <h1 className="landingMessage">
-              View information on any Github Repository below
+              View information on any GitHub repository below
             </h1>
             <form onSubmit={handleSubmit}>
               <div className="input-group mb-3 input-group-lg">

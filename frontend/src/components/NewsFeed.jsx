@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import moment from 'moment';
 
 import "../stylesheets/NewsFeed.css";
 import "../stylesheets/All_Components.css";
@@ -41,20 +42,20 @@ const NewsFeed = ({submit,ghUrl}) => {
     },[])
     return(
         <div className='NewsFeedBox componentBox'>
-            <h1>Commit Feed</h1>
+            <h1>Recent Commits</h1>
             
             {
                 allCommits.map((commit) => (
                     <div>
                     <div className='cardtitle'>
                     <img src={commit.author.avatar_url} alt='avatar' className='avatar'/>
-                    <h3>{commit.commit.author.name}</h3>
+                    <h3 className='author'>{commit.commit.author.name} <span className='committed'>committed · {moment(commit.commit.author.date).fromNow()}</span></h3>
                     </div>
                     <div className='card'>
                         <div className='nameandavatar'>
                             
                             
-                            <p>{commit.commit.message}</p>
+                            <p className='commit-msg'>{commit.commit.message}</p>
                             </div>
                         
                         

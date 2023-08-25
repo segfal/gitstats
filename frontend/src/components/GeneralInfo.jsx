@@ -133,15 +133,16 @@ const GeneralInfo = ({ ghUrl }) => {
     <Fragment>
       <div className="General_Info_Box componentBox">
         <h1>General Info</h1>
-        <h2>{repoName}</h2>
-
-        <h3>{description}</h3>
-        <p>
-          Date Created: <span className="green">{moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</span>
-        </p>
-        <p>
-          Date Updated: <span className="green">{moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</span>
-        </p>
+        <h2 style={{fontWeight: 700}}>{repoName}</h2>
+        <h3 className="repo-desc">{description}</h3>
+        <div className="repo-times">
+          <p className="repo-created">
+            Date Created: <span className="green">{moment(dateCreated).format("YYYY-MM-DD, h:mm:ss a")}</span>
+          </p>
+          <p>
+            Date Updated: <span className="green">{moment(dateUpdated).format("YYYY-MM-DD, h:mm:ss a")}</span>
+          </p>
+        </div>
       </div>
 
       <NewsFeed ghUrl={ghUrl} />{/* NewsFeed component */}

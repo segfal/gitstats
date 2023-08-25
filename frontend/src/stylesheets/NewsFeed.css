@@ -2,7 +2,7 @@
 .NewsFeedBox {
   width: 35%;
   padding: 19px;
-  height: 30vh;
+  height: 35vh;
   overflow-y: scroll;
   margin: auto;
   z-index: 1000;
@@ -12,12 +12,22 @@
   display: flex;
   flex-direction: row;
   justify-content: left;
+  align-items: center;
   margin-left: -70px;
- 
+  margin-bottom: 8px;
+}
+
+.committed {
+  font-weight: normal;
+  color: rgb(176, 176, 176);
 }
 
 .cardtitle h3{
-  font-size: 23px;
+  font-size: 14px;
+}
+
+.commit-msg {
+  font-size: 14px;
 }
 
 
@@ -29,7 +39,10 @@
   
 }
 
-
+.author {
+  margin-bottom: 0;
+  font-weight: 700;
+}
 
 .container {
     display : flex;
@@ -94,15 +107,6 @@
 
   
     
-  }
-  
-  
-  .card .nameandavatar{
-
-
-  
-    
-  
   }
   
   .nameandavatar img{
