@@ -36,6 +36,7 @@ const GeneralInfo = ({ ghUrl }) => {
   const [dateUpdated, setDateUpdated] = useState("");
   const [contributors, setContributors] = useState([{}]);
   const [commitTotal, setCommitTotal] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function fetchRepoInfo() {
@@ -72,6 +73,31 @@ const GeneralInfo = ({ ghUrl }) => {
   // }, []);
 
   // Limit contributor
+
+
+  useEffect(()=> {
+    const fetchCommits = async () => {
+      const response2 = localStorage.getItem("accessToken")
+          ? await axios.get(`${ghUrl}/commits?per_page=1&page=1`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            })
+          : await axios.get(`${ghUrl}/commits?per_page=1&page=1`);
+        const link_header = response2.headers.get("Link", "");
+        console.log(link_header)
+        const regex = /page=(\d+)/g;
+        const matches = link_header.match(regex);
+
+        if (matches && matches.length > 0) {
+          const page = matches[3].split("=")[1];
+          console.log("page:", page)
+          setCommitTotal(page);
+        }
+    }
+    fetchCommits();
+  }, [ghUrl])
+
   useEffect(() => {
     const fetchAllContributors = async () => {
       try {
@@ -85,21 +111,23 @@ const GeneralInfo = ({ ghUrl }) => {
           : await axios.get(`${ghUrl}/contributors`);
         newArr = response.data;
 
-        const response2 = localStorage.getItem("accessToken")
-          ? await axios.get(`${ghUrl}/commits?per_page=1&page=1`, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
-              },
-            })
-          : await axios.get(`${ghUrl}/commits?per_page=1&page=1`);
-        const link_header = response2.headers.get("Link", "");
-        const regex = /page=(\d+)/g;
-        const matches = link_header.match(regex);
+        // const response2 = localStorage.getItem("accessToken")
+        //   ? await axios.get(`${ghUrl}/commits?per_page=1&page=1`, {
+        //       headers: {
+        //         Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        //       },
+        //     })
+        //   : await axios.get(`${ghUrl}/commits?per_page=1&page=1`);
+        // const link_header = response2.headers.get("Link", "");
+        // console.log(link_header)
+        // const regex = /page=(\d+)/g;
+        // const matches = link_header.match(regex);
 
-        if (matches && matches.length > 0) {
-          const page = matches[3].split("=")[1];
-          setCommitTotal(page);
-        }
+        // if (matches && matches.length > 0) {
+        //   const page = matches[3].split("=")[1];
+        //   console.log("page:", page)
+        //   setCommitTotal(page);
+        // }
 
         // while (newArr.length >= 100 * page && newArr.length < 200) {
         //   page++;
@@ -113,10 +141,36 @@ const GeneralInfo = ({ ghUrl }) => {
         setContributors(newArr);
       } catch (error) {
         console.log(error);
+        setError(true);
       }
     };
     fetchAllContributors();
   }, [ghUrl]);
+
+
+  useEffect(()=> {
+    const fetchCommits = async () => {
+      const response2 = localStorage.getItem("accessToken")
+          ? await axios.get(`${ghUrl}/commits?per_page=1&page=1`, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            })
+          : await axios.get(`${ghUrl}/commits?per_page=1&page=1`);
+        const link_header = response2.headers.get("Link", "");
+        console.log(link_header)
+        const regex = /page=(\d+)/g;
+        const matches = link_header.match(regex);
+
+        if (matches && matches.length > 0) {
+          const page = matches[3].split("=")[1];
+          console.log("page:", page)
+          setCommitTotal(page);
+        }
+    }
+    fetchCommits();
+  }, [ghUrl])
+
 
   const sortedContributors = contributors.sort(
     (a, b) => b.contributions - a.contributions
@@ -147,8 +201,16 @@ const GeneralInfo = ({ ghUrl }) => {
 
       <NewsFeed ghUrl={ghUrl} />{/* NewsFeed component */}
 
+      
+      {error? (
 
       <div className="Contributors_Box componentBox">
+        <h1>Contributors</h1>
+        <h2 style={{ color: "#2cb67d" }}>Total Commits: {commitTotal}</h2>
+        <h2>The history or contributor list is too large to list contributors for this repository via the API.</h2>
+      </div>
+      ): (
+        <div className="Contributors_Box componentBox">
         <h1>Contributors</h1>
         <h2 style={{ color: "#2cb67d" }}>Total Commits: {commitTotal}</h2>
         <div className="chart-contributors_container">
@@ -164,8 +226,6 @@ const GeneralInfo = ({ ghUrl }) => {
                     alignItems: "center",
 
                     marginBottom: "10px",
-
-
                   }}>
 
                   <img
@@ -237,6 +297,8 @@ const GeneralInfo = ({ ghUrl }) => {
           </div>
         </div>
       </div>
+      )}
+      
     </Fragment>
   );
 };
