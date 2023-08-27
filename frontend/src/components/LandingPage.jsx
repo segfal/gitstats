@@ -41,7 +41,7 @@ function LandingPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.assign("http://localhost:5173/");
+    window.location.assign("https://gitsight.vercel.app/");
   };
 
   useEffect(() => {
@@ -114,7 +114,9 @@ function LandingPage() {
         >
           <h1
             className="headingNav logo-font"
-            onClick={() => window.location.assign("http://localhost:5173/")}
+            onClick={() =>
+              window.location.assign("https://gitsight.vercel.app/")
+            }
             style={{ cursor: "pointer" }}
           >
             Git
@@ -180,7 +182,7 @@ function LandingPage() {
                         style={{
                           margin: "0px 0px 10px 90px",
                           cursor: "pointer",
-                          fontSize: "30px"
+                          fontSize: "30px",
                         }}
                         onClick={() => setSubMenu(false)}
                       >
@@ -264,7 +266,6 @@ function LandingPage() {
 
       <div className="All_Components_Box">
         {submit && <GeneralInfo ghUrl={ghUrl} />}
-       
 
         {localStorage.getItem("accessToken") && submit && (
           <PRImpact
@@ -274,7 +275,6 @@ function LandingPage() {
             access_token={localStorage.getItem("accessToken")}
           />
         )}
-
 
         {localStorage.getItem("accessToken") && submit && (
           <TimeToMerge
