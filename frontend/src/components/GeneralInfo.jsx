@@ -199,7 +199,7 @@ const GeneralInfo = ({ ghUrl }) => {
         </div>
       </div>
 
-      <NewsFeed ghUrl={ghUrl} />{/* NewsFeed component */}
+      {localStorage.getItem("accessToken") && <NewsFeed ghUrl={ghUrl} />}{/* NewsFeed component */}
 
       
       {error? (
@@ -265,7 +265,7 @@ const GeneralInfo = ({ ghUrl }) => {
                   width={700}
                   height={400}
                   data={chartData}
-                  margin={{ top: 20, right: 20, left: 20, bottom: 30 }}
+                  margin={{ top: 10, right: 20, left: 20, bottom: 80 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
