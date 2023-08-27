@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import GitHubButton from "./githubOAuth/GithubButton";
 import GeneralInfo from "./GeneralInfo";
-import NewsFeed from "./NewsFeed";
 import DeploymentFreq from "./DeploymentFreq";
 import UnreviewedPR from "./UnreviewedPR";
 import TimeToMerge from "./TimeToMerge";
@@ -144,6 +143,7 @@ function LandingPage() {
                     top: "87%",
                     right: "1%",
                     width: "300px",
+                    zIndex: "2000",
                   }}
                 >
                   <div
@@ -254,7 +254,7 @@ function LandingPage() {
                   id="repoSearchButton"
                   className="btn btn-success btn-lg"
                 >
-                  <i class="bi bi-search" id="searchIcon"></i>
+                  <i className="bi bi-search" id="searchIcon"></i>
                 </button>
               </div>
             </form>
