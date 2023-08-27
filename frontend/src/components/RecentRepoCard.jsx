@@ -32,7 +32,7 @@ const RecentRepoCard = ({repo, userName}) => {
       localStorage.setItem("viewStats", true);
       localStorage.setItem("repoName", repoName);
       localStorage.setItem("userName", userName);
-      window.location.assign("http://localhost:5173/");
+      window.location.assign("https://gitsight.vercel.app/");
     }
 
     // onClick for "View Stats" button should lead to page of stats with the api link passed using "full_name" passed from the "repo" prop as: https://api.github.com/repos/${repo.full_name}
